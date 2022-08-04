@@ -70,6 +70,12 @@ const theme: ThemeConfig = extendTheme({
 			200: "#6a0e03",
 			100: "#00232f",
 		},
+		mon: {
+			900: "#4b30c4",
+		},
+		sun: {
+			900: "#ffee10",
+		},
 	},
 	fonts: {
 		heading: "DM Sans",

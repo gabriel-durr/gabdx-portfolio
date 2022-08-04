@@ -1,14 +1,13 @@
-import {Box, Container, Heading, Text} from "@chakra-ui/react";
+import {Box, Container, Flex, Heading, Text} from "@chakra-ui/react";
 import type {NextPage} from "next";
-import {ColorModeSwitch} from "../components/ColorModeSwitch";
+import {ToggleButtonIcon} from "../components/ToggleButtonIcon";
 
 const Home: NextPage = () => {
 	return (
 		<Container>
 			<Heading color="orangeblue.400">My portfolio</Heading>
-			<ColorModeSwitch />
 
-			<Box>
+			<Flex direction="column" gap="40">
 				<Text>
 					Lorem, ipsum dolor sit amet consectetur adipisicing elit.
 					Cupiditate laboriosam necessitatibus quia totam dolores!
@@ -16,7 +15,8 @@ const Home: NextPage = () => {
 					accusantium assumenda, omnis repudiandae blanditiis
 					reiciendis odit quaerat.
 				</Text>
-			</Box>
+				<ToggleButtonIcon />
+			</Flex>
 		</Container>
 	);
 };
