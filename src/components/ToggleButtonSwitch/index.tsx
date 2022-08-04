@@ -5,13 +5,21 @@ import {MotionBox} from "../../styles/animation";
 
 export function ToggleButtonIcon() {
 	const {toggleColorMode, colorMode} = useColorMode();
-	const buttonSwitchAnimate = useColorModeValue("", "pink");
 
-	const animations = buttonSwitchAnimate && {
-		initial: {opacity: 1, x: 0, y: 0},
-		animate: {opacity: 1, x: 200, y: 0},
-		exit: {opacity: 1, x: 0, y: 0},
-	};
+	const animations =
+		colorMode === "dark"
+			? {
+					animate: {
+						opacity: [1, 0.1, 0.2, 0.3, 1],
+						x: 0,
+						y: [-77, 0],
+					},
+			  }
+			: {
+					animate: {opacity: [1, 0, 0.2, 1], x: 0, y: [-80, 0]},
+			  };
+
+	console.log(animations);
 
 	return (
 		<>

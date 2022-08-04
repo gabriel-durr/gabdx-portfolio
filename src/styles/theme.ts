@@ -1,11 +1,11 @@
 /* Estyles global ChakraUI */
 
-import {extendTheme} from "@chakra-ui/react";
+import {extendTheme, ThemeComponentProps} from "@chakra-ui/react";
 
 import {mode} from "@chakra-ui/theme-tools";
 
 const styles = {
-	global: (props: any) => ({
+	global: (props: ThemeComponentProps) => ({
 		body: {
 			fontFamily: "body",
 			color: mode("gray.100", "gray.900")(props),
@@ -69,12 +69,6 @@ const theme = extendTheme({
 			300: "#6d898d",
 			200: "#6a0e03",
 			100: "#00232f",
-		},
-		mon: {
-			900: "#4b30c4",
-		},
-		sun: {
-			900: "#ffee10",
 		},
 	},
 	fonts: {
