@@ -2,7 +2,7 @@ import {Box, BoxProps} from "@chakra-ui/react";
 import {motion} from "framer-motion";
 import {Variants} from "framer-motion";
 
-export const MotionBox = motion<BoxProps>(Box);
+export const MotionBox = motion<Omit<BoxProps, "transition">>(Box);
 
 export const MotionBoxVariants: Variants = {
 	start: {

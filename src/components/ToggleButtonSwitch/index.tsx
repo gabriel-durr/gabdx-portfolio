@@ -1,30 +1,30 @@
 import styles from "./styles.module.scss";
 
-import {useColorMode, useColorModeValue} from "@chakra-ui/react";
+import {useColorMode} from "@chakra-ui/react";
 import {MotionBox} from "../../styles/animation";
+import {useState} from "react";
 
 export function ToggleButtonIcon() {
 	const {toggleColorMode, colorMode} = useColorMode();
+	const [buttonAnimation, setButtonAnimation] = useState(false);
 
-	const animations =
-		colorMode === "dark"
-			? {
-					animate: {
-						opacity: [1, 0.1, 0.2, 0.3, 1],
-						x: 0,
-						y: [-77, 0],
-					},
-			  }
-			: {
-					animate: {opacity: [1, 0, 0.2, 1], x: 0, y: [-80, 0]},
-			  };
-
-	console.log(animations);
+	const animations = buttonAnimation
+		? {
+				opacity: [1, 0.1, 0.2, 0.3, 1],
+				x: 0,
+				y: [-77, 0],
+		  }
+		: {
+				opacity: [1, 0, 0.2, 1],
+				x: 0,
+				y: [-80, 0],
+		  };
 
 	return (
 		<>
 			<MotionBox
-				{...animations}
+				animate={{...animations}}
+				onClick={() => setButtonAnimation(!buttonAnimation)}
 				className={styles.toggleWrapper}
 				area-label={colorMode}>
 				<input
