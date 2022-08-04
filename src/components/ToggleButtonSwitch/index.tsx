@@ -1,24 +1,22 @@
 import styles from "./styles.module.scss";
 
-import {useColorMode} from "@chakra-ui/react";
-import {
-	MotionBox,
-	MotionBoxVariants,
-	itemsBoxVariants,
-} from "../../styles/animation";
+import {useColorMode, useColorModeValue} from "@chakra-ui/react";
+import {MotionBox} from "../../styles/animation";
 
 export function ToggleButtonIcon() {
 	const {toggleColorMode, colorMode} = useColorMode();
+	const buttonSwitchAnimate = useColorModeValue("", "pink");
 
-	let boxBlurEffect =
-		colorMode === "dark"
-			? "boxShadow: 0 0 0 0 20px mon.900"
-			: "boxShadow: 0 0 0 0 20px sun.900";
+	const animations = buttonSwitchAnimate && {
+		initial: {opacity: 1, x: 0, y: 0},
+		animate: {opacity: 1, x: 200, y: 0},
+		exit: {opacity: 1, x: 0, y: 0},
+	};
 
 	return (
 		<>
 			<MotionBox
-				initial={{x: 0, y: 20}}
+				{...animations}
 				className={styles.toggleWrapper}
 				area-label={colorMode}>
 				<input

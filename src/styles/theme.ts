@@ -1,6 +1,6 @@
 /* Estyles global ChakraUI */
 
-import {extendTheme, type ThemeConfig} from "@chakra-ui/react";
+import {extendTheme} from "@chakra-ui/react";
 
 import {mode} from "@chakra-ui/theme-tools";
 
@@ -22,7 +22,7 @@ const styles = {
 	}),
 };
 
-const theme: ThemeConfig = extendTheme({
+const theme = extendTheme({
 	colors: {
 		gray: {
 			900: "#181B23",

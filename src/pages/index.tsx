@@ -1,6 +1,6 @@
 import {Box, Container, Flex, Heading, Text} from "@chakra-ui/react";
 import type {NextPage} from "next";
-import {ToggleButtonIcon} from "../components/ToggleButtonIcon";
+import {ToggleButtonIcon} from "../components/ToggleButtonSwitch";
 
 const Home: NextPage = () => {
 	return (
