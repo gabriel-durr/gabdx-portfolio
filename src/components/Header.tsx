@@ -1,10 +1,14 @@
-import {Heading, Text, Flex} from "@chakra-ui/react";
+import {Heading, Text, Flex, Box} from "@chakra-ui/react";
 import {ToggleButtonIcon} from "./ToggleButtonSwitch";
 
 export function Header() {
 	return (
-		<>
-			<Flex w="100%" justify="space-around">
+		<Flex as="header" width="100%">
+			<Flex
+				m="0.2rem auto"
+				py="0.2rem"
+				w="container.lg"
+				justify="space-between">
 				<Heading color="orangeblue.400">
 					<Text fontWeight="bold">
 						gabdr
@@ -15,6 +19,6 @@ export function Header() {
 				</Heading>
 				<ToggleButtonIcon />
 			</Flex>
-		</>
+		</Flex>
 	);
 }
