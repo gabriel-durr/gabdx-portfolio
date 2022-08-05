@@ -23,7 +23,7 @@ export function Header() {
 					<Link href="/">
 						<Heading size="lg" px="3">
 							<Text color="orangeblue.400" fontWeight="bold">
-								gabdr
+								gabd
 							</Text>
 						</Heading>
 					</Link>

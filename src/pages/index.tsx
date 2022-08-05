@@ -1,24 +1,11 @@
-import {
-	Box,
-	Flex,
-	Image,
-	Stack,
-	Text,
-	VStack,
-	Container,
-} from "@chakra-ui/react";
+import {Box, Flex, Image, Stack, Text, VStack} from "@chakra-ui/react";
 import type {NextPage} from "next";
 
 const Home: NextPage = () => {
 	return (
-		<Flex as="main" h="100vh" justify="center">
-			<Flex
-				justify="center"
-				as="section"
-				w="full"
-				h="full"
-				maxW="container.sm">
-				<VStack mt="120" spacing="20">
+		<Flex as="main" h="100vh" w="full" justify="center">
+			<Flex w="full" maxW="1128px" justify="center">
+				<VStack maxW="container.md" my="15%" spacing="10">
 					<Box px="1rem">
 						<Image
 							src="/snoopF.jpg"
@@ -28,7 +15,7 @@ const Home: NextPage = () => {
 						/>
 					</Box>
 
-					<Stack px="4" wordBreak="break-word">
+					<Stack p="20" wordBreak="break-word">
 						<Text>
 							Lorem ipsum dolor sit amet consectetur adipisicing
 							elit. Porro reiciendis, cupiditate quasi temporibus,

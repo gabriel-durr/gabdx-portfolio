@@ -20,15 +20,14 @@ export default class MyDocument extends Document {
 						href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
 						rel="stylesheet"
 					/>
-
-					<body>
-						<ColorModeScript
-							initialColorMode={theme.config.initialColorMode}
-						/>
-						<Main />
-						<NextScript />
-					</body>
 				</Head>
+				<body>
+					<ColorModeScript
+						initialColorMode={theme.config.initialColorMode}
+					/>
+					<Main />
+					<NextScript />
+				</body>
 			</Html>
 		);
 	}
