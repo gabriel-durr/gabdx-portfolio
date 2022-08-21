@@ -32,9 +32,8 @@ const Home: NextPage = () => {
 					dolorum natus at optio necessitatibus pariatur cumque
 					voluptas? Lorem ipsum dolor, sit amet consectetur
 					adipisicing elit. Exercitationem omnis hic recusandae non,
-					necessitatibus facere molestias veniam maxime fugiat
-					possimus nesciunt atque harum provident rerum libero alias
-					amet minus nihil!
+					necessitatibus facere molestias veniam maxime fugiat amet
+					minus nihil!
 				</Text>
 			</Stack>
 		</Flex>
