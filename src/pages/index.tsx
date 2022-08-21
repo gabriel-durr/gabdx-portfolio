@@ -32,7 +32,7 @@ const Home: NextPage = () => {
 					dolorum natus at optio necessitatibus pariatur cumque
 					voluptas? Lorem ipsum dolor, sit amet consectetur
 					adipisicing elit. Exercitationem omnis hic recusandae non,
-					amet minus nihil!!!
+
 				</Text>
 			</Stack>
 		</Flex>
