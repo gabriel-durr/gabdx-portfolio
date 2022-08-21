@@ -1,52 +1,51 @@
-import {Heading, Text, Flex, Box, HStack} from "@chakra-ui/react";
-import Link from "next/link";
+import {Text, Flex, Image, HStack, Link, Box} from "@chakra-ui/react";
+import NextLink from "next/link";
 import {ToggleButtonIcon} from "./ToggleButtonSwitch";
 
 export function Header() {
 	return (
-		<Box
+		<Flex
+			align="center"
+			justify="center"
 			as="header"
-			width="100%"
+			w="100vw"
 			position="fixed"
 			backdropFilter="blur(10px)"
-			zIndex="2">
-			<Flex
+			zIndex="17">
+			<HStack
 				as="nav"
 				p="1"
 				width="100%"
-				maxW="container.md"
-				m="auto"
-				wrap="wrap"
+				maxW="container.xl"
 				align="center"
-				justify="space-between">
-				<HStack align="center">
-					<Link href="/">
-						<Heading size="lg" px="3">
-							<Text color="orangeblue.400" fontWeight="bold">
-								gabd
-							</Text>
-						</Heading>
+				justify="center">
+				<NextLink href="/" passHref>
+					<Link>
+						<Box position="absolute" top="50%" left="20%">
+							<Image src="/mybrand.png" h="3.5rem" w="4rem" />
+						</Box>
 					</Link>
-				</HStack>
+				</NextLink>
 
 				<Flex py="0.2rem" w="auto" align="center" justify="flex-start">
 					<HStack gap="5" ml="10">
-						<Link href="#">
-							<Text fontWeight="bold">About me</Text>
-						</Link>
+						<NextLink href="/" passHref>
+							<Link>
+								<Text fontWeight="bold">About me</Text>
+							</Link>
+						</NextLink>
+						<NextLink href="/works" passHref>
+							<Link>
+								<Text fontWeight="bold">Works </Text>
+							</Link>
+						</NextLink>
 
-						<Link href="#">
-							<Text fontWeight="bold">Works </Text>
-						</Link>
-						<Link href="#">
-							<Text fontWeight="bold">Contact</Text>
-						</Link>
+						<Text fontWeight="bold">Contact</Text>
 					</HStack>
 				</Flex>
-				<HStack ml="auto" p="3" align="right">
-					<ToggleButtonIcon />
-				</HStack>
-			</Flex>
-		</Box>
+
+				<ToggleButtonIcon />
+			</HStack>
+		</Flex>
 	);
 }
