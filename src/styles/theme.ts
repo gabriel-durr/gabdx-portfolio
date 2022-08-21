@@ -16,7 +16,8 @@ const styles = {
 		a: {
 			color: "grey.900",
 			_hover: {
-				color: "orangeblue.400",
+				transition: "all 0.4s",
+				color: "orangeblue.50",
 				textDecoration: "none !important",
 			},
 		},
@@ -77,6 +78,7 @@ const colors = {
 		300: "#6d898d",
 		200: "#6a0e03",
 		100: "#00232f",
+		50: "#f56217 ",
 	},
 };
 

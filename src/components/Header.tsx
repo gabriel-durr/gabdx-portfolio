@@ -22,7 +22,7 @@ export function Header() {
 				<NextLink href="/" passHref>
 					<Link>
 						<Box position="absolute" top="50%" left="20%">
-							<Image src="/mybrand.png" h="3.5rem" w="4rem" />
+							<Image src="/brand.png" w="7rem" />
 						</Box>
 					</Link>
 				</NextLink>
