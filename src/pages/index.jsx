@@ -53,7 +53,7 @@ export default Home;
 export async function getStaticProps({locale, previewData}) {
 	const client = createClient({previewData});
 
-	const page = await client.getByUID("page", "home", {lang: locale});
+	const page = await client.getByUID("home", "home", {lang: locale});
 
 	return {
 		props: {

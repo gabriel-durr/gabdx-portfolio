@@ -34,13 +34,13 @@ export function Header() {
 								<Text fontWeight="bold">About me</Text>
 							</Link>
 						</NextLink>
-						<NextLink href="/works" passHref>
+						<NextLink href="/posts" passHref>
 							<Link>
-								<Text fontWeight="bold">Works </Text>
+								<Text fontWeight="bold">Posts</Text>
 							</Link>
 						</NextLink>
 
-						<Text fontWeight="bold">Contact</Text>
+						<Text fontWeight="bold">Connect</Text>
 					</HStack>
 				</Flex>
 

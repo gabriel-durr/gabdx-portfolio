@@ -1,7 +1,7 @@
 {
   "id": "mock-doc-id",
   "url": null,
-  "type": "page",
+  "type": "home",
   "href": null,
   "tags": [],
   "first_publication_date": "1970-01-01T00:00:01+0000",
@@ -13,15 +13,15 @@
   "data": {
     "title": [
       {
-        "type": "paragraph",
-        "text": "Non velit duis cupidatat reprehenderit dolor duis voluptate ipsum aute ut. Minim dolore labore voluptate irure esse voluptate aute ut qui aute sit aliqua elit. Aliquip ut in reprehenderit esse duis nisi eu irure.",
+        "type": "heading1",
+        "text": "Joined",
         "spans": []
       }
     ],
-    "description": [
+    "content": [
       {
         "type": "paragraph",
-        "text": "Nostrud ad excepteur nulla sit adipisicing incididunt nostrud velit consequat sit. Esse irure labore dolor.",
+        "text": "Cupidatat mollit reprehenderit fugiat nostrud pariatur ex tempor cupidatat duis adipisicing qui enim.",
         "spans": []
       }
     ],

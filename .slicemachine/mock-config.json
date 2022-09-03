@@ -7,7 +7,9 @@
           "blocks": 1
         }
       }
-    }
+    },
+    "home": {},
+    "post": {}
   },
   "slices": {
     "Projects": {

@@ -11,7 +11,12 @@ export const Layout = ({altLangs, footerData, navigation, children}) => {
 				// settings={settings}
 			/>
 
-			<Flex bg="transparent" minH="100vh" minW="100vw" pt="9.7rem">
+			<Flex
+				bg="transparent"
+				minH="100vh"
+				minW="100vw"
+				pt="9.7rem"
+				justify="center">
 				{children}
 			</Flex>
 

@@ -1,7 +1,31 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-}
+const prismic = require("@prismicio/client");
 
-module.exports = nextConfig
+const sm = require("./sm.json");
+
+/** @type {import('next').NextConfig} */
+const nextConfig = async () => {
+	const client = prismic.createClient(sm.apiEndpoint);
+
+	const repository = await client.getRepository();
+	const locales = repository.languages.map(lang => lang.id);
+
+	return {
+		reactStrictMode: true,
+		swcMinify: true,
+		eslint: {
+			// Warning: This allows production builds to successfully complete even if
+			// your project has ESLint errors.
+			ignoreDuringBuilds: true,
+		},
+		i18n: {
+			// These are all the locales you want to support in
+			// your application
+			locales,
+			// This is the default locale you want to be used when visiting
+			// a non-locale prefixed path e.g. `/hello`
+			defaultLocale: locales[0],
+		},
+	};
+};
+
+module.exports = nextConfig;
