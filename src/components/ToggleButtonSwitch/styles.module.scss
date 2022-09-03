@@ -1,0 +1,193 @@
+.toggleWrapper {
+	overflow: hidden;
+	transform: translate3d(-50%, -50%, 0);
+
+	input {
+		position: absolute;
+		left: -92em;
+	}
+}
+
+.toggle {
+	cursor: pointer;
+	display: inline-block;
+	border: #ffc71042 1px solid;
+	position: relative;
+	width: 47px;
+	height: 42px;
+	background-color: #83d8ffbb;
+	border-radius: 7px;
+	transition: background-color 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.toggle_handler {
+	display: inline-block;
+	position: relative;
+	z-index: 1;
+	top: 4px;
+	left: 0px;
+	width: 37px - 6;
+	height: 37px - 6;
+	background-color: #ffc710;
+	box-shadow: 0px 0px 4px #ffc710;
+	border-radius: 50px;
+	transition: all 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	transform: rotate(-45deg);
+	&:hover {
+		transform: scale(0.77);
+		transition: all 1.3s ease-out;
+		box-shadow: 1px 0px 22px #ffc710;
+		text-shadow: 0 0 80px #ffee10;
+	}
+
+	.crater {
+		position: absolute;
+		background-color: #e8cda5;
+		opacity: 0;
+		transition: opacity 200ms ease-in-out;
+		border-radius: 100%;
+	}
+
+	.crater_1 {
+		top: 18px;
+		left: 10px;
+		width: 4px;
+		height: 4px;
+	}
+
+	.crater_2 {
+		top: 28px;
+		left: 22px;
+		width: 6px;
+		height: 6px;
+	}
+
+	.crater_3 {
+		top: 10px;
+		left: 25px;
+		width: 8px;
+		height: 8px;
+	}
+}
+
+.star {
+	position: absolute;
+	background-color: #ffffff;
+	transition: all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+	border-radius: 50%;
+}
+
+.star_1 {
+	top: 10px;
+	left: 35px;
+	z-index: 0;
+	width: 30px;
+	height: 3px;
+}
+
+.star_2 {
+	top: 18px;
+	left: 28px;
+	z-index: 1;
+	width: 30px;
+	height: 3px;
+}
+
+.star_3 {
+	top: 27px;
+	left: 40px;
+	z-index: 0;
+	width: 30px;
+	height: 3px;
+}
+
+.star_4,
+.star_5,
+.star_6 {
+	opacity: 0;
+	transition: all 300ms 0 cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.star_4 {
+	top: 16px;
+	left: 11px;
+	z-index: 0;
+	width: 2px;
+	height: 2px;
+	transform: translate3d(3px, 0, 0);
+}
+
+.star_5 {
+	top: 32px;
+	left: 17px;
+	z-index: 0;
+	width: 3px;
+	height: 3px;
+	transform: translate3d(3px, 0, 0);
+}
+
+.star_6 {
+	top: 36px;
+	left: 28px;
+	z-index: 0;
+	width: 2px;
+	height: 2px;
+	transform: translate3d(3px, 0, 0);
+}
+
+input:checked {
+	+ .toggle {
+		background-color: rgba(0, 0, 255, 0.625);
+
+		.toggle_handler {
+			background-color: transparent;
+			transform: translate3d(14px, 0, 0) rotate(28deg);
+			top: 0px;
+			box-shadow: -8px 10px 0px 0px #efd19f;
+			border-radius: 50px;
+			&:hover {
+				transform: scale3d(-1, -1, -1);
+				transition: all 50s ease-out;
+				box-shadow: 0 0 70px #4b30c4;
+				text-shadow: 0 0 70px #4b30c4;
+			}
+
+			.crater {
+				opacity: 0;
+			}
+		}
+
+		.star_1 {
+			width: 2px;
+			height: 2px;
+		}
+
+		.star_2 {
+			width: 4px;
+			height: 4px;
+			transform: translate3d(-5px, 0, 0);
+		}
+
+		.star_3 {
+			width: 5px;
+			height: 5px;
+			transform: translate3d(-1px, 0, 0);
+		}
+
+		.star_4,
+		.star_5,
+		.star_6 {
+			opacity: 1;
+			transform: translate3d(0, 0, 0);
+		}
+		.star_4 {
+			transition: all 300ms 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+		}
+		.star_5 {
+			transition: all 300ms 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+		}
+		.star_6 {
+			transition: all 300ms 400ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+		}
+	}
+}

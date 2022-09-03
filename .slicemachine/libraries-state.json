@@ -1,0 +1,97 @@
+{
+  "slices": {
+    "components": {
+      "projects": {
+        "library": "slices",
+        "id": "projects",
+        "name": "Projects",
+        "description": "Projects",
+        "model": {
+          "id": "projects",
+          "type": "SharedSlice",
+          "name": "Projects",
+          "description": "Projects",
+          "variations": [
+            {
+              "id": "default",
+              "name": "Default",
+              "docURL": "...",
+              "version": "sktwi1xtmkfgx8626",
+              "description": "Projects",
+              "primary": {},
+              "items": {
+                "image": {
+                  "type": "Image",
+                  "config": {
+                    "label": "Image",
+                    "constraint": {},
+                    "thumbnails": []
+                  }
+                },
+                "title": {
+                  "type": "StructuredText",
+                  "config": {
+                    "label": "Title",
+                    "placeholder": "",
+                    "allowTargetBlank": true,
+                    "single": "heading3"
+                  }
+                },
+                "description": {
+                  "type": "StructuredText",
+                  "config": {
+                    "label": "Description",
+                    "placeholder": "",
+                    "allowTargetBlank": true,
+                    "multi": "paragraph,em,preformatted,hyperlink,image,embed,list-item,o-list-item,rtl,strong"
+                  }
+                }
+              },
+              "imageUrl": "https://images.prismic.io/slice-machine/621a5ec4-0387-4bc5-9860-2dd46cbc07cd_default_ss.png?auto=compress,format"
+            }
+          ]
+        },
+        "mocks": {
+          "default": {
+            "variation": "default",
+            "version": "sktwi1xtmkfgx8626",
+            "items": [
+              {
+                "image": {
+                  "dimensions": {
+                    "width": 900,
+                    "height": 500
+                  },
+                  "alt": null,
+                  "copyright": null,
+                  "url": "https://images.unsplash.com/photo-1589652717521-10c0d092dea9"
+                },
+                "title": [
+                  {
+                    "type": "heading3",
+                    "text": "Metal",
+                    "spans": []
+                  }
+                ],
+                "description": [
+                  {
+                    "type": "paragraph",
+                    "text": "Cillum occaecat minim ex consectetur ipsum id labore occaecat et id. Officia irure irure eiusmod culpa nisi mollit consectetur incididunt ex consequat commodo cillum excepteur qui veniam. Consectetur veniam dolore et culpa cupidatat reprehenderit tempor qui proident consectetur excepteur laborum mollit fugiat ea.",
+                    "spans": []
+                  }
+                ]
+              }
+            ],
+            "primary": {},
+            "slice_type": "projects"
+          }
+        },
+        "meta": {
+          "fileName": "index",
+          "extension": "js"
+        },
+        "screenshotPaths": {}
+      }
+    }
+  }
+}
