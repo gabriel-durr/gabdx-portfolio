@@ -24,8 +24,6 @@ export const Form = ({contact, initialRef}) => {
 	const onSubmit = async data => {
 		await new Promise(resolve => setTimeout(resolve, 2000));
 
-		console.log(data);
-
 		axios
 			.post("/api/mail", data)
 			.then(() =>
@@ -41,9 +39,9 @@ export const Form = ({contact, initialRef}) => {
 			.catch(err => {
 				console.log(err);
 				toast({
-					size: "",
 					title: "Algo de errado, não esta certo 😵‍💫",
 					status: "error",
+					position: "top",
 					duration: "10000",
 					isClosable: true,
 				});

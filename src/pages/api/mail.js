@@ -6,18 +6,21 @@ async function mail(req, res) {
 	const {name, email, textarea} = req.body;
 
 	const message = {
-		to: "gabriel.durr@outlook.com", // destinatario 👈
-		from: "gabriel.durr@outlook.com", // Auth email sendgrid
-		html: `<p><b>${name}</b> <b>${email}</b></p>
-				<p>${textarea}</p> `, //Conteúdo do email (textarea)
+		to: "contato@gabrieldurr.site", // destinatario 👈
+		from: "contato@gabrieldurr.site", // Auth email sendgrid
+		subject: "Recebimento de Contato Formulário", // assunto
+		html: `<b>${name}</b>
+			   <p><b>${email}</b></p>
+			   <p>${textarea}</p> `, //Conteúdo do email (textarea)
 	};
 
 	const autoEmail = {
 		to: email,
-		from: "gabriel.durr@outlook.com",
+		from: "contato@gabrieldurr.site",
 		subject: "Contato Gabriel Dürr M.", // assunto
+		text: "Teste 💌",
 		html: `Olá, ${name}`,
-		// templateId: "d-d96cb460965440b28fd65844e0a05e87", // Template SendGrid
+		templateId: "d-d96cb460965440b28fd65844e0a05e87",
 	};
 
 	await sendgrid
