@@ -15,9 +15,10 @@ const styles = {
 		},
 		a: {
 			color: "grey.900",
+			fontFamily: "DM Sans",
 			_hover: {
 				transition: "all 0.4s",
-				color: "orangeblue.50",
+				color: "goldenrod",
 				textDecoration: "none !important",
 			},
 		},
@@ -25,10 +26,10 @@ const styles = {
 		"*::placeholder": {
 			color: mode("light.500", "darkblue.500")(props),
 		},
-		// "*, *::before, &::after": {
-		// 	borderColor: mode("darkblue.500", "light.500")(props),
-		// 	wordWrap: "break-word",
-		// },
+		"*, *::before, &::after": {
+			borderColor: mode("darkblue.500", "light.500")(props),
+			wordWrap: "break-word",
+		},
 	}),
 };
 
@@ -86,8 +87,8 @@ const theme = extendTheme({
 	styles,
 	colors,
 	fonts: {
-		heading: "DM Sans",
-		body: "DM Sans",
+		heading: "DM Sans, sans-serif",
+		body: "Raleway, sans-serif",
 	},
 });
 

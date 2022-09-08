@@ -1,10 +1,10 @@
 import styles from "./styles.module.scss";
 
 import {useColorMode} from "@chakra-ui/react";
-import {MotionBox} from "../../styles/animation";
+import {MotionBox} from "../../../styles/animation";
 import {useState} from "react";
 
-export function ToggleButtonIcon() {
+export function SwitchColorMode() {
 	const {toggleColorMode, colorMode} = useColorMode();
 	const [buttonAnimation, setButtonAnimation] = useState(false);
 
@@ -22,8 +22,6 @@ export function ToggleButtonIcon() {
 
 	return (
 		<MotionBox
-			position="relative"
-			left="24%"
 			animate={{...animations}}
 			onClick={() => setButtonAnimation(!buttonAnimation)}
 			className={styles.toggleWrapper}
