@@ -11,13 +11,20 @@
   "lang": "en-us",
   "alternate_languages": [],
   "data": {
-    "about": "pine",
+    "title": "got",
     "description": [
       {
         "type": "paragraph",
-        "text": "Velit nostrud et anim do occaecat nisi velit sunt ullamco. Dolor sit sit officia cupidatat deserunt nisi nisi. Labore est minim nisi enim duis ut amet exercitation deserunt.",
+        "text": "Nostrud aliquip minim laboris nisi ad commodo consequat velit aute. Enim minim adipisicing cillum tempor adipisicing sint dolore exercitation incididunt culpa duis incididunt laboris duis.",
         "spans": []
       }
-    ]
+    ],
+    "curriculum": {
+      "link_type": "Media",
+      "name": "mock",
+      "kind": "image",
+      "url": "https://source.unsplash.com/random",
+      "size": "10kB"
+    }
   }
 }

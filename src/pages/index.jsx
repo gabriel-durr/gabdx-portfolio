@@ -19,7 +19,7 @@ const Home = ({page, menu}) => {
 					<title>Home | Gabriel Dürr Developer</title>
 				</Head>
 
-				<About />
+				<About page={page.data} />
 			</Stack>
 		</Layout>
 	);

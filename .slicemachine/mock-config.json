@@ -1,7 +1,14 @@
 {
   "_cts": {
     "navigation": {},
-    "home": {},
+    "home": {
+      "description": {
+        "config": {
+          "patternType": "PARAGRAPH",
+          "blocks": 1
+        }
+      }
+    },
     "menu": {}
   },
   "slices": {

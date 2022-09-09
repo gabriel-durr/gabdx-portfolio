@@ -5,21 +5,29 @@ import {
 	useColorModeValue,
 	Image,
 	Link,
+	Text,
+	Heading,
 } from "@chakra-ui/react";
 import {MotionBox, MotionFlex} from "../styles/animation";
 import NextLink from "next/link";
+import * as prismicH from "@prismicio/helpers";
+import {PrismicLink} from "@prismicio/react";
 
 const ANIMATION_DURATION = 0.5;
 
-const About = () => {
-	const color = "darkblue.900";
+const About = ({page}) => {
+	console.log(page);
+
+	const about = {
+		curriculum: prismicH.asLink(page.curriculum),
+	};
 
 	return (
 		<Flex
-			bg="#fff"
-			color="gray.900"
+			bg={useColorModeValue("#1d2236", "#fff")}
+			color={useColorModeValue("gray.200", "gray.900")}
 			boxShadow={useColorModeValue(
-				"0px 1px 10px rgb(160, 174, 192)",
+				"0px 1px 8px rgba(66, 74, 83, 0.423)",
 				"0px 1px 2px rgba(9, 17, 28, 0.23)"
 			)}
 			rounded="md"
@@ -55,17 +63,27 @@ const About = () => {
 					<Avatar
 						size="2xl"
 						showBorder={true}
-						borderColor={color}
+						borderColor={useColorModeValue(
+							"#ffffff2d",
+							"darkblue.900"
+						)}
 						src="/avatar.png"
 					/>
 				</MotionBox>
-				<NextLink href="#" passHref>
-					<Link>
+
+				<NextLink href={about.curriculum} passHref>
+					<Link
+						target="_blank"
+						shadow="md"
+						textAlign="center"
+						mb="10px"
+						fontSize="0.7rem"
+						color="orangeblue.50">
+						CV
 						<Image
-							boxShadow="0px 1px 5px rgba(9, 17, 28, 0.459)"
 							src="/curriculo.png"
-							w="55px"
-							h="52px"
+							w="50px"
+							h="47px"
 							alt="Curriculum Download"
 						/>
 					</Link>
@@ -92,25 +110,31 @@ const About = () => {
 					},
 				}}>
 				<Box p="0.4rem">
-					<Box
+					<Heading
 						as="h2"
 						whiteSpace="nowrap"
 						fontWeight="600"
-						fontSize="3xl">
+						fontSize="3xl"
+						color={useColorModeValue("#fff", "gray.900")}>
 						Gabriel Dürr M.
-					</Box>
-					<Box whiteSpace="nowrap" fontSize="0.9rem">
+					</Heading>
+					<Text whiteSpace="nowrap" fontSize="0.9rem">
 						( Desenvolvedor de Software, UX|UI )
-					</Box>
+					</Text>
 					<br />
 
 					<Box>
-						Minha atuação como desenvolvedor é mais voltada ao
-						Front-end, realizando Freelances, projetos Voluntários,
-						entre outros projetos. Meu objetivo é trazer soluções
-						úteis e criativas, que melhorem a qualidade de vida das
-						pessoas através do meu repertório em resolução de
-						problemas, criação de sistemas, interfaces, etc.
+						<Text mb="10px">
+							Venho atuado na área, mais voltado ao Front-end,
+							realizando Freelances, projetos Voluntários, entre
+							outros projetos.
+						</Text>
+						<Text>
+							Meu objetivo é trazer soluções úteis e criativas,
+							que melhorem a qualidade de vida das pessoas através
+							do meu repertório em resolução de problemas, criação
+							de sistemas, interfaces, etc.
+						</Text>
 					</Box>
 				</Box>
 			</MotionFlex>
