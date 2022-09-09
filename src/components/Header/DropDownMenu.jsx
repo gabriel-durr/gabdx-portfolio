@@ -17,11 +17,11 @@ import {
 import {AiFillCaretDown} from "react-icons/ai";
 import {ContactModal} from "../ContactModal";
 
-const DropDownMenu = () => {
+const DropDownMenu = ({nav}) => {
 	const {onOpen, onClose, isOpen} = useDisclosure();
 	const menuData = [
 		{
-			ContactModal: <ContactModal />,
+			ContactModal: <ContactModal contact={nav.form_data} />,
 		},
 		{
 			label: "Github",
@@ -43,7 +43,7 @@ const DropDownMenu = () => {
 		},
 	];
 
-	const linkColor = "golden";
+	const linkColor = "#DAA520";
 
 	return (
 		<Stack direction="row" spacing={4} pr="7rem">
@@ -59,13 +59,13 @@ const DropDownMenu = () => {
 							_groupHover={{
 								color: linkColor,
 							}}>
-							Connect
+							{nav.connect}
 						</Link>
 						<Icon
 							alignSelf="center"
 							as={AiFillCaretDown}
-							h={4}
-							w={4}
+							h="4"
+							w="4"
 							_groupHover={{
 								color: linkColor,
 							}}
@@ -97,7 +97,7 @@ const DropDownMenu = () => {
 	);
 };
 
-const DropDownItem = ({label, href, linkColor, src, alt, ContactModal}) => {
+const DropDownItem = ({label, href, src, alt, ContactModal, linkColor}) => {
 	return (
 		<Link
 			color="gray.900"
@@ -105,13 +105,11 @@ const DropDownItem = ({label, href, linkColor, src, alt, ContactModal}) => {
 			href={href}
 			display="block"
 			py={1}
-			_hover={{
-				color: linkColor,
-			}}>
+			_hover={{color: linkColor}}>
 			<Stack direction="row" align="center" spacing="4">
 				{ContactModal}
 				{src && <Image h="26px" w="27px" src={src} alt={alt} />}
-				{label && <Text fontWeight={500}>{label}</Text>}
+				{label && <Text fontWeight="500">{label}</Text>}
 			</Stack>
 		</Link>
 	);

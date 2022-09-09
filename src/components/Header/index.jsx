@@ -1,9 +1,28 @@
 import {Flex, HStack, Link, Box} from "@chakra-ui/react";
 import NextLink from "next/link";
 import DropDownMenu from "./DropDownMenu";
+import {LanguageSwitcher} from "./LanguageSwitcher";
 import {SwitchColorMode} from "./SwitchColorMode";
 
-export function Header() {
+export function Header({menu, altLangs}) {
+	console.log(altLangs);
+
+	const nav = {
+		about: menu.about,
+		posts: menu.posts,
+		connect: menu.connect,
+		form_data: {
+			title: menu.form_title,
+			name: menu.name,
+			name_place: menu.name_place,
+			email: menu.email,
+			email_place: menu.email_place,
+			message: menu.message,
+			message_place: menu.message_place,
+			submit: menu.submit,
+		},
+	};
+
 	return (
 		<Flex
 			as="header"
@@ -37,13 +56,14 @@ export function Header() {
 					align="flex-end"
 					pb="0.2rem">
 					<NextLink href="/" passHref>
-						<Link>About me</Link>
+						<Link>{nav.about}</Link>
 					</NextLink>
 					<NextLink href="/posts" passHref>
-						<Link>Posts</Link>
+						<Link>{nav.posts}</Link>
 					</NextLink>
 
-					<DropDownMenu />
+					<DropDownMenu nav={nav} />
+					<LanguageSwitcher altLangs={altLangs} />
 
 					<SwitchColorMode />
 				</HStack>

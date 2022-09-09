@@ -6,9 +6,9 @@ import {Layout} from "../components/Layout";
 
 import * as prismicH from "@prismicio/helpers";
 
-const Home = ({page}) => {
+const Home = ({page, menu}) => {
 	return (
-		<Layout altLangs={page.alternate_languages}>
+		<Layout menu={menu}>
 			<Stack
 				as="main"
 				maxW="container.md"
@@ -43,30 +43,6 @@ const Home = ({page}) => {
 					voluptas? Lorem ipsum dolor, sit amet consectetur
 					adipisicing elit. Exercitationem omnis hic recusandae non,
 				</Text>
-				<Text p="2rem">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Porro reiciendis, cupiditate quasi temporibus, facere id
-					autem officia quibusdam odio delectus veniam perspiciatis,
-					hic cum libero rerum maiores molestias ea similique. Lorem
-					ipsum, dolor sit amet consectetur adipisicing elit.
-					Aspernatur fuga impedit cum ad vero, doloremque maiores
-					quae, aliquam temporibus cupiditate reprehenderit delectus
-					dolorum natus at optio necessitatibus pariatur cumque
-					voluptas? Lorem ipsum dolor, sit amet consectetur
-					adipisicing elit. Exercitationem omnis hic recusandae non,
-				</Text>
-				<Text p="2rem">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Porro reiciendis, cupiditate quasi temporibus, facere id
-					autem officia quibusdam odio delectus veniam perspiciatis,
-					hic cum libero rerum maiores molestias ea similique. Lorem
-					ipsum, dolor sit amet consectetur adipisicing elit.
-					Aspernatur fuga impedit cum ad vero, doloremque maiores
-					quae, aliquam temporibus cupiditate reprehenderit delectus
-					dolorum natus at optio necessitatibus pariatur cumque
-					voluptas? Lorem ipsum dolor, sit amet consectetur
-					adipisicing elit. Exercitationem omnis hic recusandae non,
-				</Text>
 			</Stack>
 		</Layout>
 	);
@@ -78,10 +54,12 @@ export async function getStaticProps({locale, previewData}) {
 	const client = createClient({previewData});
 
 	const page = await client.getByUID("home", "home", {lang: locale});
+	const menu = await client.getSingle("menu", {lang: locale});
 
 	return {
 		props: {
 			page,
+			menu,
 		},
 	};
 }

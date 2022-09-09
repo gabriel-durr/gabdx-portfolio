@@ -18,7 +18,6 @@ async function mail(req, res) {
 		to: email,
 		from: "contato@gabrieldurr.site",
 		subject: "Contato Gabriel Dürr M.", // assunto
-		text: "Teste 💌",
 		html: `Olá, ${name}`,
 		templateId: "d-d96cb460965440b28fd65844e0a05e87",
 	};

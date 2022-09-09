@@ -56,7 +56,18 @@ export const Form = ({contact, initialRef}) => {
 			p="1rem"
 			w="100%"
 			h={errors.name ? "35rem" : "31rem"} // Se ouver erro, aumentar container pra caber o button
-			borderRadius="5px">
+			borderRadius="5px"
+			sx={{
+				".css-1wla8jc:hover": {
+					borderColor: "blue.400",
+					borderWidth: "1px",
+				},
+
+				".css-1s5pg49:hover": {
+					borderColor: "blue.400",
+					borderWidth: "1px",
+				},
+			}}>
 			<FormControl isInvalid={errors.name}>
 				<FormLabel
 					htmlFor="name"
@@ -68,7 +79,7 @@ export const Form = ({contact, initialRef}) => {
 				<Input
 					type="text"
 					ref={initialRef}
-					placeholder={contact.namePlace}
+					placeholder={contact.name_place}
 					{...register("name", {
 						required: "Nome Obrigatório!",
 						maxLength: {
@@ -100,7 +111,7 @@ export const Form = ({contact, initialRef}) => {
 				</FormLabel>
 				<Input
 					type="email"
-					placeholder={contact.emailPlace}
+					placeholder={contact.email_place}
 					{...register("email", {
 						required: "E-mail Obrigatório!",
 						maxLength: {
@@ -116,16 +127,13 @@ export const Form = ({contact, initialRef}) => {
 			</FormControl>
 
 			<FormControl isInvalid={errors.textarea}>
-				<FormLabel
-					fontWeight="bold"
-					fontSize="1.1rem"
-					fontFamily="OpenSans">
+				<FormLabel fontWeight="bold" fontFamily="OpenSans">
 					{contact.message}
 				</FormLabel>
 				<Textarea
 					htmlFor="Mensagem"
 					h="15rem"
-					placeholder={contact.messagePlace}
+					placeholder={contact.message_place}
 					resize="vertical"
 					maxH="12rem"
 					{...register("textarea", {

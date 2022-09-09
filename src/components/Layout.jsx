@@ -2,12 +2,12 @@ import {Header} from "./Header";
 import {Flex} from "@chakra-ui/react";
 // import {Footer} from "./Footer";
 
-export const Layout = ({altLangs, footerData, navigation, children}) => {
+export const Layout = ({menu, footerData, children}) => {
 	return (
 		<>
 			<Header
-				altLangs={altLangs}
-				// navigation={navigation}
+				altLangs={menu.alternate_languages}
+				menu={menu.data}
 				// settings={settings}
 			/>
 

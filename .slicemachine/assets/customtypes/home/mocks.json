@@ -11,20 +11,13 @@
   "lang": "en-us",
   "alternate_languages": [],
   "data": {
-    "title": [
-      {
-        "type": "heading1",
-        "text": "Joined",
-        "spans": []
-      }
-    ],
-    "content": [
+    "about": "pine",
+    "description": [
       {
         "type": "paragraph",
-        "text": "Cupidatat mollit reprehenderit fugiat nostrud pariatur ex tempor cupidatat duis adipisicing qui enim.",
+        "text": "Velit nostrud et anim do occaecat nisi velit sunt ullamco. Dolor sit sit officia cupidatat deserunt nisi nisi. Labore est minim nisi enim duis ut amet exercitation deserunt.",
         "spans": []
       }
-    ],
-    "slices": []
+    ]
   }
 }

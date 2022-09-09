@@ -14,20 +14,20 @@ const styles = {
 			overflowX: "hidden",
 		},
 		a: {
-			color: "grey.900",
+			color: "gray.900",
 			fontFamily: "DM Sans",
 			_hover: {
 				transition: "all 0.4s",
-				color: "goldenrod",
+				color: "gray.400",
 				textDecoration: "none !important",
 			},
 		},
 
 		"*::placeholder": {
-			color: mode("light.500", "darkblue.500")(props),
+			color: mode("light.500", "darkblue.400")(props),
 		},
 		"*, *::before, &::after": {
-			borderColor: mode("darkblue.500", "light.500")(props),
+			borderColor: "darkblue.50",
 			wordWrap: "break-word",
 		},
 	}),

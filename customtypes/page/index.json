@@ -1,6 +1,6 @@
 {
-  "id": "home",
-  "label": "Home",
+  "id": "page",
+  "label": "Page",
   "repeatable": false,
   "status": true,
   "json": {
@@ -13,10 +13,12 @@
         }
       },
       "about": {
-        "type": "Text",
+        "type": "StructuredText",
         "config": {
           "label": "About",
-          "placeholder": ""
+          "placeholder": "",
+          "allowTargetBlank": false,
+          "single": "heading1"
         }
       },
       "description": {
@@ -25,7 +27,7 @@
           "label": "Description",
           "placeholder": "",
           "allowTargetBlank": true,
-          "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          "multi": "paragraph,preformatted,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
         }
       }
     }
