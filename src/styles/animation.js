@@ -1,8 +1,8 @@
-import {Box} from "@chakra-ui/react";
+import {Box, Flex} from "@chakra-ui/react";
 import {motion} from "framer-motion";
-import {Variants} from "framer-motion";
 
 export const MotionBox = motion(Box);
+export const MotionFlex = motion(Flex);
 
 export const MotionBoxVariants = {
 	start: {

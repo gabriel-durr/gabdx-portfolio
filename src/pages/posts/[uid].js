@@ -5,9 +5,9 @@ import {createClient} from "../../../prismicio";
 import * as prismicH from "@prismicio/helpers";
 import {Text} from "@chakra-ui/react";
 
-const Post = ({page}) => {
+const Post = ({page, menu}) => {
 	return (
-		<Layout altLangs={page.alternate_languages}>
+		<Layout menu={menu}>
 			<Head>
 				<title>Page | Gabriel Dürr Dev</title>
 			</Head>
@@ -22,12 +22,13 @@ export async function getStaticProps({params, locale, previewData}) {
 	const client = createClient({previewData});
 
 	const page = await client.getByUID("post", params.uid, {lang: locale});
-	// const navigation = await client.getSingle("navigation", {lang: locale});
+	const menu = await client.getSingle("menu", {lang: locale});
 	// const footer = await client.getSingle("footer", {lang: locale});
 
 	return {
 		props: {
 			page,
+			menu,
 		},
 	};
 }

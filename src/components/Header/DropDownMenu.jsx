@@ -46,7 +46,7 @@ const DropDownMenu = ({nav}) => {
 	const linkColor = "#DAA520";
 
 	return (
-		<Stack direction="row" spacing={4} pr="7rem">
+		<Stack direction="row" spacing={4} pr="5rem">
 			<Popover
 				trigger="hover"
 				placement="bottom-start"

@@ -35,10 +35,10 @@ export function Header({menu, altLangs}) {
 			<HStack
 				as="nav"
 				width="100%"
-				maxW="75rem"
+				maxW="95rem"
 				align="center"
 				justify="space-between">
-				<Box>
+				<Box ml="2rem">
 					<NextLink href="/" passHref>
 						<Link
 							color="gold"

@@ -6,11 +6,9 @@ import * as prismicH from "@prismicio/helpers";
 import {Layout} from "../../components/Layout";
 import {Flex, Link, VStack} from "@chakra-ui/react";
 
-const Posts = ({page}) => {
-	console.log(page);
-
+const Posts = ({page, menu}) => {
 	return (
-		<Layout altLangs={page.alternate_languages}>
+		<Layout menu={menu}>
 			<Flex
 				as="main"
 				maxW="container.md"
@@ -46,12 +44,13 @@ export async function getStaticProps({locale, previewData}) {
 	const client = createClient({previewData});
 
 	const page = await client.getAllByType("post", {lang: locale});
-	// const navigation = await client.getSingle("navigation", {lang: locale});
+	const menu = await client.getSingle("menu", {lang: locale});
 	// const footer = await client.getSingle("footer", {lang: locale});
 
 	return {
 		props: {
 			page,
+			menu,
 		},
 	};
 }

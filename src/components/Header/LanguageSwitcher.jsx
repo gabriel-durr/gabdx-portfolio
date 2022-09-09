@@ -10,27 +10,29 @@ const FlagIcon = ({lang}) => {
 };
 
 export const LanguageSwitcher = ({altLangs = []}) => {
+	console.log(altLangs);
+
 	return (
-		<HStack>
+		<HStack pr="2rem">
 			{altLangs.map(lang => (
 				<PrismicLink
 					key={lang.id}
 					href={linkResolver(lang)}
 					locale={lang.lang}>
-					<FlagIcon lang={lang.lang} />
+					<FlagIcon
+						lang={lang.lang === "pt-br" ? "en-us" : "pt-br"}
+					/>
 					<Box
 						ml="15px"
 						as="span"
 						fontWeight="bold"
 						fontSize="0.9rem"
-						color={lang.lang === "en-us" ? "red" : "#c0c904"}
+						color={lang.lang === "en-us" ? "#c0c904" : "red"}
 						className="sr-only">
-						{lang.lang}
+						{lang.lang === "pt-br" ? "en-us" : "pt-br"}
 					</Box>
 				</PrismicLink>
 			))}
 		</HStack>
 	);
 };
-
-export default LanguageSwitcher;
