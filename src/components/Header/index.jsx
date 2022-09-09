@@ -5,8 +5,6 @@ import {LanguageSwitcher} from "./LanguageSwitcher";
 import {SwitchColorMode} from "./SwitchColorMode";
 
 export function Header({menu, altLangs}) {
-	console.log(altLangs);
-
 	const nav = {
 		about: menu.about,
 		posts: menu.posts,
@@ -35,7 +33,7 @@ export function Header({menu, altLangs}) {
 			<HStack
 				as="nav"
 				width="100%"
-				maxW="95rem"
+				maxW="94rem"
 				align="center"
 				justify="space-between">
 				<Box ml="2rem">

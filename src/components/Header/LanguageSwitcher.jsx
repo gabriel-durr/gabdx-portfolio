@@ -10,8 +10,6 @@ const FlagIcon = ({lang}) => {
 };
 
 export const LanguageSwitcher = ({altLangs = []}) => {
-	console.log(altLangs);
-
 	return (
 		<HStack pr="2rem">
 			{altLangs.map(lang => (

@@ -11,7 +11,6 @@ import {
 import {MotionBox, MotionFlex} from "../styles/animation";
 import NextLink from "next/link";
 import * as prismicH from "@prismicio/helpers";
-import {PrismicLink} from "@prismicio/react";
 
 const ANIMATION_DURATION = 0.5;
 
@@ -20,6 +19,12 @@ const About = ({page}) => {
 
 	const about = {
 		curriculum: prismicH.asLink(page.curriculum),
+		description: {
+			name: page.description[0].text,
+			prof: page.description[1].text,
+			p1: page.description[2].text,
+			p2: page.description[3].text,
+		},
 	};
 
 	return (
@@ -116,25 +121,16 @@ const About = ({page}) => {
 						fontWeight="600"
 						fontSize="3xl"
 						color={useColorModeValue("#fff", "gray.900")}>
-						Gabriel Dürr M.
+						{about.description.name}
 					</Heading>
 					<Text whiteSpace="nowrap" fontSize="0.9rem">
-						( Desenvolvedor de Software, UX|UI )
+						{about.description.prof}
 					</Text>
 					<br />
 
 					<Box>
-						<Text mb="10px">
-							Venho atuado na área, mais voltado ao Front-end,
-							realizando Freelances, projetos Voluntários, entre
-							outros projetos.
-						</Text>
-						<Text>
-							Meu objetivo é trazer soluções úteis e criativas,
-							que melhorem a qualidade de vida das pessoas através
-							do meu repertório em resolução de problemas, criação
-							de sistemas, interfaces, etc.
-						</Text>
+						<Text mb="10px">{about.description.p1}</Text>
+						<Text>{about.description.p2}</Text>
 					</Box>
 				</Box>
 			</MotionFlex>
