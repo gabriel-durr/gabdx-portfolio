@@ -1,17 +1,39 @@
-import {Flex, Avatar, Box, Container} from "@chakra-ui/react";
+import {
+	Flex,
+	Avatar,
+	Box,
+	useColorModeValue,
+	Image,
+	Link,
+} from "@chakra-ui/react";
 import {MotionBox, MotionFlex} from "../styles/animation";
+import NextLink from "next/link";
 
 const ANIMATION_DURATION = 0.5;
 
 const About = () => {
-	const color = "blue.400";
+	const color = "darkblue.900";
 
 	return (
 		<Flex
+			bg="#fff"
+			color="gray.900"
+			boxShadow={useColorModeValue(
+				"0px 1px 10px rgb(160, 174, 192)",
+				"0px 1px 2px rgba(9, 17, 28, 0.23)"
+			)}
+			rounded="md"
 			direction={["column", "column", "row"]}
+			justify="center"
+			align="center"
 			maxW="5xl"
-			p={{base: 5, md: 12}}>
-			<MotionBox
+			mt={{base: "none", md: "4rem"}}
+			p={{base: 3, md: 2}}>
+			<MotionFlex
+				direction="column"
+				align="center"
+				gap="2rem"
+				mt="10px"
 				opacity="0"
 				initial={{
 					translateX: -150,
@@ -24,9 +46,12 @@ const About = () => {
 						duration: ANIMATION_DURATION,
 					},
 				}}
-				m="auto"
 				mb={[16, 16, "auto"]}>
-				<MotionBox whileHover={{scale: 1.1}} rounded="full" shadow="lg">
+				<MotionBox
+					whileHover={{scale: 1.1}}
+					rounded="full"
+					shadow="lg"
+					ml="17px">
 					<Avatar
 						size="2xl"
 						showBorder={true}
@@ -34,11 +59,22 @@ const About = () => {
 						src="/avatar.png"
 					/>
 				</MotionBox>
-			</MotionBox>
+				<NextLink href="#" passHref>
+					<Link>
+						<Image
+							boxShadow="0px 1px 5px rgba(9, 17, 28, 0.459)"
+							src="/curriculo.png"
+							w="55px"
+							h="52px"
+							alt="Curriculum Download"
+						/>
+					</Link>
+				</NextLink>
+			</MotionFlex>
 			<MotionFlex
+				mt="10px"
 				position="relative"
 				ml={["auto", "auto", 16]}
-				m={["auto", "initial"]}
 				w={["90%", "90%", "80%"]}
 				maxW="800px"
 				opacity="0"
@@ -55,22 +91,27 @@ const About = () => {
 						duration: ANIMATION_DURATION,
 					},
 				}}>
-				<Box as="h2" fontSize="larger" textAlign="left">
-					Meu nome é{" "}
-					<Box as="strong" fontWeight="600">
-						Gabriel ,
+				<Box p="0.4rem">
+					<Box
+						as="h2"
+						whiteSpace="nowrap"
+						fontWeight="600"
+						fontSize="3xl">
+						Gabriel Dürr M.
+					</Box>
+					<Box whiteSpace="nowrap" fontSize="0.9rem">
+						( Desenvolvedor de Software, UX|UI )
 					</Box>
 					<br />
-					<Box as="span" whiteSpace="nowrap">
-						Sou Desenvolvedor Front-end{" "}
-					</Box>{" "}
-					<Box as="span" whiteSpace="nowrap">
-						Moro no Brasil{" "}
+
+					<Box>
+						Minha atuação como desenvolvedor é mais voltada ao
+						Front-end, realizando Freelances, projetos Voluntários,
+						entre outros projetos. Meu objetivo é trazer soluções
+						úteis e criativas, que melhorem a qualidade de vida das
+						pessoas através do meu repertório em resolução de
+						problemas, criação de sistemas, interfaces, etc.
 					</Box>
-					Meu objetivo é trazer soluções úteis e criativas, que
-					melhorem a qualidade de vida das pessoas através do meu
-					repertório em resolução de problemas, criação de sistemas,
-					interfaces, etc.
 				</Box>
 			</MotionFlex>
 		</Flex>
