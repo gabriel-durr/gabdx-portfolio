@@ -4,6 +4,7 @@ import Head from "next/head";
 
 import {Layout} from "../components/Layout";
 import About from "../components/About";
+import {Projects} from "../components/Projects";
 
 import * as prismicH from "@prismicio/helpers";
 
@@ -16,10 +17,12 @@ const Home = ({page, menu}) => {
 				align="center"
 				w={["100%", "100%", "60%"]}>
 				<Head>
-					<title>Home | Gabriel Dürr Developer</title>
+					<title>{page.data.title}</title>
 				</Head>
 
 				<About page={page.data} />
+
+				<Projects page={page.data} />
 			</Stack>
 		</Layout>
 	);

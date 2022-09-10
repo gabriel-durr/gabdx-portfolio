@@ -36,6 +36,57 @@
           "select": "media"
         }
       }
+    },
+    "ProjectsCard": {
+      "project": {
+        "type": "Group",
+        "config": {
+          "label": "Project",
+          "fields": {
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title",
+                "placeholder": ""
+              }
+            },
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {},
+                "thumbnails": []
+              }
+            },
+            "techstack": {
+              "type": "StructuredText",
+              "config": {
+                "label": "TechStack",
+                "placeholder": "",
+                "allowTargetBlank": false,
+                "multi": "paragraph,preformatted"
+              }
+            },
+            "url": {
+              "type": "Link",
+              "config": {
+                "label": "Url",
+                "placeholder": "",
+                "select": null
+              }
+            }
+          }
+        }
+      },
+      "read_show": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Read Show",
+          "placeholder": "",
+          "allowTargetBlank": false,
+          "multi": "paragraph"
+        }
+      }
     }
   }
 }

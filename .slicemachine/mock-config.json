@@ -7,6 +7,20 @@
           "patternType": "PARAGRAPH",
           "blocks": 1
         }
+      },
+      "project": {
+        "techstack": {
+          "config": {
+            "patternType": "PARAGRAPH",
+            "blocks": 1
+          }
+        }
+      },
+      "read_show": {
+        "config": {
+          "patternType": "PARAGRAPH",
+          "blocks": 1
+        }
       }
     },
     "menu": {}

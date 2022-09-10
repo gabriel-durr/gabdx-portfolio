@@ -3,8 +3,11 @@ import NextLink from "next/link";
 import DropDownMenu from "./DropDownMenu";
 import {LanguageSwitcher} from "./LanguageSwitcher";
 import {SwitchColorMode} from "./SwitchColorMode";
+import {useRouter} from "next/router";
 
 export function Header({menu, altLangs}) {
+	const router = useRouter();
+
 	const nav = {
 		about: menu.about,
 		posts: menu.posts,
@@ -54,10 +57,14 @@ export function Header({menu, altLangs}) {
 					align="flex-end"
 					pb="0.2rem">
 					<NextLink href="/" passHref>
-						<Link>{nav.about}</Link>
+						<Link color={router.asPath === "/" && "#DAA520"}>
+							{nav.about}
+						</Link>
 					</NextLink>
 					<NextLink href="/posts" passHref>
-						<Link>{nav.posts}</Link>
+						<Link color={router.asPath === "/posts" && "#DAA520"}>
+							{nav.posts}
+						</Link>
 					</NextLink>
 
 					<DropDownMenu nav={nav} />

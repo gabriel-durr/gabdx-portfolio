@@ -10,7 +10,6 @@ import {
 	PopoverContent,
 	useDisclosure,
 	useColorModeValue,
-	Button,
 } from "@chakra-ui/react";
 
 // Here we have used react-icons package for the icons

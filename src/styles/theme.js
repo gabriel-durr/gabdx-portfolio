@@ -14,7 +14,7 @@ const styles = {
 			overflowX: "hidden",
 		},
 		a: {
-			color: "gray.900",
+			color: mode("gray.100", "gray.900")(props),
 			fontFamily: "DM Sans",
 			_hover: {
 				transition: "all 0.4s",
