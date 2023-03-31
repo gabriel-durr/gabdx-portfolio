@@ -19,20 +19,50 @@
           "placeholder": ""
         }
       },
+      "avatarDark": {
+        "type": "Image",
+        "config": {
+          "label": "Avatar Dark",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "avatarLight": {
+        "type": "Image",
+        "config": {
+          "label": "Avatar Light",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "nameHeading": {
+        "type": "Text",
+        "config": {
+          "label": "Name Heading",
+          "placeholder": ""
+        }
+      },
+      "expertise": {
+        "type": "Text",
+        "config": {
+          "label": "Expertise",
+          "placeholder": "Text to inform the specialty area"
+        }
+      },
       "description": {
         "type": "StructuredText",
         "config": {
           "label": "Description",
-          "placeholder": "",
+          "placeholder": "Text description about us ",
           "allowTargetBlank": true,
-          "multi": "paragraph,preformatted,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl,heading1"
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
         }
       },
       "curriculum": {
         "type": "Link",
         "config": {
           "label": "Curriculum",
-          "placeholder": "",
+          "placeholder": "Resume PDF document",
           "select": "media"
         }
       }
@@ -62,29 +92,53 @@
               "type": "StructuredText",
               "config": {
                 "label": "TechStack",
-                "placeholder": "",
+                "placeholder": "Name of the tool or technology used",
                 "allowTargetBlank": false,
                 "multi": "paragraph,preformatted"
               }
             },
-            "url": {
+            "githubLink": {
               "type": "Link",
               "config": {
-                "label": "Url",
+                "label": "Github Link",
+                "placeholder": "project repository link",
+                "allowTargetBlank": true,
+                "select": null
+              }
+            },
+            "deployLink": {
+              "type": "Link",
+              "config": {
+                "label": "Deploy Link",
                 "placeholder": "",
                 "select": null
               }
             }
           }
         }
-      },
-      "read_show": {
-        "type": "StructuredText",
+      }
+    },
+    "SEO": {
+      "seoTitle": {
+        "type": "Text",
         "config": {
-          "label": "Read Show",
-          "placeholder": "",
-          "allowTargetBlank": false,
-          "multi": "paragraph"
+          "label": "SEO Title",
+          "placeholder": ""
+        }
+      },
+      "seoDescription": {
+        "type": "Text",
+        "config": {
+          "label": "SEO Description",
+          "placeholder": ""
+        }
+      },
+      "imagePreview": {
+        "type": "Image",
+        "config": {
+          "label": "Image Preview",
+          "constraint": {},
+          "thumbnails": []
         }
       }
     }

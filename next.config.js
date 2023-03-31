@@ -1,29 +1,29 @@
-const prismic = require("@prismicio/client");
-
-const sm = require("./sm.json");
+const { apiEndpoint } = require("./sm.json");
+const { createClient } = require("@prismicio/client");
 
 /** @type {import('next').NextConfig} */
+
 const nextConfig = async () => {
-	const client = prismic.createClient(sm.apiEndpoint);
+	const client = createClient(apiEndpoint);
 
 	const repository = await client.getRepository();
 	const locales = repository.languages.map(lang => lang.id);
 
 	return {
+		// experimental: {
+		// 	appDir: true, //TODO quando a lançar next.js 13 estável for lançada, com opção de revilidate sob demanda, e outras features estiverem prontas para produção, ativar e migar para o diretório app com sua nova forma de roteamento, etc.
+		// },
 		reactStrictMode: true,
 		swcMinify: true,
 		eslint: {
-			// Warning: This allows production builds to successfully complete even if
-			// your project has ESLint errors.
 			ignoreDuringBuilds: true,
 		},
 		i18n: {
-			// These are all the locales you want to support in
-			// your application
 			locales,
-			// This is the default locale you want to be used when visiting
-			// a non-locale prefixed path e.g. `/hello`
 			defaultLocale: locales[0],
+		},
+		images: {
+			domains: ["images.prismic.io"],
 		},
 	};
 };

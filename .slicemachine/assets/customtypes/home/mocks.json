@@ -1,62 +1,192 @@
 {
-  "id": "mock-doc-id",
-  "url": null,
-  "type": "home",
-  "href": null,
-  "tags": [],
-  "first_publication_date": "1970-01-01T00:00:01+0000",
-  "last_publication_date": "1970-01-01T00:00:01+0000",
-  "slugs": [],
-  "linked_documents": [],
-  "lang": "en-us",
-  "alternate_languages": [],
-  "data": {
-    "title": "who",
-    "description": [
+  "uid": {
+    "__TYPE__": "UIDContent",
+    "value": "tea"
+  },
+  "title": {
+    "__TYPE__": "FieldContent",
+    "value": "stairs",
+    "type": "Text"
+  },
+  "avatarDark": {
+    "__TYPE__": "ImageContent",
+    "origin": {
+      "id": "main",
+      "url": "https://images.unsplash.com/photo-1448932223592-d1fc686e76ea",
+      "width": 3500,
+      "height": 2338
+    },
+    "url": "https://images.unsplash.com/photo-1448932223592-d1fc686e76ea",
+    "width": 3500,
+    "height": 2338,
+    "edit": {
+      "zoom": 1,
+      "crop": {
+        "x": 0,
+        "y": 0
+      },
+      "background": "transparent"
+    },
+    "thumbnails": {}
+  },
+  "avatarLight": {
+    "__TYPE__": "ImageContent",
+    "origin": {
+      "id": "main",
+      "url": "https://images.unsplash.com/photo-1537498425277-c283d32ef9db",
+      "width": 4380,
+      "height": 2895
+    },
+    "url": "https://images.unsplash.com/photo-1537498425277-c283d32ef9db",
+    "width": 4380,
+    "height": 2895,
+    "edit": {
+      "zoom": 1,
+      "crop": {
+        "x": 0,
+        "y": 0
+      },
+      "background": "transparent"
+    },
+    "thumbnails": {}
+  },
+  "nameHeading": {
+    "__TYPE__": "FieldContent",
+    "value": "heart",
+    "type": "Text"
+  },
+  "expertise": {
+    "__TYPE__": "FieldContent",
+    "value": "basic",
+    "type": "Text"
+  },
+  "description": {
+    "__TYPE__": "StructuredTextContent",
+    "value": [
       {
         "type": "paragraph",
-        "text": "Pariatur eiusmod tempor enim magna fugiat Lorem amet ad ullamco ut quis eiusmod occaecat. Labore sint id cupidatat culpa sint qui dolore enim anim aute enim eiusmod quis. Dolor enim do sit adipisicing proident voluptate ipsum aute reprehenderit ea occaecat dolore mollit culpa officia.",
-        "spans": []
-      }
-    ],
-    "curriculum": {
-      "link_type": "Media",
-      "name": "mock",
-      "kind": "image",
-      "url": "https://source.unsplash.com/random",
-      "size": "10kB"
-    },
-    "project": [
-      {
-        "title": "square",
-        "image": {
-          "dimensions": {
-            "width": 900,
-            "height": 500
-          },
-          "alt": null,
-          "copyright": null,
-          "url": "https://images.unsplash.com/photo-1601933973783-43cf8a7d4c5f"
-        },
-        "techstack": [
-          {
-            "type": "paragraph",
-            "text": "Aliquip cillum minim cupidatat cupidatat tempor incididunt culpa occaecat tempor in.",
-            "spans": []
-          }
-        ],
-        "url": {
-          "link_type": "Web",
-          "url": "https://slicemachine.dev"
+        "content": {
+          "text": "Adipisicing et labore labore laborum. Officia officia irure anim occaecat culpa velit sunt nulla aute occaecat. Incididunt sit irure nostrud tempor deserunt est."
         }
       }
-    ],
-    "read_show": [
+    ]
+  },
+  "curriculum": {
+    "__TYPE__": "LinkContent",
+    "value": {
+      "id": "mock_Media_link",
+      "kind": "image/jpeg",
+      "name": "mock_name",
+      "url": "https://source.unsplash.com/daily",
+      "size": "0",
+      "__TYPE__": "FileLink"
+    }
+  },
+  "project": {
+    "__TYPE__": "GroupContentType",
+    "value": [
       {
-        "type": "paragraph",
-        "text": "Ipsum elit est culpa aliqua aliquip ipsum et amet deserunt. Enim aute sunt aliqua reprehenderit exercitation dolor proident veniam non irure ad.",
-        "spans": []
+        "__TYPE__": "GroupItemContent",
+        "value": [
+          [
+            "title",
+            {
+              "__TYPE__": "FieldContent",
+              "value": "year",
+              "type": "Text"
+            }
+          ],
+          [
+            "image",
+            {
+              "__TYPE__": "ImageContent",
+              "origin": {
+                "id": "main",
+                "url": "https://images.unsplash.com/photo-1587905069134-008460d7a636",
+                "width": 3935,
+                "height": 5894
+              },
+              "url": "https://images.unsplash.com/photo-1587905069134-008460d7a636",
+              "width": 3935,
+              "height": 5894,
+              "edit": {
+                "zoom": 1,
+                "crop": {
+                  "x": 0,
+                  "y": 0
+                },
+                "background": "transparent"
+              },
+              "thumbnails": {}
+            }
+          ],
+          [
+            "techstack",
+            {
+              "__TYPE__": "StructuredTextContent",
+              "value": [
+                {
+                  "type": "paragraph",
+                  "content": {
+                    "text": "Commodo deserunt et nostrud."
+                  }
+                }
+              ]
+            }
+          ],
+          [
+            "githubLink",
+            {
+              "__TYPE__": "LinkContent",
+              "value": {
+                "__TYPE__": "ExternalLink",
+                "url": "http://twitter.com"
+              }
+            }
+          ],
+          [
+            "deployLink",
+            {
+              "__TYPE__": "LinkContent",
+              "value": {
+                "__TYPE__": "ExternalLink",
+                "url": "https://slicemachine.dev"
+              }
+            }
+          ]
+        ]
       }
     ]
+  },
+  "seoTitle": {
+    "__TYPE__": "FieldContent",
+    "value": "note",
+    "type": "Text"
+  },
+  "seoDescription": {
+    "__TYPE__": "FieldContent",
+    "value": "himself",
+    "type": "Text"
+  },
+  "imagePreview": {
+    "__TYPE__": "ImageContent",
+    "origin": {
+      "id": "main",
+      "url": "https://images.unsplash.com/photo-1560762484-813fc97650a0",
+      "width": 3344,
+      "height": 2509
+    },
+    "url": "https://images.unsplash.com/photo-1560762484-813fc97650a0",
+    "width": 3344,
+    "height": 2509,
+    "edit": {
+      "zoom": 1,
+      "crop": {
+        "x": 0,
+        "y": 0
+      },
+      "background": "transparent"
+    },
+    "thumbnails": {}
   }
 }

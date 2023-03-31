@@ -2,12 +2,6 @@
   "_cts": {
     "navigation": {},
     "home": {
-      "description": {
-        "config": {
-          "patternType": "PARAGRAPH",
-          "blocks": 1
-        }
-      },
       "project": {
         "techstack": {
           "config": {
@@ -16,14 +10,30 @@
           }
         }
       },
-      "read_show": {
+      "description": {
         "config": {
           "patternType": "PARAGRAPH",
           "blocks": 1
         }
       }
     },
-    "menu": {}
+    "menu": {},
+    "footer": {},
+    "postindex": {},
+    "post": {
+      "tag": {
+        "config": {
+          "patternType": "PARAGRAPH",
+          "blocks": 1
+        }
+      },
+      "description": {
+        "config": {
+          "patternType": "PARAGRAPH",
+          "blocks": 1
+        }
+      }
+    }
   },
   "slices": {
     "Formsz": {

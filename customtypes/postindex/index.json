@@ -1,0 +1,48 @@
+{
+  "id": "postindex",
+  "label": "PostIndex",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": ""
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "title",
+          "placeholder": ""
+        }
+      }
+    },
+    "SEO": {
+      "seo_title": {
+        "type": "Text",
+        "config": {
+          "label": "SEO Title",
+          "placeholder": ""
+        }
+      },
+      "seo_description": {
+        "type": "Text",
+        "config": {
+          "label": "SEO Description",
+          "placeholder": ""
+        }
+      },
+      "image_preview": {
+        "type": "Image",
+        "config": {
+          "label": "Image Preview",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  }
+}
