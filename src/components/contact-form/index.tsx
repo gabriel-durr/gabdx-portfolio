@@ -45,6 +45,7 @@ export const ContactForm = ({
 					fontWeight="medium"
 					textTransform="uppercase"
 					fontSize={[".72rem", ".84rem"]}
+					color="gray.900"
 					lineHeight="shorter"
 					fontFamily="Raleway"
 					_hover={{ color: linkColor }}
@@ -56,7 +57,7 @@ export const ContactForm = ({
 			<Modal
 				preserveScrollBarGap
 				scrollBehavior="inside"
-				size={["sm", "3xl"]}
+				size={["xs", "sm", "3xl"]}
 				isOpen={isOpen}
 				onClose={onClose}>
 				<ModalOverlay backdropFilter="auto" backdropInvert="20%" />

@@ -20,7 +20,6 @@ export const globalStyles = {
 		},
 		WebkitFontSmoothing: "antialiased",
 
-		overflowX: "hidden",
 		scrollBehavior: "smooth",
 
 		"&::-webkit-scrollbar": {

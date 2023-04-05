@@ -36,7 +36,7 @@ export const TechsAnimation = () => {
 			mt="1rem"
 			_before={{
 				bgGradient: `linear(to right, ${bgGradMode} 0%, rgba(255, 255, 255, 0) 100%)`,
-				content: '" "',
+				content: "''",
 				h: "100%",
 				position: "absolute",
 				w: "32px",
@@ -46,7 +46,7 @@ export const TechsAnimation = () => {
 			}}
 			_after={{
 				bgGradient: `linear(to right, ${bgGradMode} 0%, rgba(255, 255, 255, 0) 100%)`,
-				content: '" "',
+				content: "''",
 				h: "92%",
 				position: "absolute",
 				w: "32px",

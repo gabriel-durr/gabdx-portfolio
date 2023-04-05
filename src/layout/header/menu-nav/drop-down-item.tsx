@@ -23,7 +23,6 @@ export const DropDownItem = ({
 			href={href}
 			target="_blank"
 			display="block"
-			color="gray.900"
 			py={1}
 			_hover={{ color: linkColor }}>
 			<Stack direction="row" align="center" spacing={4}>
@@ -33,6 +32,7 @@ export const DropDownItem = ({
 					fontFamily="Raleway"
 					textTransform="uppercase"
 					fontSize={[".72rem", ".84rem"]}
+					color="gray.900"
 					lineHeight="shorter"
 					fontWeight="medium">
 					{label}

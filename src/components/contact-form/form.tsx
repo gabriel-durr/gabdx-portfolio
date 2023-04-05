@@ -95,8 +95,9 @@ export const Form = ({ formData, lang }: FormProps) => {
 			onSubmit={handleSubmit(onSubmit)}
 			noValidate
 			align="center"
-			w="100%"
-			p="2rem"
+			flex={1}
+			p={{ base: ".4rem", md: "2rem" }}
+			spacing={4}
 			borderRadius="5px">
 			<FormControl isInvalid={isNameError} isRequired>
 				<FormLabel fontSize="1.1rem" fontFamily="Raleway">
@@ -189,7 +190,7 @@ export const Form = ({ formData, lang }: FormProps) => {
 				</FormLabel>
 				<Textarea
 					variant="unstyled"
-					h="12rem"
+					h={{ base: "10rem", xl: "8.4rem", "2xl": "12rem" }}
 					pl="8px"
 					border={`1px solid ${borderInputMode}`}
 					_focus={{

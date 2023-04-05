@@ -6,7 +6,14 @@ import { getStaticProps } from "@pages/posts/[uid]";
 
 import { InferGetStaticPropsType } from "next";
 
-import { VStack, Heading, useColorModeValue, HStack } from "@chakra-ui/react";
+import {
+	Text,
+	HStack,
+	VStack,
+	Heading,
+	useColorModeValue,
+} from "@chakra-ui/react";
+import { FeedbackUser } from "./feedback-user";
 
 export type ViewPostProps = Pick<
 	InferGetStaticPropsType<typeof getStaticProps>,
@@ -53,6 +60,8 @@ export const ViewPost = ({ postData }: ViewPostProps) => {
 			</VStack>
 
 			<Content description={postData.description} />
+
+			<FeedbackUser />
 		</VStack>
 	);
 };

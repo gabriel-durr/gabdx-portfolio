@@ -1,20 +1,20 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import sendgrid from "@sendgrid/mail";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const sendgridApiKey = process.env.SENDGRID_API_KEY as string;
-
-sendgrid.setApiKey(sendgridApiKey);
-
-async function mail(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const { name, email, textarea } = req.body;
 
+	const sendgridApiKey = process.env.SENDGRID_API_KEY as string;
+
+	sendgrid.setApiKey(sendgridApiKey);
+
 	const message = {
-		to: "contato@gabrieldurr.site", // destinatario 👈
-		from: "contato@gabrieldurr.site", // Auth email sendgrid
-		subject: "Recebimento de Contato Formulário", // assunto
+		to: "contato@gabrieldurr.site",
+		from: "contato@gabrieldurr.site",
+		subject: "Recebimento de Contato Formulário",
 		html: `<b>${name}</b>
-			   <p><b>${email}</b></p>
-			   <p>${textarea}</p> `, //Conteúdo do email (textarea)
+				   <p><b>${email}</b></p>
+				   <p>${textarea}</p> `,
 	};
 
 	const autoEmail = {
@@ -31,4 +31,4 @@ async function mail(req: NextApiRequest, res: NextApiResponse) {
 		.catch(error => res.status(500).json({ error: error.message }));
 }
 
-export default mail;
+export default handler;
