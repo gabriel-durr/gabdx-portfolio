@@ -1,8 +1,8 @@
-import { formatDate } from "@utils/formate-date";
-import { FeedbackList } from "@hooks/use-feedbacks";
-import { parseCookies } from "nookies";
+import {formatDate} from "@utils/formate-date";
+import {FeedbackList} from "@hooks/use-feedbacks";
+import {parseCookies} from "nookies";
 
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 import {
 	AiFillLike,
 	AiFillFlag,
@@ -11,9 +11,9 @@ import {
 	AiOutlineDislike,
 } from "react-icons/ai";
 
-import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
+import {BsChevronCompactDown, BsChevronCompactUp} from "react-icons/bs";
 
-import { useState } from "react";
+import {useState} from "react";
 import {
 	Box,
 	Text,
@@ -30,14 +30,14 @@ type CommentsProps = {
 	feedbackList: FeedbackList[];
 };
 
-export const Comments = ({ feedbackList }: CommentsProps) => {
+export const Comments = ({feedbackList}: CommentsProps) => {
 	const [isShowFullText, SetIsShowFullText] = useState(false);
-	const [isLike, setIsLike] = useState(false);
-	const [isDislike, setIsDislike] = useState(false);
 
 	const feedbacksLikes = feedbackList.map(feedback => feedback.likes);
 
-	const { feedbackId } = parseCookies();
+	console.log(feedbacksLikes);
+
+	const {feedbackId} = parseCookies();
 
 	const handleToggleShowText = () => {
 		SetIsShowFullText(!isShowFullText);
@@ -93,27 +93,15 @@ export const Comments = ({ feedbackList }: CommentsProps) => {
 									)}
 								</Text>
 							</Box>
-							<HStack>
-								{feedbacksLikes.map(like => {
-									if (like.toString() === feedbackId) {
-										return (
-											<IconButton
-												aria-label="like button"
-												key={like.toString()}
-												icon={<AiFillLike />}
-											/>
-										);
-									} else {
-										return (
-											<IconButton
-												aria-label="like button"
-												key={like.toString()}
-												icon={<AiFillLike />}
-											/>
-										);
-									}
-								})}
-							</HStack>
+							{/* <HStack>
+								{feedbacksLikes.map(like => (
+									<IconButton
+										key={like.toString()}
+										aria-label="like button"
+										icon={<AiFillLike />}
+									/>
+								))}
+							</HStack> */}
 						</VStack>
 
 						<IconButton aria-label="Report feedback" icon={<AiFillFlag />} />

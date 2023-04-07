@@ -35,7 +35,8 @@
 		"react-hook-form": "^7.43.8",
 		"react-icons": "^4.8.0",
 		"react-simple-typewriter": "^5.0.1",
-		"swr": "^2.1.2"
+		"swr": "^2.1.2",
+		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
 		"@chakra-ui/cli": "^2.3.0",

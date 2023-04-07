@@ -1,8 +1,8 @@
-import { api } from "@services/api";
+import {api} from "@services/api";
 
 import useSWR from "swr";
-import { Types } from "mongoose";
-import { useRouter } from "next/router";
+import {Types} from "mongoose";
+import {useRouter} from "next/router";
 
 export type FeedbackList = {
 	_id: Types.ObjectId;
@@ -32,13 +32,13 @@ const fetcher = (url: string) => api.get(url).then(res => res.data);
 
 const useFeedback = () => {
 	const {
-		query: { uid: queryPostId },
+		query: {uid: queryPostId},
 	} = useRouter();
 
-	const { data, error, mutate, isLoading, isValidating } = useSWR<
+	const {data, error, mutate, isLoading, isValidating} = useSWR<
 		FeedbacksData,
 		Error
-	>(`/feedbacks?postId=${queryPostId}`, fetcher, { revalidateOnFocus: false });
+	>(`/feedbacks?postId=${queryPostId}`, fetcher, {revalidateOnFocus: false});
 
 	return {
 		data,
@@ -49,4 +49,4 @@ const useFeedback = () => {
 	};
 };
 
-export { useFeedback };
+export {useFeedback};
