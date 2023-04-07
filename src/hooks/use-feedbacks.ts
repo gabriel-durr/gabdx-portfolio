@@ -1,34 +1,44 @@
 import { api } from "@services/api";
-import { Types } from "mongoose";
-import useSWR, { SWRResponse } from "swr";
 
-type FeedbackProps = {
+import useSWR from "swr";
+import { Types } from "mongoose";
+import { useRouter } from "next/router";
+
+export type FeedbackList = {
 	_id: Types.ObjectId;
-	userIp: string;
 	feedbackLevel: "terrible" | "bad" | "regular" | "good" | "excellent";
 	name: string;
 	comment: string;
 	likes: string[];
+	dislikes: string[];
 	createdAt: Date;
-	reports: {
-		reportedBy_Id: string;
-		reportedByName: string;
-		message: string;
-	}[];
 };
 
-type useSWRProps = {
+export type FeedbackLevelQdt = {
+	excellent: number;
+	good: number;
+	regular: number;
+	bad: number;
+	terrible: number;
+};
+
+export type FeedbacksData = {
+	feedbackList: FeedbackList[];
 	totalFeedbacks: number;
-	feedbackList: FeedbackProps[];
+	feedbackLevelQdt: FeedbackLevelQdt;
 };
 
 const fetcher = (url: string) => api.get(url).then(res => res.data);
 
-const useFeedback = (queryPostId: string) => {
+const useFeedback = () => {
+	const {
+		query: { uid: queryPostId },
+	} = useRouter();
+
 	const { data, error, mutate, isLoading, isValidating } = useSWR<
-		useSWRProps,
+		FeedbacksData,
 		Error
-	>(`/feedbacks?postId=${queryPostId}`, fetcher);
+	>(`/feedbacks?postId=${queryPostId}`, fetcher, { revalidateOnFocus: false });
 
 	return {
 		data,

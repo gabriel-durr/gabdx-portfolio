@@ -32,6 +32,8 @@ export const Form = ({ formData, lang }: FormProps) => {
 		"gray.300",
 	]);
 
+	const borderInputMode = useColorModeValue(borderLight, borderDark);
+
 	const {
 		handleSubmit,
 		register,
@@ -47,8 +49,6 @@ export const Form = ({ formData, lang }: FormProps) => {
 	const isEmailError = !!errors.email;
 	const isTextAreaError = !!errors.textarea;
 	const isLangPtBr = lang === "pt-br";
-
-	const borderInputMode = useColorModeValue(borderLight, borderDark);
 
 	const onSubmit = async (data: HookFormTypes) => {
 		await new Promise(resolve => setTimeout(resolve, 2000));

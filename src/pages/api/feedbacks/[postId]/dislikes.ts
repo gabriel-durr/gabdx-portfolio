@@ -1,9 +1,9 @@
 import { dbConnect } from "@services/db-connect";
 import {
-	addLike,
-	getLikes,
-	removeLike,
-} from "@database/controllers/feedbacks-ctrls/likes-ctrls";
+	getDislikes,
+	addDislike,
+	removeDislike,
+} from "@database/controllers/feedbacks-ctrls/dislikes-ctrls";
 
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -14,14 +14,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 	switch (method) {
 		case "GET":
-			await getLikes(req, res);
+			await getDislikes(req, res);
 
 		case "POST":
-			await addLike(req, res);
+			await addDislike(req, res);
 			break;
 
 		case "DELETE":
-			await removeLike(req, res);
+			await removeDislike(req, res);
 			break;
 
 		default:

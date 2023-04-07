@@ -4,10 +4,11 @@ export interface FeedbackUser {
 	_id: Types.ObjectId;
 	userIp: string;
 	createdAt?: Date;
-	feedbackLevel: string;
+	feedbackLevel: "terrible" | "bad" | "regular" | "good" | "excellent";
 	name: string;
 	comment: string;
 	likes?: String[];
+	dislikes?: String[];
 	reports?: {
 		reportedBy_Id: String;
 		reportedByName: String;
@@ -26,10 +27,15 @@ const feedbackUserSchema = new Schema<FeedbackUser>({
 	},
 	userIp: { type: String, required: true },
 	createdAt: { type: Date, default: Date.now, required: true, immutable: true },
-	feedbackLevel: { type: String, required: true },
+	feedbackLevel: {
+		type: String,
+		enum: ["terrible", "bad", "regular", "good", "excellent"],
+		required: true,
+	},
 	name: { type: String, required: true },
 	comment: { type: String, required: true },
 	likes: { type: [String], required: true, default: [] },
+	dislikes: { type: [String], required: true, default: [] },
 	reports: {
 		type: [
 			{

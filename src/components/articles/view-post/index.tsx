@@ -3,17 +3,11 @@ import { Content } from "./content";
 import { BackButton } from "./back-button";
 import { InfoAndTechs } from "./info-and-techs";
 import { getStaticProps } from "@pages/posts/[uid]";
+import { FeedbacksInPost } from "./feedbacks-in-post";
 
 import { InferGetStaticPropsType } from "next";
 
-import {
-	Text,
-	HStack,
-	VStack,
-	Heading,
-	useColorModeValue,
-} from "@chakra-ui/react";
-import { FeedbackUser } from "./feedback-user";
+import { HStack, VStack, Heading, useColorModeValue } from "@chakra-ui/react";
 
 export type ViewPostProps = Pick<
 	InferGetStaticPropsType<typeof getStaticProps>,
@@ -61,7 +55,7 @@ export const ViewPost = ({ postData }: ViewPostProps) => {
 
 			<Content description={postData.description} />
 
-			<FeedbackUser />
+			<FeedbacksInPost />
 		</VStack>
 	);
 };

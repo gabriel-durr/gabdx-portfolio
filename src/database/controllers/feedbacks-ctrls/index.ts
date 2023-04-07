@@ -14,19 +14,16 @@ const getFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const { postId } = query;
 	const userIp = socket.remoteAddress;
+	const { feedbackId } = parseCookies({ req });
 
 	try {
 		if (!userIp || !postId)
-			return res
-				.status(422)
-				.json({ message: "Query requirements not provided" });
+			return res.status(422).json({ message: "Missing required data" });
 
 		const postCollection = await FeedbackModel.findOne({ postId });
 
 		if (!postCollection)
 			return res.status(404).json({ message: "Post not found" });
-
-		const { feedbackId } = parseCookies({ req });
 
 		const userFeedback = postCollection.feedbackList.find(
 			f => f._id.toHexString() === feedbackId && decrypt(f.userIp) === userIp
@@ -52,9 +49,7 @@ const createFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	try {
 		if (!userIp || !postId)
-			return res
-				.status(422)
-				.json({ message: "Query requeriments not provided" });
+			return res.status(422).json({ message: "Missing required data" });
 
 		if (!feedbackLevel || !name || !comment)
 			return res
@@ -64,7 +59,7 @@ const createFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 		const postCollection = await FeedbackModel.findOne({ postId });
 
 		if (!postCollection)
-			return res.status(404).json({ message: "PostId not found" });
+			return res.status(404).json({ message: "Post collection not found" });
 
 		const { feedbackId } = parseCookies({ req });
 
@@ -115,22 +110,23 @@ const updateFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 	const userIp = socket.remoteAddress;
 	const updatedFields = body as BodyDataUpdateFeedback;
 
+	const { feedbackId } = parseCookies({ req });
+
 	try {
+		if (!userIp || !postId || !feedbackId)
+			return res.status(422).json({ message: "Missing required data" });
+
 		const postCollection = await FeedbackModel.findOne({ postId });
 
-		if (!postCollection) {
-			return res.status(404).json({ message: "PostId not found" });
-		}
-
-		const { feedbackId } = parseCookies({ req });
+		if (!postCollection)
+			return res.status(404).json({ message: "Post collection not found" });
 
 		const userFeedback = postCollection.feedbackList.find(
 			f => f._id.toHexString() === feedbackId && decrypt(f.userIp) === userIp
 		);
 
-		if (!userFeedback) {
+		if (!userFeedback)
 			return res.status(404).json({ message: "Feedback not found" });
-		}
 
 		Object.assign(userFeedback, updatedFields);
 
@@ -155,43 +151,40 @@ const deleteFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	try {
 		if (!userIp || !postId || !feedbackId)
-			return res
-				.status(422)
-				.json({ message: "Query requirements not provided" });
+			return res.status(422).json({ message: "Missing required data" });
 
 		const postCollection = await FeedbackModel.findOne({ postId });
 
-		const userIpDecrypt = postCollection?.feedbackList.find(
+		if (!postCollection)
+			return res.status(404).json({ message: "Post collection not found" });
+
+		const yourFeedback = postCollection.feedbackList.find(
 			f => f._id.toHexString() === feedbackId && decrypt(f.userIp) === userIp
 		);
 
-		//TODO arrumar querys desbecessárias
+		if (!yourFeedback)
+			return res.status(404).json({ message: "Feedback not found" });
 
 		const filter = { postId };
 		const update = {
-			$pull: { feedbackList: { userIp: userIpDecrypt?.userIp } },
+			$pull: { feedbackList: { userIp: yourFeedback.userIp } },
 		};
-
-		const feedbackBeforeUpdate = await FeedbackModel.findOne(filter);
 
 		const deletedFeedback = await FeedbackModel.findOneAndUpdate(
 			filter,
 			update,
-			{ new: true }
+			{
+				new: true,
+			}
 		);
 
-		const isFeddbackDeleted =
-			feedbackBeforeUpdate?.feedbackList.length ===
-			deletedFeedback?.feedbackList.length;
-
-		if (isFeddbackDeleted)
+		if (!deletedFeedback)
 			return res.status(404).json({ message: "Feedback not found" });
 
-		return res.status(200).json({ message: "Feedback sucessfully deleted" });
+		return res.status(200).json({ message: "Feedback successfully deleted" });
 	} catch (err) {
 		console.error(err);
-
-		res.status(500).json({ message: "Error deleting feedback" });
+		return res.status(500).json({ message: "Error deleting feedback" });
 	}
 };
 
