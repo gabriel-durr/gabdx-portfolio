@@ -1,47 +1,55 @@
 import FeedbackModel from "@database/model/feedback-schema";
 
-import {parseCookies} from "nookies";
+import { parseCookies } from "nookies";
 
-import {NextApiRequest, NextApiResponse} from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const getAllFeedbacks = async (req: NextApiRequest, res: NextApiResponse) => {
-	const {query, socket} = req;
+	const { query, socket } = req;
 
-	const {postId} = query;
+	const { postId } = query;
 	const userIp = socket.remoteAddress;
-	const {feedbackId} = parseCookies({req});
+	const { feedbackId } = parseCookies({ req });
 
 	try {
 		if (!userIp || !postId)
-			return res.status(422).json({message: "Query requirements not provided"});
+			return res
+				.status(422)
+				.json({ message: "Query requirements not provided" });
 
 		const postCollection = await FeedbackModel.findOne(
-			{postId},
-			{"feedbackList.userIp": 0, "feedbackList.reports": 0}
-		);
+			{ postId },
+			{ "feedbackList.userIp": 0, "feedbackList.reports": 0 }
+		).lean();
 
 		if (!postCollection)
-			return res.status(404).json({message: "PostId not found."});
+			return res.status(404).json({ message: "PostId not found." });
 
-		const feedbackList = postCollection?.feedbackList;
+		const feedbackListOrigin = postCollection?.feedbackList;
 
-		if (!feedbackList)
-			return res.status(404).json({message: "Feedbacks not found"});
+		if (!feedbackListOrigin)
+			return res.status(404).json({ message: "Feedbacks not found" });
 
 		const totalFeedbacks = postCollection.feedbackList.map(
 			f => f.feedbackLevel
 		).length;
 
-		const likesByFeedback = feedbackList.map(feedback => {
+		const feedbackList = feedbackListOrigin.map(feedback => {
 			const likes = feedback.likes;
-			const likeQdt = likes.length;
-			const isLike = likes.includes(feedbackId);
+			const dislikes = feedback.dislikes;
+
+			const isLike = likes?.includes(feedbackId);
+			const isDislike = dislikes?.includes(feedbackId);
 
 			return {
 				...feedback,
 				likes: {
 					isLike,
-					likeQdt,
+					likeQdt: likes?.length,
+				},
+				dislikes: {
+					isDislike,
+					dislikeQdt: dislikes?.length,
 				},
 			};
 		});
@@ -69,17 +77,19 @@ const getAllFeedbacks = async (req: NextApiRequest, res: NextApiResponse) => {
 				}
 				return acc;
 			},
-			{excellent: 0, good: 0, regular: 0, bad: 0, terrible: 0}
+			{ excellent: 0, good: 0, regular: 0, bad: 0, terrible: 0 }
 		);
 
-		return res
-			.status(200)
-			.json({feedbackList, totalFeedbacks, feedbackLevelQdt, likesByFeedback});
+		return res.status(200).json({
+			feedbackList,
+			totalFeedbacks,
+			feedbackLevelQdt,
+		});
 	} catch (err: any) {
 		console.error(err.message);
 
-		res.status(500).json({message: "Internal server error"});
+		res.status(500).json({ message: "Internal server error" });
 	}
 };
 
-export {getAllFeedbacks};
+export { getAllFeedbacks };

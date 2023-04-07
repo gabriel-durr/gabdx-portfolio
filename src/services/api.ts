@@ -14,11 +14,10 @@ const api = axios.create({
 
 api.interceptors.request.use(config => {
 	const cookies = getCookies();
-
 	const feedbackId = cookies["feedbackId"];
 
 	if (feedbackId) {
-		config.headers.Cookie = `feedbackId=${feedbackId}`;
+		config.headers.Authorization = `Bearer ${feedbackId}`;
 	}
 
 	return config;

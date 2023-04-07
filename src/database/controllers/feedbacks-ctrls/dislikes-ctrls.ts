@@ -7,37 +7,6 @@ type RequestBody = {
 	feedbackTo: string;
 };
 
-const getDislikes = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { query } = req;
-
-	const { postId } = query;
-	const { feedbackId } = parseCookies({ req });
-
-	try {
-		if (!postId || !feedbackId)
-			return res.status(422).json({ message: "Missing required data" });
-
-		const postCollection = await FeedbackModel.findOne({ postId });
-
-		if (!postCollection)
-			return res.status(404).json({ message: "Post collection not found" });
-
-		const AllfeedbacksDislikes = postCollection?.feedbackList.map(f => ({
-			feedbackId: f._id,
-			feedbackDislikes: f.dislikes,
-		}));
-
-		const feedbacksWithYourDislike = AllfeedbacksDislikes.filter(f =>
-			f.feedbackDislikes?.includes(feedbackId)
-		).map(f => f.feedbackId);
-
-		return res.status(200).json({ feedbacksWithYourDislike });
-	} catch (err) {
-		console.error(err);
-		return res.status(500).json({ message: "Error get this dislikes" });
-	}
-};
-
 const addDislike = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { body, query } = req;
 
@@ -54,25 +23,38 @@ const addDislike = async (req: NextApiRequest, res: NextApiResponse) => {
 		if (!postCollection)
 			return res.status(404).json({ message: "Post collection not found" });
 
-		const dislikesUserToFeedback = postCollection?.feedbackList.find(
+		const feedback = postCollection?.feedbackList.find(
 			f => f._id.toHexString() === feedbackTo
-		)?.dislikes;
-
-		if (!dislikesUserToFeedback)
-			return res.status(404).json({ message: "Feedback dislikes not found" });
-
-		const yourDislikeOnFeedback = dislikesUserToFeedback?.some(
-			dislike => dislike === feedbackId
 		);
 
-		if (yourDislikeOnFeedback)
-			return res.status(422).json({ message: "Dislike already exists" });
+		if (!feedback)
+			return res.status(404).json({ message: "Feedback not found" });
 
-		dislikesUserToFeedback.push(feedbackId);
+		const likes = feedback.likes || [];
+		const dislikes = feedback.dislikes || [];
+
+		const yourDislikeOnFeedback = dislikes.some(
+			dislike => dislike === feedbackId
+		);
+		const yourLikeOnFeedback = likes.some(like => like === feedbackId);
+
+		if (yourDislikeOnFeedback) {
+			return res
+				.status(422)
+				.json({ message: "Dislike already exists for this feedback" });
+		}
+
+		const updatedDislikes = [...dislikes, feedbackId];
+		const updatedLikes = yourLikeOnFeedback
+			? likes.filter(like => like !== feedbackId)
+			: likes;
+
+		feedback.dislikes = updatedDislikes;
+		feedback.likes = updatedLikes;
 
 		await postCollection.save();
 
-		return res.status(201).json({ message: "Dislike sucessfully added" });
+		return res.status(201).json({ message: "Dislike successfully added" });
 	} catch (err) {
 		console.error(err);
 		return res.status(500).json({ message: "Error saving your dislike" });
@@ -80,10 +62,9 @@ const addDislike = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const removeDislike = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { body, query } = req;
+	const { query } = req;
 
-	const { postId } = query;
-	const { feedbackTo } = body as RequestBody;
+	const { postId, feedbackTo } = query;
 	const { feedbackId } = parseCookies({ req });
 
 	try {
@@ -120,4 +101,4 @@ const removeDislike = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-export { getDislikes, addDislike, removeDislike };
+export { addDislike, removeDislike };

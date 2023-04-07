@@ -7,37 +7,7 @@ type RequestBody = {
 	feedbackTo: string;
 };
 
-const getLikes = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { query } = req;
-
-	const { postId } = query;
-	const { feedbackId } = parseCookies({ req });
-
-	try {
-		if (!postId || !feedbackId)
-			return res.status(422).json({ message: "Missing required data" });
-
-		const postCollection = await FeedbackModel.findOne({ postId });
-
-		if (!postCollection)
-			return res.status(404).json({ message: "Post collection not found" });
-
-		const AllfeedbacksLikes = postCollection?.feedbackList.map(f => ({
-			feedbackId: f._id,
-			feedbackLikes: f.likes,
-			feedbacksLikesQdt: f.likes?.length,
-		}));
-
-		const feedbacksWithYourLike = AllfeedbacksLikes.filter(f =>
-			f.feedbackLikes?.includes(feedbackId)
-		).map(f => f.feedbackId);
-
-		return res.status(200).json({ AllfeedbacksLikes, feedbacksWithYourLike });
-	} catch (err) {
-		console.error(err);
-		return res.status(500).json({ message: "Error get this likes" });
-	}
-};
+//TODO criar um aviso de pedido de utilização de cookies na home, e enviar uma status de erro pra só aceitar requests se o usuário já fez algum feedback, ou seja ele só vai poder curtir, denunciar, etc se ele já fez algum comentário.
 
 const addLike = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { body, query } = req;
@@ -55,25 +25,35 @@ const addLike = async (req: NextApiRequest, res: NextApiResponse) => {
 		if (!postCollection)
 			return res.status(404).json({ message: "Post collection not found" });
 
-		const likesUserToFeedback = postCollection?.feedbackList.find(
+		const feedback = postCollection?.feedbackList.find(
 			f => f._id.toHexString() === feedbackTo
-		)?.likes;
+		);
 
-		if (!likesUserToFeedback)
-			return res.status(404).json({ message: "Feedback likes not found" });
+		if (!feedback)
+			return res.status(404).json({ message: "Feedback not found" });
 
-		const yourLikeOnFeedback = likesUserToFeedback?.some(
-			like => like === feedbackId
+		const likes = feedback.likes || [];
+		const dislikes = feedback.dislikes || [];
+
+		const yourLikeOnFeedback = likes.some(like => like === feedbackId);
+		const yourDislikeOnFeedback = dislikes.some(
+			dislike => dislike === feedbackId
 		);
 
 		if (yourLikeOnFeedback)
 			return res.status(422).json({ message: "Like already exists" });
 
-		likesUserToFeedback.push(feedbackId);
+		const updatedLikes = [...likes, feedbackId];
+		const updatedDislikes = yourDislikeOnFeedback
+			? dislikes.filter(dislike => dislike !== feedbackId)
+			: dislikes;
+
+		feedback.likes = updatedLikes;
+		feedback.dislikes = updatedDislikes;
 
 		await postCollection.save();
 
-		return res.status(201).json({ message: "Like sucessfully added" });
+		return res.status(201).json({ message: "Like successfully added" });
 	} catch (err) {
 		console.error(err);
 		return res.status(500).json({ message: "Error saving your like" });
@@ -81,10 +61,9 @@ const addLike = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const removeLike = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { body, query } = req;
+	const { query } = req;
 
-	const { postId } = query;
-	const { feedbackTo } = body as RequestBody;
+	const { postId, feedbackTo } = query;
 	const { feedbackId } = parseCookies({ req });
 
 	try {
@@ -96,21 +75,24 @@ const removeLike = async (req: NextApiRequest, res: NextApiResponse) => {
 		if (!postCollection)
 			return res.status(404).json({ message: "Post collection not found" });
 
-		const likesUserToFeedback = postCollection.feedbackList.find(
+		const feedback = postCollection.feedbackList.find(
 			f => f._id.toHexString() === feedbackTo
 		);
 
-		if (!likesUserToFeedback)
+		if (!feedback)
 			return res.status(404).json({ message: "Feedback not found" });
 
-		const removeToLike = likesUserToFeedback.likes?.filter(
-			f => f !== feedbackId
-		);
+		const likes = feedback.likes || [];
 
-		if (removeToLike?.length === likesUserToFeedback.likes?.length)
-			return res.status(404).json({ message: "Like not found" });
+		const updatedLikes = likes.filter(like => like !== feedbackId);
 
-		likesUserToFeedback.likes = removeToLike;
+		feedback.likes = updatedLikes;
+
+		const dislikes = feedback.dislikes || [];
+
+		const updatedDislikes = dislikes.filter(dislike => dislike !== feedbackId);
+
+		feedback.dislikes = updatedDislikes;
 
 		await postCollection.save();
 
@@ -121,4 +103,4 @@ const removeLike = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 };
 
-export { getLikes, addLike, removeLike };
+export { addLike, removeLike };

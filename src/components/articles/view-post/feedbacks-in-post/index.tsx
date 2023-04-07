@@ -1,4 +1,4 @@
-import { Comments } from "./comments";
+import { Feedbacks } from "./feedbacks";
 import { useFeedback } from "@hooks/use-feedbacks";
 import { TotalFeedbacks } from "./total-feedbacks";
 import { InputsFeedbacks } from "./inputs-feedback";
@@ -19,6 +19,8 @@ export const FeedbacksInPost = () => {
 	const bgColorMode = useColorModeValue("blackAlpha.100", "whiteAlpha.100");
 
 	if (isLoading || !data) return <SkeletonsLoading />;
+
+	//TODO number dos icones pequeno elevado bem pequeno em cima deles
 
 	return (
 		<Flex
@@ -46,7 +48,7 @@ export const FeedbacksInPost = () => {
 				</Heading>
 				<Divider w="90%" bg="blackAlpha.200" />
 
-				<Comments feedbackList={data.feedbackList} />
+				<Feedbacks feedbackList={data.feedbackList} />
 			</VStack>
 		</Flex>
 	);

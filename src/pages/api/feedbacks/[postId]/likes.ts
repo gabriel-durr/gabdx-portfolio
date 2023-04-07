@@ -1,7 +1,6 @@
 import { dbConnect } from "@services/db-connect";
 import {
 	addLike,
-	getLikes,
 	removeLike,
 } from "@database/controllers/feedbacks-ctrls/likes-ctrls";
 
@@ -13,9 +12,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 	await dbConnect();
 
 	switch (method) {
-		case "GET":
-			await getLikes(req, res);
-
 		case "POST":
 			await addLike(req, res);
 			break;
@@ -25,7 +21,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 			break;
 
 		default:
-			res.setHeader("Allow", ["GET", "POST", "DELETE"]);
+			res.setHeader("Allow", ["POST", "DELETE"]);
 			res.status(405).end(`Method ${method} Not Allowed`);
 	}
 }
