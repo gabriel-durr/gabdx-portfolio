@@ -8,12 +8,11 @@ import {
 	Button,
 	SimpleGrid,
 	AbsoluteCenter,
-	useColorModeValue,
 } from "@chakra-ui/react";
 
 type ReadMoreProps = {
-	children: ReactNode;
 	lang: string;
+	children: ReactNode;
 };
 
 export const ReadMore = ({ children, lang }: ReadMoreProps) => {
@@ -32,13 +31,12 @@ export const ReadMore = ({ children, lang }: ReadMoreProps) => {
 	const childrenList = Children.toArray(children);
 	const twoCards = childrenList.slice(0, 2);
 
-	const colorButtonMode = useColorModeValue("myColors.black", "gray.500");
-	const hoverButtonMode = useColorModeValue("cyan.500", "#f5c245");
-	const bgIcon = useColorModeValue("purple.700", "myColors.orangeVibrance");
-
 	return (
 		<VStack spacing="14" align="center">
-			<SimpleGrid columns={[1, 2]} justifyItems="center" spacing={4}>
+			<SimpleGrid
+				columns={{ base: 1, lg: 2 }}
+				justifyItems="center"
+				spacing={4}>
 				{isReadMore ? twoCards : fullCards}
 			</SimpleGrid>
 
@@ -48,19 +46,21 @@ export const ReadMore = ({ children, lang }: ReadMoreProps) => {
 				w="200px"
 				shadow="dark-lg"
 				rounded="md"
-				bg="myColors.white"
-				color={colorButtonMode}
+				bg="gbdx.white"
+				color="gbdx.black"
 				cursor="pointer"
 				fontWeight="bolder"
 				textTransform="uppercase"
 				fontSize={["1.07rem", "1.18rem"]}
 				_hover={{
-					color: hoverButtonMode,
+					color: "cyan.500",
 					filter: "grayscale(.6)",
 					transition: "0.7s ease",
 				}}
+				_light={{ color: "gray.500", "&:hover": { color: "#f5c245" } }}
 				onClick={toggleReadMore}>
 				{isReadMore ? readShowLang.read : readShowLang.show}
+
 				<AbsoluteCenter
 					as={motion.span}
 					top={-8}
@@ -68,7 +68,7 @@ export const ReadMore = ({ children, lang }: ReadMoreProps) => {
 					w="42px"
 					h="36px"
 					clipPath="polygon(0% 0%, 100% 0%, 50% 100%);"
-					bg={bgIcon}
+					bg="purple.700"
 					rounded="2xl"
 					animate={{
 						scale: 1.1,
@@ -77,7 +77,8 @@ export const ReadMore = ({ children, lang }: ReadMoreProps) => {
 							repeatType: "reverse",
 							duration: 1,
 						},
-					}}>
+					}}
+					_light={{ bg: "gbdx.orangeVibrance" }}>
 					{isReadMore ? (
 						<Icon boxSize={7} as={FaAngleDown} />
 					) : (

@@ -1,8 +1,8 @@
 import { encrypt, decrypt } from "@utils/crypt-hash";
 import FeedbackModel, { FeedbackUser } from "@database/model/feedback-schema";
 
-import { Types } from "mongoose";
-import { setCookie, parseCookies } from "nookies";
+import { v4 as uuidv4 } from "uuid";
+import { setCookie, destroyCookie } from "nookies";
 
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -14,25 +14,41 @@ const getFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const { postId } = query;
 	const userIp = socket.remoteAddress;
-	const { feedbackId } = parseCookies({ req });
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
 
 	try {
-		if (!userIp || !postId)
+		if (!userIp || !feedbackId)
 			return res.status(422).json({ message: "Missing required data" });
 
-		const postCollection = await FeedbackModel.findOne({ postId });
+		const projection = {
+			_id: 0,
+			"feedbackList.feedbackId": 1,
+			"feedbackList.name": 1,
+			"feedbackList.userIp": 1,
+		};
 
-		if (!postCollection)
-			return res.status(404).json({ message: "Post not found" });
-
-		const userFeedback = postCollection.feedbackList.find(
-			f => f._id.toHexString() === feedbackId && decrypt(f.userIp) === userIp
+		const feedbackListExists = await FeedbackModel.findOne(
+			{
+				"feedbackList.feedbackId": feedbackId,
+			},
+			projection
 		);
 
-		if (!userFeedback)
-			return res.status(404).json({ message: "Feedback not found" });
+		if (!feedbackListExists)
+			return res
+				.status(404)
+				.json({ message: "Feedback does not exist the list in any post" });
 
-		return res.status(200).json({ userFeedback });
+		const [currentFeedback] = feedbackListExists.feedbackList
+			.filter(feedback => decrypt(feedback.userIp) === userIp)
+			.map(feedback => {
+				const { name, feedbackId } = feedback;
+
+				return { name, feedbackId };
+			});
+
+		return res.status(200).json({ currentFeedback });
 	} catch (err) {
 		console.error(err);
 
@@ -45,13 +61,16 @@ const createFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const { postId } = query;
 	const userIp = socket.remoteAddress;
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
+
 	const { feedbackLevel, name, comment } = body as BodyDataCreateFeedback;
 
 	try {
 		if (!userIp || !postId)
 			return res.status(422).json({ message: "Missing required data" });
 
-		if (!feedbackLevel || !name || !comment)
+		if ((!feedbackLevel || !name || !comment) && !feedbackId)
 			return res
 				.status(400)
 				.json({ message: "Some required fields are missing" });
@@ -61,37 +80,52 @@ const createFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 		if (!postCollection)
 			return res.status(404).json({ message: "Post collection not found" });
 
-		const { feedbackId } = parseCookies({ req });
-
 		const userFeedback = postCollection.feedbackList.find(
-			f => f._id.toHexString() === feedbackId && decrypt(f.userIp) === userIp
+			f => f.feedbackId === feedbackId && decrypt(f.userIp) === userIp
 		);
 
 		if (userFeedback)
 			return res.status(400).json({ message: "Feedback already exists" });
 
-		const newFeedbackId = new Types.ObjectId();
+		const newFeedbackId = uuidv4();
 		const hashIp = encrypt(userIp);
 
-		postCollection.feedbackList.push({
-			_id: newFeedbackId,
-			userIp: hashIp,
-			feedbackLevel,
-			name,
-			comment,
-		});
+		if (feedbackId) {
+			const originalFeedbackOnSomePostId = await FeedbackModel.findOne({
+				"feedbackList.feedbackId": feedbackId,
+			});
+
+			const originalFeedback = originalFeedbackOnSomePostId?.feedbackList.find(
+				f => f.feedbackId === feedbackId
+			);
+
+			if (originalFeedback) {
+				postCollection.feedbackList.push({
+					feedbackLevel,
+					comment,
+					userIp: originalFeedback.userIp,
+					name: originalFeedback.name,
+					avatar: originalFeedback.avatar,
+					feedbackId: originalFeedback.feedbackId,
+				});
+			}
+		} else {
+			postCollection.feedbackList.push({
+				feedbackId: newFeedbackId,
+				userIp: hashIp,
+				feedbackLevel,
+				comment,
+				name,
+			});
+
+			setCookie({ res }, "feedbackId", newFeedbackId, {
+				maxAge: new Date("August 17 2030"),
+				path: "/",
+				sameSite: true,
+			});
+		}
 
 		await postCollection.save();
-
-		const isProduction = process.env.NODE_ENV === "production";
-
-		setCookie({ res }, "feedbackId", newFeedbackId.toHexString(), {
-			expires: new Date("August 17 2100"),
-			path: "/",
-			httpOnly: isProduction,
-			sameSite: isProduction ? "strict" : "none",
-			secure: isProduction,
-		});
 
 		return res.status(201).json({ message: "Feedback created successfully" });
 	} catch (err) {
@@ -110,10 +144,11 @@ const updateFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 	const userIp = socket.remoteAddress;
 	const updatedFields = body as BodyDataUpdateFeedback;
 
-	const { feedbackId } = parseCookies({ req });
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
 
 	try {
-		if (!userIp || !postId || !feedbackId)
+		if (!userIp || !postId || !authHeader)
 			return res.status(422).json({ message: "Missing required data" });
 
 		const postCollection = await FeedbackModel.findOne({ postId });
@@ -122,7 +157,7 @@ const updateFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 			return res.status(404).json({ message: "Post collection not found" });
 
 		const userFeedback = postCollection.feedbackList.find(
-			f => f._id.toHexString() === feedbackId && decrypt(f.userIp) === userIp
+			f => f.feedbackId === feedbackId && decrypt(f.userIp) === userIp
 		);
 
 		if (!userFeedback)
@@ -147,10 +182,11 @@ const deleteFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const { postId } = query;
 	const userIp = socket.remoteAddress;
-	const { feedbackId } = parseCookies({ req });
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
 
 	try {
-		if (!userIp || !postId || !feedbackId)
+		if (!userIp || !postId || !authHeader)
 			return res.status(422).json({ message: "Missing required data" });
 
 		const postCollection = await FeedbackModel.findOne({ postId });
@@ -159,7 +195,7 @@ const deleteFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 			return res.status(404).json({ message: "Post collection not found" });
 
 		const yourFeedback = postCollection.feedbackList.find(
-			f => f._id.toHexString() === feedbackId && decrypt(f.userIp) === userIp
+			f => f.feedbackId === feedbackId && decrypt(f.userIp) === userIp
 		);
 
 		if (!yourFeedback)
@@ -180,6 +216,14 @@ const deleteFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		if (!deletedFeedback)
 			return res.status(404).json({ message: "Feedback not found" });
+
+		const feedbackExistsOnPost = await FeedbackModel.findOne({
+			"feedbackList.feedbackId": feedbackId,
+		});
+
+		const isFeedbackExist = Boolean(feedbackExistsOnPost);
+
+		if (!isFeedbackExist) destroyCookie({ res }, "feedbackId", { path: "/" });
 
 		return res.status(200).json({ message: "Feedback successfully deleted" });
 	} catch (err) {

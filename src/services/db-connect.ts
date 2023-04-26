@@ -15,11 +15,11 @@ const dbConnect = async (): Promise<void> => {
 
 	try {
 		if (!uriConnect)
-			return console.log("É necessário fornecer uma URI para conexão");
+			return console.warn("É necessário fornecer uma URI para conexão");
 
 		await db.connect(uriConnect);
 
-		return console.log("Mongodb Connected");
+		return console.warn("Mongodb Connected");
 	} catch (err: any) {
 		console.error(err.message);
 		process.exit(1);

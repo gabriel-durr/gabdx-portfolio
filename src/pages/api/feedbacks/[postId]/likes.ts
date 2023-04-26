@@ -7,22 +7,33 @@ import {
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-	const { method } = req;
+	const {
+		method,
+		headers: { authorization },
+	} = req;
 
-	await dbConnect();
+	try {
+		const feedbackId = authorization?.split(" ")[1];
 
-	switch (method) {
-		case "POST":
-			await addLike(req, res);
-			break;
+		if (!feedbackId)
+			return res.status(400).json({ message: "Feedback is required" });
 
-		case "DELETE":
-			await removeLike(req, res);
-			break;
+		await dbConnect();
 
-		default:
-			res.setHeader("Allow", ["POST", "DELETE"]);
-			res.status(405).end(`Method ${method} Not Allowed`);
+		switch (method) {
+			case "POST":
+				return await addLike(req, res);
+
+			case "DELETE":
+				return await removeLike(req, res);
+
+			default:
+				res.setHeader("Allow", ["POST", "DELETE"]);
+				res.status(405).end(`Method ${method} Not Allowed`);
+		}
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ message: "Internal server error" });
 	}
 }
 

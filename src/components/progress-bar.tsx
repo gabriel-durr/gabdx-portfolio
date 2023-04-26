@@ -1,6 +1,6 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 export const Progressbar = () => {
 	const { scrollYProgress } = useScroll();
@@ -17,8 +17,9 @@ export const Progressbar = () => {
 			top={0}
 			left={0}
 			right={0}
-			height="0.1px"
-			bg={useColorModeValue("#4943f5", "#DAA520")}
+			h="1px"
+			bgColor="gbdx.progessDark"
+			_light={{ bg: "gbdx.progressLight" }}
 			transformOrigin="0%"
 			style={{ scaleX }}
 		/>

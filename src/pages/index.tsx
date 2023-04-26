@@ -16,7 +16,7 @@ const Home = ({ page, menuItems, footerData, seoData }: HomeProps) => {
 		<Layout
 			isGabdxImg
 			menuItems={menuItems}
-			altLang={page.alternate_languages}
+			altLangs={page.alternate_languages}
 			footerData={footerData}>
 			<SeoMetaData
 				seoTitle={seoData.seoTitle}
@@ -27,23 +27,13 @@ const Home = ({ page, menuItems, footerData, seoData }: HomeProps) => {
 			<Stack
 				as="main"
 				spacing={20}
-				w="100%"
+				w="full"
 				maxW="container.lg"
 				align="center"
 				justify="center">
 				<About page={page} />
 
-				<Heading
-					fontWeight="extrabold"
-					as="h1"
-					textTransform="uppercase"
-					fontSize={{ base: "1.12rem", md: "1.4rem" }}
-					_after={{
-						content: "''",
-						border: "1px solid #e61101",
-						display: "block",
-						width: "4rem",
-					}}>
+				<Heading as="h2" variant="topicPrimary">
 					{page.lang === "pt-br"
 						? "projetos e trabalhos"
 						: "projects and works"}

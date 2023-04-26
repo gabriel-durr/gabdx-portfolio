@@ -15,14 +15,14 @@ const Posts = ({ postData, page, menuItems, footerData }: PostsProps) => {
 	return (
 		<Layout
 			menuItems={menuItems}
-			altLang={page.alternate_languages}
+			altLangs={page.alternate_languages}
 			footerData={footerData}>
 			<Stack
 				as="main"
 				maxW="container.md"
 				justify="center"
 				spacing={28}
-				w={{ base: "100%", md: "92%", lg: "60%" }}>
+				w={{ base: "full", md: "92%", lg: "60%" }}>
 				<Head>
 					<title>{page.data.title}</title>
 				</Head>
@@ -39,20 +39,25 @@ export async function getStaticProps({
 }: GetStaticPropsContext) {
 	const client = createClient({ previewData });
 
-	const posts = await client.getAllByType("post", { lang: locale });
+	const posts = await client.getAllByType("post", {
+		lang: locale,
+		orderings: [
+			{ field: "document.first_publication_date", direction: "desc" },
+		],
+	});
 	const page = await client.getSingle("postindex", { lang: locale });
 	const menu = await client.getSingle("menu", { lang: locale });
 	const footer = await client.getSingle("footer", { lang: locale });
 
 	const { menuItems, footerData } = layoutFormat({ menu, footer });
 
-	const postData = posts.map(({ data, uid }) => ({
+	const postData = posts.map(({ data, uid, first_publication_date }) => ({
 		uid,
 		title: data.title,
 		tags: data.tag.map((tag: any) => tag.text),
 		image: data.image,
 		description: prismicH.asText(data.description),
-		date: prismicH.asDate(data.date!).toLocaleString("pt-br", {
+		date: new Date(first_publication_date).toLocaleString("pt-br", {
 			day: "2-digit",
 			month: "2-digit",
 			year: "numeric",

@@ -1,6 +1,6 @@
-import {FeedbacksData} from "@hooks/use-feedbacks";
+import { FeedbacksData } from "@hooks/use-feedbacks";
 
-import {Flex, HStack, Text, useColorModeValue} from "@chakra-ui/react";
+import { Flex, HStack, Text } from "@chakra-ui/react";
 
 type EmojisType = {
 	[key in keyof FeedbacksData["feedbackLevelQdt"]]: string;
@@ -18,7 +18,7 @@ type TotalFeedbacksProps = {
 	};
 };
 
-export const TotalFeedbacks = ({feedbackLevelQdt}: TotalFeedbacksProps) => {
+export const TotalFeedbacks = ({ feedbackLevelQdt }: TotalFeedbacksProps) => {
 	const emojis: EmojisType = {
 		excellent: "😁",
 		good: "🙂",
@@ -41,21 +41,30 @@ export const TotalFeedbacks = ({feedbackLevelQdt}: TotalFeedbacksProps) => {
 		}
 	});
 
-	const colorNumberMode = useColorModeValue("light.900", "myColors.moonSky");
-	const colorTextMode = useColorModeValue("whiteAlpha.500", "blackAlpha.500");
+	function colorByEmojiType(feedbackLevel: string) {
+		const colors: Record<string, string> = {
+			excellent: "green",
+			good: "green",
+			regular: "cyan.600",
+			bad: "red",
+			terrible: "red",
+		};
+		return colors[feedbackLevel] || "white";
+	}
 
 	return (
-		<Flex userSelect="none" pointerEvents="none">
-			{feedbacksExists.map(({emoji, feedbackQdt}) => (
-				<HStack spacing={2} key={emoji}>
+		<Flex gap={4} userSelect="none" pointerEvents="none">
+			{feedbacksExists.map(({ emoji, feedbackQdt, feedbackLevel }) => (
+				<HStack spacing={1} key={emoji}>
 					<Text>{emoji}</Text>
 
-					<Text color={colorTextMode} pr={4} fontFamily="Raleway">
-						(
-						<Text as="span" color={colorNumberMode}>
+					<Text as="span" fontFamily="body">
+						<Text
+							as="sup"
+							fontFamily="number"
+							color={colorByEmojiType(feedbackLevel)}>
 							{feedbackQdt}
 						</Text>
-						)
 					</Text>
 				</HStack>
 			))}

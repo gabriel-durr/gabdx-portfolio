@@ -1,6 +1,6 @@
 import NextImage from "next/image";
 
-import { AspectRatio, useColorModeValue } from "@chakra-ui/react";
+import { AspectRatio } from "@chakra-ui/react";
 
 type ImageProps = {
 	src: string;
@@ -10,11 +10,12 @@ type ImageProps = {
 export const CardImage = ({ src, alt }: ImageProps) => {
 	return (
 		<AspectRatio
+			w="full"
 			ratio={1.85 / 1}
 			position="relative"
-			w="100%"
 			borderBottomWidth="1px"
-			borderColor={useColorModeValue("gray.700", "gray.100")}>
+			borderColor="gray.700"
+			_light={{ borderColor: "gray.100" }}>
 			<NextImage
 				src={src}
 				fill

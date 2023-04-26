@@ -1,13 +1,22 @@
+import { Infos } from "./infos";
 import { Banner } from "./banner";
 import { Content } from "./content";
-import { BackButton } from "./back-button";
-import { InfoAndTechs } from "./info-and-techs";
+import { Breadcrumb } from "./breadcrumb";
+import { LatestPosts } from "./latest-posts";
 import { getStaticProps } from "@pages/posts/[uid]";
-import { FeedbacksInPost } from "./feedbacks-in-post";
+
+import dynamic from "next/dynamic";
+
+const FeedbacksInPost = dynamic(
+	() => import("./feedbacks-in-post").then(mod => mod.FeedbacksInPost),
+	{
+		ssr: true,
+	}
+);
 
 import { InferGetStaticPropsType } from "next";
 
-import { HStack, VStack, Heading, useColorModeValue } from "@chakra-ui/react";
+import { VStack, Heading, Stack } from "@chakra-ui/react";
 
 export type ViewPostProps = Pick<
 	InferGetStaticPropsType<typeof getStaticProps>,
@@ -15,47 +24,38 @@ export type ViewPostProps = Pick<
 >;
 
 export const ViewPost = ({ postData }: ViewPostProps) => {
-	const darkModeShadowColor = useColorModeValue("#ffffff11", "#06020127");
-
 	return (
 		<VStack
 			spacing={14}
-			w={{ base: "94%", md: "container.sm", lg: "container.md" }}
+			p={2}
+			justify="center"
 			align="flex-start"
-			justify="center">
-			<Heading
-				as="h1"
-				w="90%"
-				fontFamily="Raleway"
-				fontSize={{ base: "1.12rem", md: "1.54rem", lg: "2.14rem" }}
-				lineHeight="shorter"
-				textTransform="lowercase"
-				_firstLetter={{
-					textTransform: "uppercase",
-				}}
-				fontWeight="normal"
-				pt="2.5rem"
-				textShadow={`0px 8px 17px ${darkModeShadowColor}`}>
+			w={{ base: "full", md: "container.sm", lg: "container.md" }}>
+			<Heading as="h1" w="90%" variant="postPrimary">
 				{postData.title}
 			</Heading>
-			<VStack align="start" w="100%" spacing={{ base: 4, md: 8 }}>
+
+			<VStack align="start" w="full" spacing={8}>
 				<Banner image={postData.image} />
 
-				<HStack
-					w="100%"
+				<Stack
+					direction={{ base: "column", md: "row" }}
+					w="full"
 					px="2px"
 					align="center"
 					justify="space-between"
-					spacing={[1, 6]}>
-					<BackButton lang={postData.lang} />
+					spacing={6}>
+					<Breadcrumb lang={postData.lang} />
 
-					<InfoAndTechs date={postData.date} tags={postData.tags} />
-				</HStack>
+					<Infos createdAt={postData.createdAt} />
+				</Stack>
 			</VStack>
 
 			<Content description={postData.description} />
 
-			<FeedbacksInPost />
+			<LatestPosts latestPosts={postData.latestPosts} lang={postData.lang} />
+
+			<FeedbacksInPost lang={postData.lang} />
 		</VStack>
 	);
 };

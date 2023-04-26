@@ -5,7 +5,7 @@ import { AvatarAndCurriculum } from "./avatar-and-curriculum";
 import * as prismicH from "@prismicio/helpers";
 import { InferGetStaticPropsType } from "next";
 
-import { useColorModeValue, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 
 type AboutProps = Pick<InferGetStaticPropsType<typeof getStaticProps>, "page">;
 
@@ -32,26 +32,26 @@ export const About = ({ page }: AboutProps) => {
 		curriculum: prismicH.asLink(page.data.curriculum) || "",
 	};
 
-	const darkModeColor = useColorModeValue("gray.100", "gray.900");
-	const darkModeShadow = useColorModeValue(
-		"1px 1px 1px rgba(66, 74, 83, 0.297)",
-		"1px 1px 1px rgba(9, 17, 28, 0.23)"
-	);
-
 	return (
 		<VStack
 			w={["96%", "90%"]}
 			bg="transparent"
-			color={darkModeColor}
-			boxShadow={darkModeShadow}
-			spacing={{ base: "0", md: 4 }}
+			color="gray.100"
+			boxShadow="1px 1px 1px rgba(66, 74, 83, 0.297)"
+			spacing={{ base: 0, md: 1 }}
 			rounded="md"
 			justify="center"
 			align="center"
 			mt={{ base: "none", md: "4rem" }}
-			p={{ base: 1, md: 2 }}>
-			<AvatarAndCurriculum {...aboutContentData} />
-			<AboutContent aboutContentData={aboutContentData} lang={page.lang} />
+			p={{ base: 1, md: 2 }}
+			_light={{
+				color: "gray.900",
+				boxShadow: "1px 1px 1px rgba(9, 17, 28, 0.23)",
+			}}>
+			<VStack p={2} w={{ base: "full", md: "76%" }}>
+				<AvatarAndCurriculum {...aboutContentData} />
+				<AboutContent aboutContentData={aboutContentData} lang={page.lang} />
+			</VStack>
 		</VStack>
 	);
 };

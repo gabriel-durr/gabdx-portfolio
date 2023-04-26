@@ -1,9 +1,9 @@
 import Lottie from "lottie-react";
-import aDev from "@animations/dev.json";
+import aDev from "./data/dev.json";
 
 import { Box, useBreakpointValue } from "@chakra-ui/react";
 
-export const DevAnimation = () => {
+export const DevProgramming = () => {
 	const widthBreakpoint = useBreakpointValue({
 		base: "147px",
 		md: "217px",

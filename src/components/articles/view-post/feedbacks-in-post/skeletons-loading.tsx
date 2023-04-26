@@ -8,7 +8,7 @@ import {
 
 export const SkeletonsLoading = () => {
 	return (
-		<VStack boxSize="100%" spacing={8} padding={8} boxShadow="sm">
+		<VStack boxSize="full" spacing={8} padding={8} boxShadow="sm">
 			<Skeleton height="40px" fadeDuration={4} />
 
 			<HStack>
@@ -20,30 +20,30 @@ export const SkeletonsLoading = () => {
 			</HStack>
 
 			<SkeletonText
-				w="100%"
+				w="full"
 				mt="4"
 				noOfLines={4}
 				spacing={4}
 				skeletonHeight={2}
 			/>
 			<SkeletonText
-				w="100%"
+				w="full"
 				mt="4"
 				noOfLines={4}
 				spacing={4}
 				skeletonHeight={2}
 			/>
 			<SkeletonText
-				w="100%"
+				w="full"
 				mt="4"
 				noOfLines={4}
 				spacing={4}
 				skeletonHeight={2}
 			/>
 
-			<Skeleton w="100%" h="40px" />
+			<Skeleton w="full" h="40px" />
 
-			<Skeleton w="100%" h="40px" />
+			<Skeleton w="full" h="40px" />
 		</VStack>
 	);
 };

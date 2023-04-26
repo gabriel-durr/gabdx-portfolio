@@ -1,6 +1,5 @@
 import FeedbackModel from "@database/model/feedback-schema";
 
-import { parseCookies } from "nookies";
 import { NextApiRequest, NextApiResponse } from "next";
 
 type RequestBody = {
@@ -12,7 +11,9 @@ const addDislike = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const { postId } = query;
 	const { feedbackTo } = body as RequestBody;
-	const { feedbackId } = parseCookies({ req });
+
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
 
 	try {
 		if (!postId || !feedbackTo || !feedbackId)
@@ -24,7 +25,7 @@ const addDislike = async (req: NextApiRequest, res: NextApiResponse) => {
 			return res.status(404).json({ message: "Post collection not found" });
 
 		const feedback = postCollection?.feedbackList.find(
-			f => f._id.toHexString() === feedbackTo
+			f => f.feedbackId === feedbackTo
 		);
 
 		if (!feedback)
@@ -65,7 +66,9 @@ const removeDislike = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { query } = req;
 
 	const { postId, feedbackTo } = query;
-	const { feedbackId } = parseCookies({ req });
+
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
 
 	try {
 		if (!postId || !feedbackTo || !feedbackId)
@@ -77,7 +80,7 @@ const removeDislike = async (req: NextApiRequest, res: NextApiResponse) => {
 			return res.status(404).json({ message: "Post collection not found" });
 
 		const dislikesUserToFeedback = postCollection.feedbackList.find(
-			f => f._id.toHexString() === feedbackTo
+			f => f.feedbackId === feedbackTo
 		);
 
 		if (!dislikesUserToFeedback)

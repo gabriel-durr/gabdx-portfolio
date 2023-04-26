@@ -1,6 +1,6 @@
 import { Form } from "./form";
-import { DevAnimation } from "./dev-animation";
 import { MenuNavProps } from "@/layout/header/menu-nav";
+import { DevProgramming } from "@animations/dev-programming";
 
 import {
 	Text,
@@ -13,7 +13,6 @@ import {
 	ModalOverlay,
 	useDisclosure,
 	ModalCloseButton,
-	useColorModeValue,
 } from "@chakra-ui/react";
 
 export type ContactFormProps = Pick<MenuNavProps["menuItems"], "formData"> & {
@@ -28,13 +27,9 @@ export const ContactForm = ({
 }: ContactFormProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const bgModelMode = useColorModeValue(
-		"myColors.gradFormDark",
-		"myColors.gradFormLight"
-	);
-
-	const colorHeaderMode = useColorModeValue("light.100", "gray.600");
 	const emailNameButtonLang = lang === "pt-br" ? "E-mail" : "Email";
+
+	//TODO CRIAR ADDON ICONS NO INPUT NAME E EMAIL
 
 	return (
 		<>
@@ -47,7 +42,7 @@ export const ContactForm = ({
 					fontSize={[".72rem", ".84rem"]}
 					color="gray.900"
 					lineHeight="shorter"
-					fontFamily="Raleway"
+					fontFamily="body"
 					_hover={{ color: linkColor }}
 					transition="color ease .2s">
 					{emailNameButtonLang}
@@ -61,27 +56,32 @@ export const ContactForm = ({
 				isOpen={isOpen}
 				onClose={onClose}>
 				<ModalOverlay backdropFilter="auto" backdropInvert="20%" />
-				<ModalContent borderRadius="4px" alignItems="center" bg={bgModelMode}>
+				<ModalContent
+					borderRadius="4px"
+					alignItems="center"
+					bg="gbdx.gradFormDark"
+					_light={{ bg: "gbdx.gradFormLight" }}>
 					<ModalHeader
 						fontSize={["1.3rem", "1.32rem"]}
 						lineHeight="shorter"
 						letterSpacing="wide"
-						fontFamily="DM Sans"
+						fontFamily="heading"
 						textTransform="uppercase"
-						color={colorHeaderMode}>
+						color="light.100"
+						_light={{ color: "gray.600" }}>
 						{formData.title}
 					</ModalHeader>
 					<ModalCloseButton
 						bg="#8c34345a"
-						color="myColors.white"
+						color="gbdx.white"
 						border="1px solid #ffffff43"
 						_hover={{
 							bg: "red",
 							transition: "all .2s ease-in-out",
 						}}
 					/>
-					<ModalBody boxSize="100%" display="flex" alignItems="end">
-						<DevAnimation />
+					<ModalBody boxSize="full" display="flex" alignItems="end">
+						<DevProgramming />
 						<Form formData={formData} lang={lang} />
 					</ModalBody>
 				</ModalContent>

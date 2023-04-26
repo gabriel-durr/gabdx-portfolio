@@ -1,11 +1,15 @@
 import CryptoJS from "crypto-js";
 
 export const decrypt = (userIp: string) => {
-	let bytes = CryptoJS.AES.decrypt(userIp, "ashdhas");
+	try {
+		const bytes = CryptoJS.AES.decrypt(userIp, "ashdhas");
+		const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
-	let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-
-	return decryptedData as string;
+		return decryptedData;
+	} catch (error) {
+		console.error(error);
+		return "Hash invalida";
+	}
 };
 
 export const encrypt = (userIp: string) => {

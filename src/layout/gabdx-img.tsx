@@ -3,7 +3,7 @@ import NextImage from "next/image";
 import { Box, useColorModeValue } from "@chakra-ui/react";
 
 export const GabdxImg = () => {
-	const homeBgSwitch = useColorModeValue("/gabd-dark.png", "/gabd-light.png");
+	const homeBgMode = useColorModeValue("/gabd-light.png", "/gabd-dark.png");
 
 	return (
 		<Box
@@ -13,7 +13,7 @@ export const GabdxImg = () => {
 			bottom="28">
 			<NextImage
 				fill
-				src={homeBgSwitch}
+				src={homeBgMode}
 				alt="Imagem Gabd. Robotz"
 				sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw"
 			/>

@@ -13,7 +13,6 @@ import {
 	useDisclosure,
 	PopoverTrigger,
 	PopoverContent,
-	useColorModeValue,
 } from "@chakra-ui/react";
 
 type DropDownProps = MenuNavProps;
@@ -45,7 +44,7 @@ export const DropDownMenu = ({ menuItems }: DropDownProps) => {
 	const linkColor = "#DAA520";
 
 	return (
-		<Stack direction="row" spacing={4} pr={[0, "5rem"]}>
+		<Stack direction="row" spacing={4} pr={{ base: 0, md: "5rem" }}>
 			<Popover
 				trigger="hover"
 				placement="bottom-start"
@@ -53,7 +52,10 @@ export const DropDownMenu = ({ menuItems }: DropDownProps) => {
 				onClose={onClose}>
 				<PopoverTrigger>
 					<HStack align="end" cursor="pointer" role="group">
-						<Text fontSize="1.148rem" fontFamily="DM Sans" cursor="pointer">
+						<Text
+							fontSize={{ base: "1.02rem", md: "1.148rem" }}
+							fontFamily="DM Sans"
+							cursor="pointer">
 							{menuItems.connect}
 						</Text>
 						<Icon
@@ -74,9 +76,10 @@ export const DropDownMenu = ({ menuItems }: DropDownProps) => {
 					p={2}
 					pl={3}
 					borderStyle="dotted"
-					borderColor={useColorModeValue("gray.800", "myColors.black")}
-					bg={useColorModeValue("myColors.white", "gray.50")}
-					maxW={["150px", "180px"]}>
+					borderColor="gray.800"
+					bg="gbdx.white"
+					maxW={["150px", "180px"]}
+					_light={{ borderColor: "gbdx", bg: "gray.50" }}>
 					<Stack>
 						<ContactForm
 							formData={menuItems.formData}

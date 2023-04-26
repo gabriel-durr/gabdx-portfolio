@@ -4,17 +4,12 @@ import { getTimeGreeting } from "@utils/get-time-greeting";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 
 import { useEffect, useState } from "react";
-import { Text, useColorModeValue } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 
 type GreetingProps = Pick<Content.HomeDocument, "lang">;
 
 export const Greeting = ({ lang }: GreetingProps) => {
 	const [greeting, setGreeting] = useState("");
-
-	const textShadowMode = useColorModeValue(
-		"0 0 22px #4b30c4",
-		"0 0 22px #ffee10"
-	);
 
 	const content = [
 		`Gabriel ${lang === "pt-br" ? "aqui" : "here"}`,
@@ -42,11 +37,14 @@ export const Greeting = ({ lang }: GreetingProps) => {
 	return (
 		<Text
 			as={motion.p}
-			mb={5}
+			my={4}
 			fontWeight="bold"
 			color="goldenrod"
-			textShadow={textShadowMode}
-			fontSize={{ base: ".9rem", md: "1.1rem" }}>
+			textShadow="0 0 22px #4b30c4"
+			fontSize={{ base: 14, md: "subText" }}
+			_light={{
+				textShadow: "0 0 22px #ffee10",
+			}}>
 			{text}
 			<Text as="span" fontWeight="bold" fontSize="2xl">
 				<Cursor cursorStyle="⚡" />

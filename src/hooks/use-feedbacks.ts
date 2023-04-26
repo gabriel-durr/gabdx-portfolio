@@ -1,16 +1,21 @@
 import { api } from "@services/api";
 import {
 	changeTheLikeNow,
+	removeFeedbackNow,
+	UpdatedFeedbackNow,
 	changeTheDislikeNow,
 } from "@utils/att-swr-cache-now";
 
 import useSWR from "swr";
 import { Types } from "mongoose";
+import { parseCookies } from "nookies";
 import { useRouter } from "next/router";
 
 export type FeedbackList = {
 	_id: Types.ObjectId;
+	feedbackId: string;
 	feedbackLevel: "terrible" | "bad" | "regular" | "good" | "excellent";
+	avatar?: string;
 	name: string;
 	comment: string;
 	likes: {
@@ -22,6 +27,7 @@ export type FeedbackList = {
 		dislikeQdt: number;
 	};
 	createdAt: Date;
+	updatedAt: Date;
 };
 
 export type FeedbackLevelQdt = {
@@ -32,10 +38,26 @@ export type FeedbackLevelQdt = {
 	terrible: number;
 };
 
+export type CreateFeedbackType = Pick<
+	FeedbackList,
+	"feedbackLevel" | "name" | "comment"
+>;
+
 export type FeedbacksData = {
+	isBanned: boolean;
 	feedbackList: FeedbackList[];
 	totalFeedbacks: number;
 	feedbackLevelQdt: FeedbackLevelQdt;
+};
+
+export type UpdatedFeedbackType = Partial<
+	Pick<FeedbackList, "avatar" | "comment">
+>;
+
+export type ReportFeedbackType = {
+	reportedByName: string;
+	reporterTo: string;
+	typeOfReport: string;
 };
 
 const fetcher = (url: string) => api.get(url).then(res => res.data);
@@ -50,6 +72,54 @@ const useFeedback = () => {
 		Error
 	>(`/feedbacks?postId=${queryPostId}`, fetcher, { revalidateOnFocus: false });
 
+	const { feedbackId } = parseCookies();
+
+	async function createFeedback(newData: CreateFeedbackType) {
+		try {
+			await api.post(`/feedbacks/${queryPostId}`, newData);
+
+			mutate();
+
+			await api.post("/wbhook-notification", {
+				message: `NEW FEEDBACK!  Name: ${newData.name}  Comment: ${newData.comment}`,
+			});
+		} catch (err) {
+			throw err;
+		}
+	}
+
+	async function updateFeedback(updatedData: UpdatedFeedbackType) {
+		try {
+			await api.put(`/feedbacks/${queryPostId}`, updatedData);
+
+			if (!data) return;
+
+			const updatedDataNow = UpdatedFeedbackNow({
+				data,
+				updatedData,
+				feedbackId,
+			});
+
+			mutate(updatedDataNow);
+		} catch (err) {
+			throw err;
+		}
+	}
+
+	async function removeFeedback() {
+		try {
+			await api.delete(`/feedbacks/${queryPostId}`);
+
+			if (!data) return;
+
+			const updatedDataNow = removeFeedbackNow({ data, feedbackId });
+
+			mutate(updatedDataNow);
+		} catch (err) {
+			throw err;
+		}
+	}
+
 	async function addLike(feedbackTo: string) {
 		try {
 			await api.post(`/feedbacks/${queryPostId}/likes`, {
@@ -58,11 +128,15 @@ const useFeedback = () => {
 
 			if (!data) return;
 
-			const updatedData = changeTheLikeNow({ isLike: true, data, feedbackTo });
+			const updatedDataNow = changeTheLikeNow({
+				isLike: true,
+				data,
+				feedbackTo,
+			});
 
-			mutate(updatedData);
+			mutate(updatedDataNow);
 		} catch (err) {
-			console.error(err);
+			throw err;
 		}
 	}
 
@@ -76,11 +150,15 @@ const useFeedback = () => {
 
 			if (!data) return;
 
-			const updatedData = changeTheLikeNow({ isLike: false, data, feedbackTo });
+			const updatedDataNow = changeTheLikeNow({
+				isLike: false,
+				data,
+				feedbackTo,
+			});
 
-			mutate(updatedData);
+			mutate(updatedDataNow);
 		} catch (err) {
-			console.error(err);
+			throw err;
 		}
 	}
 
@@ -92,15 +170,15 @@ const useFeedback = () => {
 
 			if (!data) return;
 
-			const updatedData = changeTheDislikeNow({
+			const updatedDataNow = changeTheDislikeNow({
 				data,
 				feedbackTo,
 				isDislike: true,
 			});
 
-			mutate(updatedData);
+			mutate(updatedDataNow);
 		} catch (err) {
-			console.error(err);
+			throw err;
 		}
 	}
 	async function removeDislike(feedbackTo: string) {
@@ -111,15 +189,49 @@ const useFeedback = () => {
 
 			if (!data) return;
 
-			const updatedData = changeTheDislikeNow({
+			const updatedDataNow = changeTheDislikeNow({
 				data,
 				feedbackTo,
 				isDislike: false,
 			});
 
-			mutate(updatedData);
+			mutate(updatedDataNow);
 		} catch (err) {
-			console.error(err);
+			throw err;
+		}
+	}
+
+	async function currentFeedback(): Promise<
+		Record<"feedbackId" | "name", string>
+	> {
+		try {
+			const {
+				data: { currentFeedback },
+			} = await api.get(`/feedbacks/${queryPostId}`);
+
+			return currentFeedback;
+		} catch (err) {
+			throw err;
+		}
+	}
+
+	async function reportThisUser({
+		reportedByName,
+		reporterTo,
+		typeOfReport,
+	}: ReportFeedbackType) {
+		try {
+			await api.post(`feedbacks/${queryPostId}/reports`, {
+				reporterTo,
+				reportedByName,
+				typeOfReport,
+			});
+
+			await api.post("/wbhook-notification", {
+				message: `NEW REPORT!  reporterTo: ${reporterTo}  reportedByName: ${reportedByName}`,
+			});
+		} catch (err) {
+			throw err;
 		}
 	}
 
@@ -127,12 +239,17 @@ const useFeedback = () => {
 		data,
 		error,
 		mutate,
-		isLoading,
-		isValidating,
 		addLike,
+		isLoading,
 		removeLike,
 		addDislike,
+		isValidating,
 		removeDislike,
+		createFeedback,
+		removeFeedback,
+		updateFeedback,
+		reportThisUser,
+		currentFeedback,
 	};
 };
 

@@ -18,22 +18,28 @@ export type LayoutProps = Pick<
 > & {
 	isGabdxImg?: boolean;
 	children: ReactNode;
-	altLang: typeAllDocumentsLang;
+	altLangs: typeAllDocumentsLang;
 };
 
 export const Layout = ({
 	isGabdxImg = false,
 	menuItems,
-	altLang,
+	altLangs,
 	footerData,
 	children,
 }: LayoutProps) => {
 	return (
 		<>
-			<Header altLang={altLang} menuItems={menuItems} />
-			<Progressbar />
+			<Header altLangs={altLangs} menuItems={menuItems} />
+			{/* <Progressbar /> */}
 
-			<Flex pb="17rem" minH="100vh" minW="100vw" pt="9.7rem" justify="center">
+			<Flex
+				as="main"
+				pb="17rem"
+				minH="100vh"
+				minW="100vw"
+				pt="9.7rem"
+				justify="center">
 				{children}
 			</Flex>
 

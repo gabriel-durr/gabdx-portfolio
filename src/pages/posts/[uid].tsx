@@ -4,7 +4,7 @@ import { layoutFormat } from "@/utils/layout-formated";
 import { ViewPost } from "@components/articles/view-post";
 
 import Head from "next/head";
-import * as prismicH from "@prismicio/helpers";
+import { predicate } from "@prismicio/client";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 
 import { Stack } from "@chakra-ui/react";
@@ -16,7 +16,7 @@ type PostProps = InferGetStaticPropsType<typeof getStaticProps>;
 const Posts = ({ postData, menuItems, footerData }: PostProps) => {
 	return (
 		<Layout
-			altLang={postData.altLang}
+			altLangs={postData.altLang}
 			menuItems={menuItems}
 			footerData={footerData}>
 			<Head>
@@ -29,7 +29,7 @@ const Posts = ({ postData, menuItems, footerData }: PostProps) => {
 				maxW="container.md"
 				spacing={4}
 				align="center"
-				w={["100%", "98%", "99%", "60%"]}>
+				w={["full", "98%", "99%", "60%"]}>
 				<ViewPost postData={postData} />
 			</Stack>
 		</Layout>
@@ -48,21 +48,26 @@ export async function getStaticProps({
 	const page = await client.getByUID("post", uuid, { lang: locale });
 	const menu = await client.getSingle("menu", { lang: locale });
 	const footer = await client.getSingle("footer", { lang: locale });
-
 	const { menuItems, footerData } = layoutFormat({ menu, footer });
+
+	const latestPosts = await client.getAllByType("post", {
+		lang: locale,
+		predicates: [predicate.not("my.post.uid", uuid)],
+		limit: 2,
+		orderings: [
+			{ field: "document.first_publication_date", direction: "desc" },
+		],
+	});
 
 	const postData = {
 		lang: page.lang,
 		altLang: page.alternate_languages,
 		image: page.data.image,
 		title: page.data.title,
-		date: prismicH.asDate(page.data.date!).toLocaleString("pt-br", {
-			day: "2-digit",
-			month: "2-digit",
-			year: "numeric",
-		}),
+		createdAt: new Date(page.first_publication_date).toLocaleString(locale),
 		tags: page.data.tag.map((tag: any) => tag.text),
 		description: page.data.description,
+		latestPosts,
 	};
 
 	return {
@@ -78,7 +83,7 @@ export async function getStaticProps({
 export async function getStaticPaths() {
 	const client = createClient();
 
-	const pages = await client.getAllByType("post", { lang: "*" }); //TODO test sem oo objeto vazio
+	const pages = await client.getAllByType("post", { lang: "*" });
 
 	return {
 		paths: pages.map(({ uid, lang }) => ({

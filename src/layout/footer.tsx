@@ -27,8 +27,7 @@ type FooterProps = Pick<
 >;
 
 export const Footer = ({ footerData }: FooterProps) => {
-	const bgColorMode = useColorModeValue("myColors.white", "myColors.black");
-	const colorMode = useColorModeValue("gray.900", "gray.100");
+	const heartCreditsMode = useColorModeValue("🤍", "🖤");
 
 	return (
 		<Flex
@@ -37,8 +36,9 @@ export const Footer = ({ footerData }: FooterProps) => {
 			h="110px"
 			align="center"
 			justify="center"
-			color={colorMode}
-			bg={bgColorMode}>
+			color="gray.900"
+			bg="gbdx.white"
+			_light={{ bg: "gbdx.black", color: "gray.100" }}>
 			<Stack
 				direction={["column", "column", "column", "row"]}
 				w={["90%", "90%", "90%", "70%"]}
@@ -57,9 +57,10 @@ export const Footer = ({ footerData }: FooterProps) => {
 				<Text
 					order={[1, 1, 0, 0]}
 					whiteSpace="nowrap"
-					fontSize={[".57rem", ".84rem"]}>{`${
-					footerData.credits
-				}  ${useColorModeValue("🖤", "🤍")}`}</Text>
+					fontSize={[
+						".62rem",
+						".84rem",
+					]}>{`${footerData.credits}  ${heartCreditsMode}`}</Text>
 
 				<HStack justify="flex-end" spacing="2">
 					<Link as={NextLink} href={footerData.linkedinLink} target="_blank">

@@ -1,15 +1,62 @@
-import { FeedbacksData } from "@hooks/use-feedbacks";
+import { FeedbacksData, UpdatedFeedbackType } from "@hooks/use-feedbacks";
 
-type ChangeTheLikeNowType = {
-	isLike: boolean;
+type DataApiFeedback = {
 	data: FeedbacksData;
+};
+
+type ChangeTheLikeNowType = DataApiFeedback & {
+	isLike: boolean;
 	feedbackTo: string;
 };
 
-type ChangeTheDislikeNowType = {
+type ChangeTheDislikeNowType = DataApiFeedback & {
 	isDislike: boolean;
-	data: FeedbacksData;
 	feedbackTo: string;
+};
+
+type UpdatedFeedbackNowType = DataApiFeedback & {
+	updatedData: UpdatedFeedbackType;
+	feedbackId: string;
+};
+
+type RemoveFeedbackNowType = DataApiFeedback & {
+	feedbackId: string;
+};
+
+const UpdatedFeedbackNow = ({
+	data,
+	updatedData,
+	feedbackId,
+}: UpdatedFeedbackNowType) => {
+	const updatedFeedbackList = data.feedbackList.map(feedback => {
+		if (feedback._id.toString() === feedbackId) {
+			return {
+				...feedback,
+				...updatedData,
+			};
+		}
+		return feedback;
+	});
+
+	const updatedFeedbackData: FeedbacksData = {
+		...data,
+		feedbackList: updatedFeedbackList || [],
+	};
+
+	return updatedFeedbackData;
+};
+
+const removeFeedbackNow = ({ data, feedbackId }: RemoveFeedbackNowType) => {
+	const updatedFeedbackList = data.feedbackList.filter(
+		feedback => feedback._id.toString() !== feedbackId
+	);
+
+	const updatedFeedbackData: FeedbacksData = {
+		...data,
+		feedbackList: updatedFeedbackList || [],
+	};
+
+	return updatedFeedbackData;
 };
 
 const changeTheLikeNow = ({
@@ -62,4 +109,9 @@ const changeTheDislikeNow = ({
 	return updatedData;
 };
 
-export { changeTheLikeNow, changeTheDislikeNow };
+export {
+	changeTheLikeNow,
+	changeTheDislikeNow,
+	UpdatedFeedbackNow,
+	removeFeedbackNow,
+};

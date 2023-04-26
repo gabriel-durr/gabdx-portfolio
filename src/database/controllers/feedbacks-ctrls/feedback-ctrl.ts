@@ -1,6 +1,6 @@
 import FeedbackModel from "@database/model/feedback-schema";
-
-import { parseCookies } from "nookies";
+import BanLocationModel from "@database/model/ban-location-schema";
+import { decrypt } from "@utils/crypt-hash";
 
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -9,13 +9,20 @@ const getAllFeedbacks = async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const { postId } = query;
 	const userIp = socket.remoteAddress;
-	const { feedbackId } = parseCookies({ req });
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
 
 	try {
 		if (!userIp || !postId)
 			return res
 				.status(422)
 				.json({ message: "Query requirements not provided" });
+
+		const allBanLocations = await BanLocationModel.find({});
+
+		const isBanned = allBanLocations.some(
+			ban => decrypt(ban.userIp) === userIp
+		);
 
 		const postCollection = await FeedbackModel.findOne(
 			{ postId },
@@ -38,8 +45,8 @@ const getAllFeedbacks = async (req: NextApiRequest, res: NextApiResponse) => {
 			const likes = feedback.likes;
 			const dislikes = feedback.dislikes;
 
-			const isLike = likes?.includes(feedbackId);
-			const isDislike = dislikes?.includes(feedbackId);
+			const isLike = feedbackId ? likes?.includes(feedbackId) : false;
+			const isDislike = feedbackId ? dislikes?.includes(feedbackId) : false;
 
 			return {
 				...feedback,
@@ -81,6 +88,7 @@ const getAllFeedbacks = async (req: NextApiRequest, res: NextApiResponse) => {
 		);
 
 		return res.status(200).json({
+			isBanned,
 			feedbackList,
 			totalFeedbacks,
 			feedbackLevelQdt,

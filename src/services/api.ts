@@ -1,8 +1,5 @@
 import axios from "axios";
 import { parseCookies } from "nookies";
-import { NextPageContext } from "next";
-
-const getCookies = (ctx?: NextPageContext) => parseCookies(ctx);
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -13,11 +10,10 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(config => {
-	const cookies = getCookies();
-	const feedbackId = cookies["feedbackId"];
+	const { feedbackId } = parseCookies();
 
 	if (feedbackId) {
-		config.headers.Authorization = `Bearer ${feedbackId}`;
+		config.headers.Authorization = `feedbackId ${feedbackId}`;
 	}
 
 	return config;

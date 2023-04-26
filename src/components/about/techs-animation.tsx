@@ -17,7 +17,7 @@ export const TechsAnimation = () => {
 	const [width, setWidth] = useState(0);
 	const ref = useRef<HTMLDivElement>(null);
 
-	const bgGradMode = useColorModeValue("#b7a9ff", "#ffeeb4ac");
+	const bgGradMode = useColorModeValue("#ffeeb4ac", "#b7a9ff");
 
 	useEffect(() => {
 		if (ref.current) {
@@ -29,23 +29,22 @@ export const TechsAnimation = () => {
 	return (
 		<HStack
 			pos="relative"
-			w={{ base: "100%", md: "96%", lg: "100%" }}
+			w={{ base: "full", md: "96%", lg: "full" }}
 			h="5rem"
 			overflow="hidden"
 			clipPath="polygon(100% 0%, 99.6% 48.3%, 100% 100%, 49% 93%, 0% 100%, 0% 46.3%, 0% 0%)"
 			mt="1rem"
 			_before={{
-				bgGradient: `linear(to right, ${bgGradMode} 0%, rgba(255, 255, 255, 0) 100%)`,
 				content: "''",
-				h: "100%",
 				position: "absolute",
-				w: "32px",
-				zIndex: 2,
 				left: 0,
 				top: 0,
+				zIndex: 2,
+				h: "full",
+				w: "32px",
+				bgGradient: `linear(to right, ${bgGradMode} 0%, rgba(255, 255, 255, 0) 100%)`,
 			}}
 			_after={{
-				bgGradient: `linear(to right, ${bgGradMode} 0%, rgba(255, 255, 255, 0) 100%)`,
 				content: "''",
 				h: "92%",
 				position: "absolute",
@@ -54,6 +53,7 @@ export const TechsAnimation = () => {
 				right: 0,
 				top: 0,
 				transform: "rotateZ(180deg)",
+				bgGradient: `linear(to right, ${bgGradMode} 0%, rgba(255, 255, 255, 0) 100%)`,
 			}}>
 			<Flex
 				as={motion.div}
@@ -73,7 +73,7 @@ export const TechsAnimation = () => {
 						<Box
 							as={motion.div}
 							borderRadius="full"
-							bg="myColors.white"
+							bg="gbdx.white"
 							mr="2rem"
 							boxSize="max-content"
 							filter={{ lg: "grayscale(1)" }}

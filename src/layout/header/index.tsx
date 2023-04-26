@@ -7,11 +7,10 @@ import NextLink from "next/link";
 
 import { Flex, HStack, Link, useMediaQuery, Image } from "@chakra-ui/react";
 
-type HeaderProps = Pick<LayoutProps, "menuItems" | "altLang">;
+type HeaderProps = Pick<LayoutProps, "menuItems" | "altLangs">;
 
-export const Header = ({ menuItems, altLang }: HeaderProps) => {
+export const Header = ({ menuItems, altLangs }: HeaderProps) => {
 	const [isLargerScreen] = useMediaQuery("(min-width: 700px)");
-	const [isVerySmallScreen] = useMediaQuery("max-width: 400px");
 
 	return (
 		<Flex
@@ -21,29 +20,34 @@ export const Header = ({ menuItems, altLang }: HeaderProps) => {
 			h="4rem"
 			position="fixed"
 			backdropFilter="blur(10px)"
-			zIndex={17}>
+			zIndex={17}
+			data-testid="header">
 			<HStack
 				as="nav"
-				w="100%"
-				px={2}
+				w="full"
 				maxW="94rem"
 				align="center"
-				justify="space-around">
-				{!isVerySmallScreen && (
-					<Link as={NextLink} href="/" rounded="full" p={{ sm: 0, md: 2 }}>
+				px={{ base: 0, md: 2 }}
+				justify={{ base: "center", md: "space-around" }}>
+				{isLargerScreen && (
+					<Link as={NextLink} href="/" rounded="full" p={2}>
 						<Image src="/gd-logo.png" w="2.374rem" alt="my brand logo" />
 					</Link>
 				)}
 
 				<HStack
-					spacing={{ base: 4, md: 8 }}
-					fontSize={["1rem", "1.13rem"]}
-					h="100%"
-					align="flex-end"
-					p=".52rem">
+					pos="relative"
+					h="full"
+					p=".52rem"
+					align="end"
+					spacing={{ base: 4, sm: 6, md: 8 }}
+					fontSize={{ base: "1rem", md: "1.13rem" }}>
 					<MenuNav menuItems={menuItems} />
 
-					<LanguageSwitcher isLargerScreen={isLargerScreen} altLang={altLang} />
+					<LanguageSwitcher
+						isLargerScreen={isLargerScreen}
+						altLangs={altLangs}
+					/>
 
 					<SwitchColorMode />
 				</HStack>

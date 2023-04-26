@@ -1,20 +1,19 @@
 import FeedbackModel from "@database/model/feedback-schema";
 
-import { parseCookies } from "nookies";
 import { NextApiRequest, NextApiResponse } from "next";
 
 type RequestBody = {
 	feedbackTo: string;
 };
 
-//TODO criar um aviso de pedido de utilização de cookies na home, e enviar uma status de erro pra só aceitar requests se o usuário já fez algum feedback, ou seja ele só vai poder curtir, denunciar, etc se ele já fez algum comentário.
-
 const addLike = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { body, query } = req;
 
 	const { postId } = query;
 	const { feedbackTo } = body as RequestBody;
-	const { feedbackId } = parseCookies({ req });
+
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
 
 	try {
 		if (!postId || !feedbackTo || !feedbackId)
@@ -26,7 +25,7 @@ const addLike = async (req: NextApiRequest, res: NextApiResponse) => {
 			return res.status(404).json({ message: "Post collection not found" });
 
 		const feedback = postCollection?.feedbackList.find(
-			f => f._id.toHexString() === feedbackTo
+			f => f.feedbackId === feedbackTo
 		);
 
 		if (!feedback)
@@ -64,7 +63,9 @@ const removeLike = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { query } = req;
 
 	const { postId, feedbackTo } = query;
-	const { feedbackId } = parseCookies({ req });
+
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
 
 	try {
 		if (!postId || !feedbackTo || !feedbackId)
@@ -76,7 +77,7 @@ const removeLike = async (req: NextApiRequest, res: NextApiResponse) => {
 			return res.status(404).json({ message: "Post collection not found" });
 
 		const feedback = postCollection.feedbackList.find(
-			f => f._id.toHexString() === feedbackTo
+			f => f.feedbackId === feedbackTo
 		);
 
 		if (!feedback)

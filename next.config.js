@@ -23,7 +23,7 @@ const nextConfig = async () => {
 			defaultLocale: locales[0],
 		},
 		images: {
-			domains: ["images.prismic.io"],
+			domains: ["images.prismic.io", "prismic-io.s3.amazonaws.com"],
 		},
 	};
 };

@@ -1,24 +1,29 @@
 import FeedbackModel from "@database/model/feedback-schema";
 
-import { parseCookies } from "nookies";
 import { NextApiRequest, NextApiResponse } from "next";
 
 type RequestBody = {
 	reporterTo: string;
+	reportedBy_Id: string;
 	reportedByName: string;
-	message: string;
+	typeOfReport: string;
 };
 
 const createReport = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { body, query } = req;
 
-	const { feedbackId } = parseCookies({ req });
+	const authHeader = req.headers.authorization;
+	const feedbackId = authHeader?.split(" ")[1];
 
 	const { postId } = query;
-	const { reportedByName, message, reporterTo } = body as RequestBody;
+	const { reportedByName, reporterTo, typeOfReport } = body as RequestBody;
+
+	const requiredProps = ["reportedByName", "reporterTo", "typeOfReport"];
+
+	const allPropsExist = requiredProps.every(prop => body.hasOwnProperty(prop));
 
 	try {
-		if (!postId || !feedbackId || !reportedByName || !message || !reporterTo)
+		if (!allPropsExist || !postId || !feedbackId)
 			return res.status(422).json({ message: "Missing required data" });
 
 		const postCollection = await FeedbackModel.findOne({ postId });
@@ -27,27 +32,25 @@ const createReport = async (req: NextApiRequest, res: NextApiResponse) => {
 			return res.status(404).json({ message: "Post not found" });
 
 		const feedbackReported = postCollection?.feedbackList.find(
-			f => f._id.toHexString() === reporterTo
+			f => f.feedbackId === reporterTo
 		);
 
 		if (!feedbackReported)
 			return res.status(404).json({ message: "Feedback reported not found" });
 
-		const yourReportsOnFeedback =
-			feedbackReported?.reports?.filter(r => r.reportedBy_Id === feedbackId) ||
-			[];
+		const maxYourReportsOnFeedback =
+			feedbackReported?.reports?.filter(r => r.reportedBy_Id === feedbackId)
+				.length === 2;
 
-		const isMoreThanFiveYourReports = yourReportsOnFeedback?.length === 2;
-
-		if (isMoreThanFiveYourReports)
-			return res.status(400).json({
+		if (maxYourReportsOnFeedback)
+			return res.status(429).json({
 				message: "You cannot create more reports for this feedback",
 			});
 
 		feedbackReported.reports?.push({
-			message,
 			reportedByName,
 			reportedBy_Id: feedbackId,
+			typeOfReport,
 		});
 
 		await postCollection.save();

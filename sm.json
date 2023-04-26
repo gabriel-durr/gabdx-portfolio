@@ -1,5 +1,5 @@
 {
-	"apiEndpoint": "https://gab-of-work.prismic.io/api/v2",
+	"apiEndpoint": "https://gab-of-work.cdn.prismic.io/api/v2",
 	"libraries": ["@/slices"],
 	"_latest": "0.3.0",
 	"localSliceSimulatorURL": "http://localhost:3000/slice-simulator",

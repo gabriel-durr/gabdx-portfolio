@@ -1,34 +1,17 @@
 import { motion } from "framer-motion";
 
-import { useEffect } from "react";
-import {
-	Box,
-	Text,
-	useToken,
-	useBoolean,
-	useColorMode,
-} from "@chakra-ui/react";
+import { Box, Text, useToken, useColorMode } from "@chakra-ui/react";
 
 export function SwitchColorMode() {
-	const [isMoon, setMoon] = useBoolean();
-
 	const { toggleColorMode, colorMode } = useColorMode();
 	const [sunColor, moonColor, sunShadow, moonShadow] = useToken("colors", [
-		"myColors.sun",
-		"myColors.moon",
-		"myColors.sunShadow",
-		"myColors.moonShadow",
+		"gbdx.sun",
+		"gbdx.moon",
+		"gbdx.sunShadow",
+		"gbdx.moonShadow",
 	]);
 
-	function handleFn() {
-		setMoon.toggle();
-		toggleColorMode();
-	}
-
-	useEffect(
-		() => (colorMode !== "dark" ? setMoon.on() : setMoon.off()),
-		[colorMode]
-	);
+	let isMoon = colorMode === "dark";
 
 	return (
 		<motion.button
@@ -39,16 +22,17 @@ export function SwitchColorMode() {
 			style={{
 				overflow: "hidden",
 			}}
-			onClick={handleFn}>
+			aria-label={colorMode}
+			role="button"
+			onClick={toggleColorMode}>
 			<Box
 				cursor="pointer"
-				aria-label={colorMode}
 				display="inline-block"
 				border="1px solid #ffc71042"
 				position="relative"
-				w={{ base: "38px", md: "42px" }}
-				h={{ base: "28px", md: "32px" }}
-				bg={isMoon ? "myColors.moonSky" : "myColors.sunsetSky"}
+				w={{ base: "32px", sm: "38px", md: "42px" }}
+				h={{ base: "28px", sm: "28px", md: "32px" }}
+				bg={isMoon ? "gbdx.moonSky" : "gbdx.sunsetSky"}
 				borderRadius="7px"
 				transition="background 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95)">
 				<Text
@@ -91,7 +75,7 @@ export function SwitchColorMode() {
 						},
 					}}
 					position="absolute"
-					bg="myColors.whiteStar"
+					bg="gbdx.whiteStar"
 					transition=" all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95)"
 					borderRadius="50%"
 					top="7px"
@@ -111,7 +95,7 @@ export function SwitchColorMode() {
 						},
 					}}
 					position="absolute"
-					bg="myColors.whiteStar"
+					bg="gbdx.whiteStar"
 					transition=" all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95)"
 					borderRadius="50%"
 					top="14px"
@@ -132,7 +116,7 @@ export function SwitchColorMode() {
 						},
 					}}
 					position="absolute"
-					bg="myColors.whiteStar"
+					bg="gbdx.whiteStar"
 					transition=" all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95)"
 					borderRadius="50%"
 					top="26px"
@@ -153,7 +137,7 @@ export function SwitchColorMode() {
 						},
 					}}
 					position="absolute"
-					bg="myColors.whiteStar"
+					bg="gbdx.whiteStar"
 					transition=" all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95)"
 					borderRadius="50%"
 					opacity={isMoon ? 1 : 0}
@@ -174,7 +158,7 @@ export function SwitchColorMode() {
 						},
 					}}
 					position="absolute"
-					bg="myColors.whiteStar"
+					bg="gbdx.whiteStar"
 					transition=" all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95)"
 					borderRadius="50%"
 					opacity={isMoon ? 1 : 0}
@@ -195,7 +179,7 @@ export function SwitchColorMode() {
 						},
 					}}
 					position="absolute"
-					bg="myColors.whiteStar"
+					bg="gbdx.whiteStar"
 					transition=" all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95)"
 					borderRadius="50%"
 					opacity={isMoon ? 1 : 0}

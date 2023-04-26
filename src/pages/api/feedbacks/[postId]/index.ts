@@ -1,3 +1,4 @@
+import { decrypt } from "@utils/crypt-hash";
 import { dbConnect } from "@services/db-connect";
 import {
 	getFeedback,
@@ -5,31 +6,41 @@ import {
 	updateFeedback,
 	deleteFeedback,
 } from "@database/controllers/feedbacks-ctrls";
+import BanLocationModel from "@database/model/ban-location-schema";
 
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-	const { method } = req;
+	const { method, socket } = req;
+	const userIp = socket.remoteAddress;
 
 	try {
 		await dbConnect();
 
+		const allBanLocations = await BanLocationModel.find({});
+
+		const isBanned = allBanLocations.some(
+			ban => decrypt(ban.userIp) === userIp
+		);
+
+		if (isBanned)
+			return res
+				.status(403)
+				.json({ message: "you are banned, not be able acess the api" });
+
 		switch (method) {
 			case "GET":
-				await getFeedback(req, res);
-				break;
+				return await getFeedback(req, res);
 
 			case "POST":
-				await createFeedback(req, res);
-				break;
+				return await createFeedback(req, res);
 
 			case "PUT":
-				await updateFeedback(req, res);
-				break;
+				return await updateFeedback(req, res);
 
 			case "DELETE":
-				await deleteFeedback(req, res);
-				break;
+				return await deleteFeedback(req, res);
+
 			default:
 				res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);
 				res.status(405).end(`Method ${method} Not Allowed`);

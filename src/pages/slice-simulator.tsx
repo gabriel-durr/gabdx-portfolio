@@ -1,8 +1,8 @@
+import { components } from "@root/slices";
 import stateSlice from "@root/.slicemachine/libraries-state.json";
-import { components } from "../../slices";
 
-import { SliceSimulator } from "@prismicio/slice-simulator-react";
 import { SliceZone } from "@prismicio/react";
+import { SliceSimulator } from "@prismicio/slice-simulator-react";
 
 const SliceSimulatorPage = () => {
 	return (

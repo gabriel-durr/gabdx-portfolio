@@ -14,7 +14,7 @@ export type MenuNavProps = Pick<
 
 export const MenuNav = ({ menuItems }: MenuNavProps) => {
 	const router = useRouter();
-	const colorPathMode = useColorModeValue("#ffc32b", "#DAA520");
+	const colorPathMode = useColorModeValue("#DAA520", "#ffc32b");
 
 	return (
 		<>
@@ -22,7 +22,7 @@ export const MenuNav = ({ menuItems }: MenuNavProps) => {
 				as={NextLink}
 				href="/"
 				whiteSpace="nowrap"
-				fontSize="1.148rem"
+				fontSize={{ base: "1.02rem", md: "1.148rem" }}
 				color={router.asPath === "/" ? colorPathMode : undefined}>
 				{menuItems.about}
 			</Link>
@@ -30,7 +30,7 @@ export const MenuNav = ({ menuItems }: MenuNavProps) => {
 			<Link
 				as={NextLink}
 				href="/posts"
-				fontSize="1.148rem"
+				fontSize={{ base: "1.02rem", md: "1.148rem" }}
 				color={router.asPath === "/posts" ? colorPathMode : undefined}>
 				{menuItems.posts}
 			</Link>

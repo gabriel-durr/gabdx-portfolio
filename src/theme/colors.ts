@@ -38,18 +38,18 @@ export const colors = {
 		50: "#b3ccf3",
 	},
 
-	myColors: {
+	gbdx: {
 		white: "#fff",
 		black: "#000",
 		whiteStar: "#ffffff",
 		sun: "#ffc710",
 		sunShadow: "#ffee10",
+		sunny: "#f7a716",
 		moon: "#efd19f",
 		moonShadow: "#4b30c4",
 		moonSky: "rgba(0, 0, 255, 0.625)",
-		gradBlueOrange: "linear-gradient(90deg, #0b486b 0%, #f56217 100%)",
-		gradYellowPurple:
-			"linear-gradient(90deg, #f5c245 0%, #a37487 100%, #673ab7 100%)",
+		progessDark: "#4943f5",
+		progressLight: "#DAA520",
 		orangeVibrance: "#e61101",
 		redBlood: "#6a0e03",
 		satinGray: "#6d898d",
@@ -57,7 +57,11 @@ export const colors = {
 		satinBlue: "#034d72",
 		satinYellow: "#f6c342df",
 		sunsetSky: "#83d8ffbb",
+		gradBlueOrange: "linear-gradient(32deg, #0b486b 50%, #f56217 100%)",
+		gradYellowPurple:
+			"linear-gradient(90deg, #f5c245 0%, #a37487 100%, #673ab7 100%)",
 		gradFormDark: "linear-gradient(90deg, #606c88 0%, #3f4c6b 100%)",
 		gradFormLight: "linear-gradient(90deg, #ece9e6 0%, #ffffff 100%)",
+		gradBlack: "linear-gradient(90deg, #020202 0%, #050504 100%)",
 	},
 };

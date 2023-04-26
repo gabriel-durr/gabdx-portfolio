@@ -1,41 +1,41 @@
 import { PostDataProps } from ".";
 
 import NextLink from "next/link";
+import NextImage from "next/image";
 
-import { HStack, Image, Box, Link, useColorModeValue } from "@chakra-ui/react";
+import { Box, Link, useColorModeValue } from "@chakra-ui/react";
 
 type ImagePostProps = Pick<PostDataProps["postData"][0], "image" | "uid">;
 
 export const ImagePost = ({ uid, image }: ImagePostProps) => {
 	const darkModeBgRadialGradient = useColorModeValue(
-		"radial(54% 54%,#0000 98%,#767bc315)",
-		"radial(54% 54%,#0000 98%,#ce9e0040)"
+		"radial(54% 54%,#0000 98%,#ce9e0040)",
+		"radial(54% 54%,#0000 98%,#767bc315)"
 	);
 
 	return (
-		<HStack
-			flex={1}
-			minH="250px"
-			pos="relative"
-			align="center"
-			justify="center">
+		<Box pos="relative" w={{ base: "full", md: "42%" }} h="full">
 			<Link as={NextLink} href={`/posts/${uid}`}>
-				<Image
-					w="320px"
-					h="170px"
-					alt={image?.alt ?? ""}
-					src={image?.url ?? ""}
-				/>
+				<Box pos="relative" top={4} h="80%" w="full">
+					<NextImage
+						fill
+						alt={image?.alt ?? ""}
+						src={image?.url ?? ""}
+						style={{ objectFit: "cover" }}
+					/>
+				</Box>
 			</Link>
 
-			<Box zIndex={-1} w="100%" pos="absolute" h="80%">
-				<Box
-					bgGradient={darkModeBgRadialGradient}
-					backgroundSize="25px 25px"
-					opacity={1}
-					minH="100%"
-				/>
-			</Box>
-		</HStack>
+			<Box
+				zIndex={-1}
+				pos="absolute"
+				top={0}
+				w="full"
+				h="full"
+				bgGradient={darkModeBgRadialGradient}
+				backgroundSize="12px 12px"
+				opacity={0.9}
+			/>
+		</Box>
 	);
 };

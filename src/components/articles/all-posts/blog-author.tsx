@@ -15,7 +15,7 @@ export const BlogAuthor = ({ name, date }: BlogAuthorProps) => {
 				{name}
 			</Text>
 			<Text>-</Text>
-			<Text fontSize="0.8rem" fontWeight="bold">
+			<Text as="time" fontFamily="number" fontSize="xs">
 				{date}
 			</Text>
 		</HStack>

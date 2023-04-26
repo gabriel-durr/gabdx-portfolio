@@ -1,8 +1,8 @@
 import { CardImage } from "./card-image";
 import { CardHeader } from "./card-header";
-import { TechsStack } from "./techs-stack";
+import { Tags } from "@components/tags";
 
-import { useColorModeValue, VStack } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 
 export type ProjectCardProps = {
 	lang: string;
@@ -24,30 +24,44 @@ export const ProjectCard = ({
 	return (
 		<VStack
 			rounded="xl"
-			bg={useColorModeValue("whiteAlpha.900", "blackAlpha.900")}
+			bg="whiteAlpha.900"
 			shadow="sm"
-			w={{ base: "94%", md: "400px" }}
-			h={{ base: "320px", md: "328px" }}
+			p={{ base: "5px", md: "10px" }}
+			w={{ base: "96%", sm: "94%", md: "400px" }}
+			h={{ base: "300px", sm: "320px", md: "328px" }}
 			backdropFilter="auto"
 			backdropBlur="6px"
-			p={{ base: "5px", md: "10px" }}
 			spacing={0}
-			border={`2px solid ${useColorModeValue("#0c166b1f", "#ffffffda")}`}
+			overflow="hidden"
+			border={"2px solid #0c166b1f"}
 			_hover={{
 				shadow: "lg",
 				textDecoration: "none",
 			}}
-			overflow="hidden">
+			_light={{ bg: "blackAlpha.900", border: "2px solid #ffffffda" }}>
 			<CardImage src={image} alt={title} />
 
-			<VStack py={2} px={4} spacing={4} align="start" w="100%">
+			<VStack py={2} px={4} spacing={4} align="start" w="full">
 				<CardHeader
 					lang={lang}
 					title={title}
 					githubLink={githubLink}
 					deployLink={deployLink}
 				/>
-				<TechsStack techs={techs} />
+				<Tags
+					tags={techs}
+					containerWidth={{ base: "300px", sm: "330px", md: "352px" }}
+					color="gray.900"
+					bg="cyan.100"
+					size="xs"
+					border="1px solid"
+					borderColor="#00000010"
+					_light={{
+						color: "gray.100",
+						bg: "rgba(157, 236, 249, 0.16)",
+						borderColor: "#f5eeee10",
+					}}
+				/>
 			</VStack>
 		</VStack>
 	);

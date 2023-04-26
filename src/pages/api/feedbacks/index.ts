@@ -1,5 +1,5 @@
 import { dbConnect } from "@services/db-connect";
-import { getAllFeedbacks } from "@database/controllers/feedbacks-ctrls/fedback-ctrl";
+import { getAllFeedbacks } from "@database/controllers/feedbacks-ctrls/feedback-ctrl";
 
 import { NextApiRequest, NextApiResponse } from "next";
 

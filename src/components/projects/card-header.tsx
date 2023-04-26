@@ -25,11 +25,11 @@ export const CardHeader = ({
 	lang,
 }: TitleProps) => {
 	const [sunShadow, moonShadow] = useToken("colors", [
-		"myColors.sunShadow",
-		"myColors.moonShadow",
+		"gbdx.sunShadow",
+		"gbdx.moonShadow",
 	]);
 
-	const shadowIconMode = useColorModeValue(moonShadow, sunShadow);
+	const shadowIconMode = useColorModeValue(sunShadow, moonShadow);
 
 	const githubLinkLang =
 		lang === "pt-br"
@@ -41,28 +41,28 @@ export const CardHeader = ({
 			? "Link do projeto em produção (deploy)"
 			: "Project link in production (deploy)";
 
-	const bgIconMode = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
-	const colorIconMode = useColorModeValue("myColors.black", "myColors.white");
-	const bgToltipMode = useColorModeValue("blackAlpha.900", "whiteAlpha.900");
+	const bgToltipMode = useColorModeValue("whiteAlpha.900", "blackAlpha.900");
 
 	return (
-		<Flex w="100%" justify="space-between">
+		<Flex w="full" justify="space-between">
 			<HStack w="274px" overflow="hidden">
 				<Icon
 					as={FiZap}
 					boxSize=".9em"
 					mt="1px"
-					color={useColorModeValue("yellow.400", "yellow")}
+					color="yellow.400"
+					_light={{ color: "yellow" }}
 				/>
 
 				<Heading
 					as="h3"
 					noOfLines={1}
 					textTransform="uppercase"
-					color={useColorModeValue("gray.900", "gray.100")}
 					fontSize={["sm", "md"]}
 					fontWeight={600}
-					alignItems="left">
+					alignItems="left"
+					color="gray.900"
+					_light={{ color: "gray.100" }}>
 					{title}
 				</Heading>
 			</HStack>
@@ -72,17 +72,20 @@ export const CardHeader = ({
 						placement="bottom"
 						bg={bgToltipMode}
 						hasArrow
+						color="light.600"
+						_light={{ color: "gray.900" }}
 						label={githubLinkLang}
 						aria-label={`Toltip: ${githubLinkLang}`}>
 						<Link as={NextLink} href={githubLink} target="_blank">
 							<Icon
 								as={FiGithub}
-								bg={bgIconMode}
-								boxShadow={`0px 10px 4px -10px ${shadowIconMode}`}
-								color={colorIconMode}
+								p={1}
 								rounded="md"
 								boxSize="32px"
-								p={1}
+								bg="blackAlpha.200"
+								color="gbdx.black"
+								boxShadow={`0px 10px 4px -10px ${shadowIconMode}`}
+								_light={{ bg: "whiteAlpha.200", color: "gbdx.white" }}
 							/>
 						</Link>
 					</Tooltip>
@@ -93,17 +96,20 @@ export const CardHeader = ({
 						placement="bottom"
 						bg={bgToltipMode}
 						hasArrow
+						color="light.600"
+						_light={{ color: "gray.900" }}
 						label={deployLinkLang}
 						aria-label={`Toltip: ${deployLinkLang}`}>
 						<Link as={NextLink} href={deployLink} target="_blank">
 							<Icon
 								as={SiCloudflarepages}
-								bg={bgIconMode}
-								boxShadow={`0px 10px 4px -10px ${shadowIconMode}`}
-								color={colorIconMode}
+								p={1}
 								rounded="md"
 								boxSize="34px"
-								p={1}
+								bg="blackAlpha.200"
+								color="gbdx.black"
+								boxShadow={`0px 10px 4px -10px ${shadowIconMode}`}
+								_light={{ bg: "whiteAlpha.200", color: "gbdx.white" }}
 							/>
 						</Link>
 					</Tooltip>

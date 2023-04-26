@@ -4,13 +4,7 @@ import { TechsAnimation } from "./techs-animation";
 
 import { motion } from "framer-motion";
 
-import {
-	Box,
-	Text,
-	VStack,
-	Heading,
-	useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Text, VStack, Heading } from "@chakra-ui/react";
 
 type AboutContentProps = {
 	aboutContentData: AboutContentDataProps;
@@ -21,9 +15,9 @@ export const AboutContent = ({ aboutContentData, lang }: AboutContentProps) => {
 	return (
 		<VStack
 			as={motion.div}
-			mt={{ base: "0px", md: "10px" }}
 			position="relative"
-			w={["90%", "80%"]}
+			w="full"
+			mt={{ base: "0px", md: "10px" }}
 			justify="center"
 			maxW="800px"
 			opacity={0}
@@ -39,24 +33,15 @@ export const AboutContent = ({ aboutContentData, lang }: AboutContentProps) => {
 				},
 			}}
 			borderBottom="1px"
-			borderColor={useColorModeValue("whiteAlpha.500", "myColors.")}
-			borderStyle="dotted">
-			<VStack p=".4rem" w="100%" align="flex-start" pl=".4rem">
-				<Heading
-					as="h2"
-					whiteSpace="nowrap"
-					fontWeight={600}
-					fontSize={["xl", "2xl"]}
-					color={useColorModeValue("myColors.white", "gray.900")}>
-					{aboutContentData.nameHeading}
-				</Heading>
-				<Text fontSize={["0.74rem", "0.84rem"]}>
-					{aboutContentData.expertise}
-				</Text>
-
-				<Box fontSize={["0.87rem", "1rem"]}>
+			borderColor="whiteAlpha.500"
+			borderStyle="dotted"
+			_light={{ borderColor: "blackAlpha.500" }}>
+			<VStack w="full" align="flex-start" spacing={1}>
+				<Box>
 					<Greeting lang={lang} />
-					<Text mb="10px">{aboutContentData.description}</Text>
+					<Text fontFamily="number" mb={8} fontSize={16}>
+						{aboutContentData.description}
+					</Text>
 				</Box>
 				<TechsAnimation />
 			</VStack>

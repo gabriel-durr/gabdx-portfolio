@@ -434,17 +434,6 @@ interface PostDocumentData {
      */
     description: prismicT.RichTextField;
     /**
-     * Date field in *Post*
-     *
-     * - **Field Type**: Date
-     * - **Placeholder**: *None*
-     * - **API ID Path**: post.date
-     * - **Tab**: Main
-     * - **Documentation**: https://prismic.io/docs/core-concepts/date
-     *
-     */
-    date: prismicT.DateField;
-    /**
      * SEO Title field in *Post*
      *
      * - **Field Type**: Text

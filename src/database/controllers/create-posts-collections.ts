@@ -34,7 +34,7 @@ export const createPostsCollections = async ({
 			postId: { $nin: uidList },
 		});
 
-		console.log(
+		console.warn(
 			`Deleted ${deleteDifferentPost.deletedCount} documents from the feedback collection.`
 		);
 
@@ -45,7 +45,7 @@ export const createPostsCollections = async ({
 				});
 
 				if (collectionExists) {
-					console.log(`Collection for post ${collectionName} already exists`);
+					console.warn(`Collection for post ${collectionName} already exists`);
 					return;
 				}
 

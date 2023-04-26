@@ -1,19 +1,23 @@
 import { ContactFormProps } from ".";
+import { contactFormLang } from "@utils/lang-formatter";
 
 import axios from "axios";
+import { HiMail } from "react-icons/hi";
 import { useForm } from "react-hook-form";
+import { BsPersonVcardFill } from "react-icons/bs";
 
 import {
+	Icon,
 	Input,
 	VStack,
 	Button,
 	Textarea,
-	useToken,
 	useToast,
 	FormLabel,
+	InputGroup,
 	FormControl,
 	FormErrorMessage,
-	useColorModeValue,
+	InputRightElement,
 } from "@chakra-ui/react";
 
 type FormProps = Omit<ContactFormProps, "linkColor">;
@@ -25,15 +29,6 @@ type HookFormTypes = {
 };
 
 export const Form = ({ formData, lang }: FormProps) => {
-	const toast = useToast();
-	const [focusBorderYellow, borderLight, borderDark] = useToken("colors", [
-		"myColors.satinYellow",
-		"light.600",
-		"gray.300",
-	]);
-
-	const borderInputMode = useColorModeValue(borderLight, borderDark);
-
 	const {
 		handleSubmit,
 		register,
@@ -48,45 +43,41 @@ export const Form = ({ formData, lang }: FormProps) => {
 	const isNameError = !!errors.name;
 	const isEmailError = !!errors.email;
 	const isTextAreaError = !!errors.textarea;
-	const isLangPtBr = lang === "pt-br";
 
-	const onSubmit = async (data: HookFormTypes) => {
-		await new Promise(resolve => setTimeout(resolve, 2000));
+	const { toastLang, inputName, inputEmail, inputTextarea } =
+		contactFormLang(lang);
 
-		axios
-			.post("/api/mail", data)
-			.then(() =>
-				toast({
-					title: `${
-						isLangPtBr
-							? "Mensagem enviada com Sucesso"
-							: "Message sent sucessfully"
-					} 🎉🎉🎉`,
-					description: `${
-						isLangPtBr
-							? "Fique tranquilo, logo entrarei em contato"
-							: "Don't worry, I'll be in touch soon"
-					}!`,
-					status: "success",
-					position: "top",
-					duration: 10000,
-					isClosable: true,
-				})
-			)
-			.catch(err => {
-				console.error(err);
-				toast({
-					title: `${
-						isLangPtBr
-							? "Algo de errado, não esta certo"
-							: "Something's wrong, it's not right"
-					} 😵‍💫`,
-					status: "error",
-					position: "top",
-					duration: 10000,
-					isClosable: true,
-				});
+	const teenSeconds = 10 * 1000;
+
+	const toast = useToast({
+		position: "top",
+		duration: teenSeconds,
+		isClosable: true,
+	});
+
+	const onSubmit = async ({ name, email, textarea }: HookFormTypes) => {
+		await new Promise(resolve => setTimeout(resolve, 1400));
+
+		try {
+			await axios.post("/api/mail", {
+				name,
+				email,
+				textarea,
 			});
+
+			toast({
+				title: `${toastLang.sucess.title} 🎉🎉🎉`,
+				description: toastLang.sucess.description,
+				status: "success",
+			});
+		} catch (err) {
+			console.error(err);
+
+			toast({
+				title: `${toastLang.error.title} 😵‍💫`,
+				status: "error",
+			});
+		}
 	};
 
 	return (
@@ -100,117 +91,83 @@ export const Form = ({ formData, lang }: FormProps) => {
 			spacing={4}
 			borderRadius="5px">
 			<FormControl isInvalid={isNameError} isRequired>
-				<FormLabel fontSize="1.1rem" fontFamily="Raleway">
+				<FormLabel fontSize="1.1rem" fontFamily="body">
 					{formData.name}
 				</FormLabel>
-				<Input
-					type="text"
-					variant="unstyled"
-					h="38px"
-					pl="8px"
-					rounded="sm"
-					borderBottom={`1px solid ${isNameError ? "red" : borderInputMode}`}
-					_focus={{
-						boxShadow: "none",
-						borderRadius: "md",
-						border: `1px solid ${focusBorderYellow}`,
-					}}
-					placeholder={formData.namePlace!}
-					{...register("name", {
-						required: `${isLangPtBr ? "Nome Obrigatório" : "Name Required"}!`,
-						maxLength: {
-							value: 50,
-							message: `${
-								isLangPtBr
-									? "Tamanho máximo de 50 caracteres"
-									: "Maximum Size of 50 Characters"
-							}`,
-						},
-						minLength: {
-							value: 4,
-							message: `${
-								isLangPtBr
-									? "Tamanho Minímo de 4 Caracteres"
-									: "Minimum Size of 4 Characters"
-							}`,
-						},
-						pattern: {
-							value: notNumberRgx,
-							message: `${
-								isLangPtBr ? "Não é aceito Números" : "Numbers are not accepted"
-							}!`,
-						},
-					})}
-				/>
+				<InputGroup>
+					<InputRightElement h="full">
+						<Icon fontSize="17px" as={BsPersonVcardFill} />
+					</InputRightElement>
+					<Input
+						variant="gdxInput"
+						placeholder={formData.namePlace!}
+						{...register("name", {
+							required: inputName.requiredMsg,
+							maxLength: {
+								value: 50,
+								message: inputName.maxMsg,
+							},
+							minLength: {
+								value: 4,
+								message: inputName.minMsg,
+							},
+							pattern: {
+								value: notNumberRgx,
+								message: inputName.patternMsg,
+							},
+						})}
+					/>
+				</InputGroup>
 				<FormErrorMessage>
 					{errors.name && errors.name.message}
 				</FormErrorMessage>
 			</FormControl>
 
 			<FormControl isInvalid={isEmailError} isRequired>
-				<FormLabel fontWeight="medium" fontSize="1.1rem" fontFamily="Raleway">
+				<FormLabel fontWeight="medium" fontSize="1.1rem" fontFamily="body">
 					{formData.email}
 				</FormLabel>
-				<Input
-					type="email"
-					variant="unstyled"
-					h="38px"
-					pl="8px"
-					rounded="sm"
-					borderBottom={`1px solid ${isNameError ? "red" : borderInputMode}`}
-					_focus={{
-						boxShadow: "none",
-						borderRadius: "md",
-						border: `1px solid ${focusBorderYellow}`,
-					}}
-					placeholder={formData.emailPlace!}
-					{...register("email", {
-						required: `${
-							isLangPtBr ? "E-mail Obrigatório" : "Required Email"
-						}!`,
-						maxLength: {
-							value: 80,
-							message: `${
-								isLangPtBr
-									? "Tamanho Máximo de 80 Caracteres"
-									: "Maximum Size of 80 Characters"
-							}`,
-						},
-						pattern: validEmailRgx,
-					})}
-				/>
+
+				<InputGroup>
+					<InputRightElement h="full">
+						<Icon fontSize="20px" as={HiMail} />
+					</InputRightElement>
+
+					<Input
+						type="email"
+						variant="gdxInput"
+						placeholder={formData.emailPlace!}
+						{...register("email", {
+							required: inputEmail.requiredMsg,
+							maxLength: {
+								value: 80,
+								message: inputEmail.maxMsg,
+							},
+							pattern: {
+								value: validEmailRgx,
+								message: inputEmail.patternMsg,
+							},
+						})}
+					/>
+				</InputGroup>
+
 				<FormErrorMessage>
 					{errors.email && errors.email.message}
 				</FormErrorMessage>
 			</FormControl>
 
 			<FormControl isInvalid={isTextAreaError} isRequired>
-				<FormLabel fontWeight="medium" fontFamily="Raleway">
+				<FormLabel fontWeight="medium" fontFamily="body">
 					{formData.message}
 				</FormLabel>
 				<Textarea
-					variant="unstyled"
-					h={{ base: "10rem", xl: "8.4rem", "2xl": "12rem" }}
-					pl="8px"
-					border={`1px solid ${borderInputMode}`}
-					_focus={{
-						border: `1px solid ${focusBorderYellow}`,
-						boxShadow: "none",
-					}}
-					maxH="12rem"
-					resize="vertical"
+					variant="gdxTextarea"
 					placeholder={formData.messagePlace!}
 					{...register("textarea", {
-						required: `${
-							isLangPtBr ? "Mensagem Obrigatória" : "Required Message"
-						}!`,
+						required: inputTextarea.requiredMsg,
 						maxLength: {
 							value: 1400,
-							message: `${
-								isLangPtBr
-									? "Tamanho Máximo de 1400 Caracteres"
-									: "Maximum Size of 1400 Characters"
-							}`,
+							message: inputTextarea.maxMsg,
 						},
 					})}
 				/>
@@ -220,22 +177,11 @@ export const Form = ({ formData, lang }: FormProps) => {
 			</FormControl>
 
 			<Button
+				variant="gdxSolidButton"
 				type="submit"
 				isDisabled={isDisabled}
 				isLoading={isSubmitting}
-				rounded="sm"
-				w="100%"
-				h="2.3rem"
-				fontFamily="DM Sans"
-				fontSize=".98rem"
-				letterSpacing="1.2px"
-				textTransform="uppercase"
-				bg="myColors.satinYellow"
-				_hover={{
-					filter: "contrast(80%)",
-					transition: ".5s ease",
-				}}
-				color="whiteAlpha.900">
+				role="button">
 				{formData.submit}
 			</Button>
 		</VStack>

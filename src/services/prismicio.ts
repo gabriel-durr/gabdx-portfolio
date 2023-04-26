@@ -23,7 +23,10 @@ export function createClient({
 	req,
 	...config
 }: prismicNext.CreateClientConfig = {}) {
-	const client = prismic.createClient(sm.apiEndpoint, config);
+	const client = prismic.createClient(sm.apiEndpoint, {
+		...config,
+		accessToken: process.env.PRISMIC_ACCESS_KEY,
+	});
 
 	prismicNext.enableAutoPreviews({ client, previewData, req });
 
