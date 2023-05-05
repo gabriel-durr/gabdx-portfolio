@@ -49,13 +49,15 @@ export const DropDownMenu = ({ menuItems }: DropDownProps) => {
 				trigger="hover"
 				placement="bottom-start"
 				onOpen={onOpen}
-				onClose={onClose}>
+				onClose={onClose}
+			>
 				<PopoverTrigger>
 					<HStack align="end" cursor="pointer" role="group">
 						<Text
 							fontSize={{ base: "1.02rem", md: "1.148rem" }}
 							fontFamily="DM Sans"
-							cursor="pointer">
+							cursor="pointer"
+						>
 							{menuItems.connect}
 						</Text>
 						<Icon
@@ -79,13 +81,10 @@ export const DropDownMenu = ({ menuItems }: DropDownProps) => {
 					borderColor="gray.800"
 					bg="gbdx.white"
 					maxW={["150px", "180px"]}
-					_light={{ borderColor: "gbdx", bg: "gray.50" }}>
+					_light={{ borderColor: "gbdx", bg: "gray.50" }}
+				>
 					<Stack>
-						<ContactForm
-							formData={menuItems.formData}
-							lang={menuItems.lang}
-							linkColor={linkColor}
-						/>
+						<ContactForm formData={menuItems.formData} linkColor={linkColor} />
 						{linksProps.map(link => (
 							<DropDownItem key={link.label} linkColor={linkColor} {...link} />
 						))}

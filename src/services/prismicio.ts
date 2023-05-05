@@ -1,11 +1,11 @@
 import * as prismic from "@prismicio/client";
 import * as prismicNext from "@prismicio/next";
 
-import sm from "@root/sm.json";
+import sm from "@root/slicemachine.config.json";
 
 export const repositoryName = prismic.getRepositoryName(sm.apiEndpoint);
 
-export function linkResolver(doc: Record<string, any>) {
+export function linkResolver(doc: any) {
 	switch (doc.type) {
 		case "home":
 			return `/${doc.lang}`;

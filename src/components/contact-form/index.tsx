@@ -16,20 +16,11 @@ import {
 } from "@chakra-ui/react";
 
 export type ContactFormProps = Pick<MenuNavProps["menuItems"], "formData"> & {
-	lang: string;
 	linkColor: string;
 };
 
-export const ContactForm = ({
-	formData,
-	lang,
-	linkColor,
-}: ContactFormProps) => {
+export const ContactForm = ({ formData, linkColor }: ContactFormProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
-	const emailNameButtonLang = lang === "pt-br" ? "E-mail" : "Email";
-
-	//TODO CRIAR ADDON ICONS NO INPUT NAME E EMAIL
 
 	return (
 		<>
@@ -44,8 +35,9 @@ export const ContactForm = ({
 					lineHeight="shorter"
 					fontFamily="body"
 					_hover={{ color: linkColor }}
-					transition="color ease .2s">
-					{emailNameButtonLang}
+					transition="color ease .2s"
+				>
+					{formData.emailNameButtonLang}
 				</Text>
 			</HStack>
 
@@ -54,13 +46,15 @@ export const ContactForm = ({
 				scrollBehavior="inside"
 				size={["xs", "sm", "3xl"]}
 				isOpen={isOpen}
-				onClose={onClose}>
+				onClose={onClose}
+			>
 				<ModalOverlay backdropFilter="auto" backdropInvert="20%" />
 				<ModalContent
 					borderRadius="4px"
 					alignItems="center"
 					bg="gbdx.gradFormDark"
-					_light={{ bg: "gbdx.gradFormLight" }}>
+					_light={{ bg: "gbdx.gradFormLight" }}
+				>
 					<ModalHeader
 						fontSize={["1.3rem", "1.32rem"]}
 						lineHeight="shorter"
@@ -68,13 +62,16 @@ export const ContactForm = ({
 						fontFamily="heading"
 						textTransform="uppercase"
 						color="light.100"
-						_light={{ color: "gray.600" }}>
+						_light={{ color: "gray.600" }}
+					>
 						{formData.title}
 					</ModalHeader>
 					<ModalCloseButton
-						bg="#8c34345a"
+						bg="gbdx.redClose"
 						color="gbdx.white"
-						border="1px solid #ffffff43"
+						size="sm"
+						border="1px solid"
+						borderColor="gbdx.borderGray"
 						_hover={{
 							bg: "red",
 							transition: "all .2s ease-in-out",
@@ -82,7 +79,7 @@ export const ContactForm = ({
 					/>
 					<ModalBody boxSize="full" display="flex" alignItems="end">
 						<DevProgramming />
-						<Form formData={formData} lang={lang} />
+						<Form formData={formData} onClose={onClose} />
 					</ModalBody>
 				</ModalContent>
 			</Modal>

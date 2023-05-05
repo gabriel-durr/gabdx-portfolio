@@ -89,13 +89,15 @@ export const InputsFeedbacks = ({
 			rounded="sm"
 			spacing={8}
 			_light={{ shadow: "sm" }}
-			p={{ base: 4, md: 8 }}>
+			p={{ base: 4, md: 8 }}
+		>
 			<FormControl
 				isInvalid={!!errors.feedbackLevel}
 				flexDir="column"
 				display="flex"
 				gap={8}
-				alignItems="center">
+				alignItems="center"
+			>
 				<Heading size="md">{feedbackTitle}</Heading>
 
 				{isSelectedEmoji ? (
@@ -147,7 +149,8 @@ export const InputsFeedbacks = ({
 				noValidate
 				spacing={4}
 				p={{ base: 2, md: 8 }}
-				w={{ base: "full", md: "72%" }}>
+				w={{ base: "full", md: "72%" }}
+			>
 				{!isFeedbackHasBeenCreated && (
 					<FormControl isInvalid={!!errors.name}>
 						<Input

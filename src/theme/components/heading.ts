@@ -30,7 +30,8 @@ const topicPrimary = defineStyle({
 	color: "gray.100",
 	fontFamily: "heading",
 	textTransform: "uppercase",
-	fontSize: ["1.12rem", "1.12rem", "18.4px"],
+	fontSize: ["1.12rem", "1.12rem", "1.15rem"],
+	letterSpacing: "wide",
 	_after: {
 		content: "''",
 		border: "1px solid #e61101",

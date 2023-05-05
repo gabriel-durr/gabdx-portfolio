@@ -1,5 +1,6 @@
 import { colors } from "./colors";
 import {
+	formTheme,
 	inputTheme,
 	buttonTheme,
 	headingTheme,
@@ -10,7 +11,7 @@ import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
 import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
 
 const styles = {
-	global: (props: StyleFunctionProps | Record<string, any>) => ({
+	global: (props: StyleFunctionProps) => ({
 		body: {
 			fontFamily: "body",
 			overflowX: "hidden",
@@ -37,11 +38,11 @@ const styles = {
 			border: `1px solid ${mode("#f7a716", "#4b30c4")(props)} !important`,
 		},
 		scrollBehavior: "smooth",
-		"&::-webkit-scrollbar": {
+		"*::-webkit-scrollbar": {
 			w: "6px",
 			bg: mode("gray.100", "gray.900")(props),
 		},
-		"&::-webkit-scrollbar-thumb": {
+		"*::-webkit-scrollbar-thumb": {
 			bg: mode("gray.900", "gray.700")(props),
 			borderRadius: "2px",
 		},
@@ -52,7 +53,7 @@ const styles = {
 };
 
 const config: ThemeConfig = {
-	initialColorMode: "system",
+	initialColorMode: "dark",
 	useSystemColorMode: true,
 };
 
@@ -85,10 +86,10 @@ const theme = extendTheme({
 			baseStyle: {
 				fontSize: "15.6px",
 				fontFamily: "body",
-				lineHeight: 1.65,
 				letterSpacing: "-0.01em",
 			},
 		},
+		Form: formTheme,
 		Input: inputTheme,
 		Button: buttonTheme,
 		Heading: headingTheme,

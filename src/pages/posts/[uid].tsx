@@ -9,8 +9,6 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 
 import { Stack } from "@chakra-ui/react";
 
-type PageParams = { uid: string };
-
 type PostProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Posts = ({ postData, menuItems, footerData }: PostProps) => {
@@ -18,7 +16,8 @@ const Posts = ({ postData, menuItems, footerData }: PostProps) => {
 		<Layout
 			altLangs={postData.altLang}
 			menuItems={menuItems}
-			footerData={footerData}>
+			footerData={footerData}
+		>
 			<Head>
 				<title>{postData.title}</title>
 			</Head>
@@ -29,12 +28,15 @@ const Posts = ({ postData, menuItems, footerData }: PostProps) => {
 				maxW="container.md"
 				spacing={4}
 				align="center"
-				w={["full", "98%", "99%", "60%"]}>
+				w={["full", "98%", "99%", "60%"]}
+			>
 				<ViewPost postData={postData} />
 			</Stack>
 		</Layout>
 	);
 };
+
+type PageParams = { uid: string };
 
 export async function getStaticProps({
 	params,
@@ -64,10 +66,9 @@ export async function getStaticProps({
 		altLang: page.alternate_languages,
 		image: page.data.image,
 		title: page.data.title,
-		createdAt: new Date(page.first_publication_date).toLocaleString(locale),
-		tags: page.data.tag.map((tag: any) => tag.text),
-		description: page.data.description,
 		latestPosts,
+		description: page.data.description,
+		createdAt: new Date(page.first_publication_date).toLocaleString(locale),
 	};
 
 	return {

@@ -1,0 +1,34 @@
+[
+  {
+    "uid": {
+      "__TYPE__": "UIDContent",
+      "value": "eleven"
+    },
+    "credits": {
+      "__TYPE__": "FieldContent",
+      "value": "wool",
+      "type": "Text"
+    },
+    "linkedinLink": {
+      "__TYPE__": "LinkContent",
+      "value": {
+        "__TYPE__": "ExternalLink",
+        "url": "http://google.com"
+      }
+    },
+    "githubLink": {
+      "__TYPE__": "LinkContent",
+      "value": {
+        "__TYPE__": "ExternalLink",
+        "url": "http://google.com"
+      }
+    },
+    "instagramLink": {
+      "__TYPE__": "LinkContent",
+      "value": {
+        "__TYPE__": "ExternalLink",
+        "url": "http://twitter.com"
+      }
+    }
+  }
+]

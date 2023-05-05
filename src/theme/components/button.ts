@@ -10,8 +10,10 @@ const gdxSolidButton = defineStyle({
 	color: "whiteAlpha.900",
 	bg: "gbdx.satinYellow",
 	textTransform: "uppercase",
+	_disabled: { bg: "#505b5f" },
 	_hover: {
-		filter: "contrast(80%)",
+		bg: "gbdx.satinYellow",
+		filter: "contrast(90%)",
 		transition: ".5s ease",
 	},
 });

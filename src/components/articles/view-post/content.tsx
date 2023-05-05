@@ -14,7 +14,8 @@ export const Content = ({ description }: ContentProps) => {
 			color="gray.100"
 			align="flex-start"
 			p={{ base: 4, md: 0 }}
-			_light={{ color: "gray.900" }}>
+			_light={{ color: "gray.900" }}
+		>
 			<PrismicRichText field={description} components={rickTextComponents} />
 		</VStack>
 	);

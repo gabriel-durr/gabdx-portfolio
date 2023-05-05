@@ -1,0 +1,27 @@
+{
+  "id": "code_sandbox",
+  "type": "SharedSlice",
+  "name": "CodeSandbox",
+  "description": "CodeSandbox",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title_code_example": {
+          "type": "Text",
+          "config": { "label": "Title Code Example", "placeholder": "" }
+        },
+        "code_example": {
+          "type": "Embed",
+          "config": { "label": "Code Example", "placeholder": "" }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

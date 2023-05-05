@@ -22,33 +22,28 @@ const getFeedback = async (req: NextApiRequest, res: NextApiResponse) => {
 			return res.status(422).json({ message: "Missing required data" });
 
 		const projection = {
-			_id: 0,
 			"feedbackList.feedbackId": 1,
 			"feedbackList.name": 1,
 			"feedbackList.userIp": 1,
+			"feedbackList.createdAt": 1,
+			"feedbackList.avatar": 1,
 		};
 
-		const feedbackListExists = await FeedbackModel.findOne(
+		const feedbackExists = await FeedbackModel.findOne(
 			{
 				"feedbackList.feedbackId": feedbackId,
 			},
 			projection
 		);
 
-		if (!feedbackListExists)
+		if (!feedbackExists)
 			return res
 				.status(404)
 				.json({ message: "Feedback does not exist the list in any post" });
 
-		const [currentFeedback] = feedbackListExists.feedbackList
-			.filter(feedback => decrypt(feedback.userIp) === userIp)
-			.map(feedback => {
-				const { name, feedbackId } = feedback;
+		const [feedback] = feedbackExists.feedbackList;
 
-				return { name, feedbackId };
-			});
-
-		return res.status(200).json({ currentFeedback });
+		return res.status(200).json(feedback);
 	} catch (err) {
 		console.error(err);
 

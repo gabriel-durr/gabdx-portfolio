@@ -201,20 +201,6 @@ const useFeedback = () => {
 		}
 	}
 
-	async function currentFeedback(): Promise<
-		Record<"feedbackId" | "name", string>
-	> {
-		try {
-			const {
-				data: { currentFeedback },
-			} = await api.get(`/feedbacks/${queryPostId}`);
-
-			return currentFeedback;
-		} catch (err) {
-			throw err;
-		}
-	}
-
 	async function reportThisUser({
 		reportedByName,
 		reporterTo,
@@ -249,7 +235,6 @@ const useFeedback = () => {
 		removeFeedback,
 		updateFeedback,
 		reportThisUser,
-		currentFeedback,
 	};
 };
 

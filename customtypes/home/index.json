@@ -5,27 +5,14 @@
   "status": true,
   "json": {
     "Main": {
-      "uid": {
-        "type": "UID",
-        "config": {
-          "label": "UID",
-          "placeholder": ""
-        }
-      },
+      "uid": { "type": "UID", "config": { "label": "UID", "placeholder": "" } },
       "title": {
         "type": "Text",
-        "config": {
-          "label": "Home(title)",
-          "placeholder": ""
-        }
+        "config": { "label": "Home(title)", "placeholder": "" }
       },
       "avatarDark": {
         "type": "Image",
-        "config": {
-          "label": "Avatar Dark",
-          "constraint": {},
-          "thumbnails": []
-        }
+        "config": { "label": "Avatar Dark", "constraint": {}, "thumbnails": [] }
       },
       "avatarLight": {
         "type": "Image",
@@ -37,10 +24,7 @@
       },
       "nameHeading": {
         "type": "Text",
-        "config": {
-          "label": "Name Heading",
-          "placeholder": ""
-        }
+        "config": { "label": "Name Heading", "placeholder": "" }
       },
       "expertise": {
         "type": "Text",
@@ -75,18 +59,11 @@
           "fields": {
             "title": {
               "type": "Text",
-              "config": {
-                "label": "Title",
-                "placeholder": ""
-              }
+              "config": { "label": "Title", "placeholder": "" }
             },
             "image": {
               "type": "Image",
-              "config": {
-                "label": "Image",
-                "constraint": {},
-                "thumbnails": []
-              }
+              "config": { "label": "Image", "constraint": {}, "thumbnails": [] }
             },
             "techstack": {
               "type": "StructuredText",
@@ -121,17 +98,11 @@
     "SEO": {
       "seoTitle": {
         "type": "Text",
-        "config": {
-          "label": "SEO Title",
-          "placeholder": ""
-        }
+        "config": { "label": "SEO Title", "placeholder": "" }
       },
       "seoDescription": {
         "type": "Text",
-        "config": {
-          "label": "SEO Description",
-          "placeholder": ""
-        }
+        "config": { "label": "SEO Description", "placeholder": "" }
       },
       "imagePreview": {
         "type": "Image",

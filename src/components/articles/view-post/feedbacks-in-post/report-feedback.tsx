@@ -1,5 +1,6 @@
 import { AiFillFlag } from "react-icons/ai";
 import { reportLang } from "@utils/lang-formatter";
+import { useCurrentFeedback } from "@hooks/use-current-feedback";
 import { useFeedback, ReportFeedbackType } from "@hooks/use-feedbacks";
 
 import { useForm, Controller } from "react-hook-form";
@@ -38,7 +39,8 @@ export const ReportFeedback = ({ lang, feedbackId }: ReportFeedbackProps) => {
 		formState: { errors },
 	} = useForm<ReportFormType>();
 
-	const { reportThisUser, currentFeedback } = useFeedback();
+	const { reportThisUser } = useFeedback();
+	const { currentFeedback } = useCurrentFeedback();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const sevenSeconds = 7 * 1000;
@@ -62,10 +64,10 @@ export const ReportFeedback = ({ lang, feedbackId }: ReportFeedbackProps) => {
 		try {
 			const typeOfReport = getValues("optionReport");
 
-			const { name } = await currentFeedback();
+			const reportedByName = currentFeedback!.name;
 
 			const reportData: ReportFeedbackType = {
-				reportedByName: name,
+				reportedByName,
 				reporterTo: feedbackId,
 				typeOfReport,
 			};
@@ -141,7 +143,8 @@ export const ReportFeedback = ({ lang, feedbackId }: ReportFeedbackProps) => {
 					<ModalBody
 						as="form"
 						noValidate
-						onSubmit={handleSubmit(handleReportUser)}>
+						onSubmit={handleSubmit(handleReportUser)}
+					>
 						<FormControl isInvalid={!!errors.optionReport}>
 							<Controller
 								name="optionReport"
@@ -153,7 +156,8 @@ export const ReportFeedback = ({ lang, feedbackId }: ReportFeedbackProps) => {
 										flexDir="column"
 										value={value}
 										onChange={onChange}
-										onBlur={onBlur}>
+										onBlur={onBlur}
+									>
 										{options.map(option => (
 											<Radio key={option} value={option}>
 												{option}
@@ -177,7 +181,8 @@ export const ReportFeedback = ({ lang, feedbackId }: ReportFeedbackProps) => {
 								_hover={{
 									filter: "brightness(.8)",
 									transition: "filter .2s ease",
-								}}>
+								}}
+							>
 								{modalLang.confirm}
 							</Button>
 							<Button
@@ -188,7 +193,8 @@ export const ReportFeedback = ({ lang, feedbackId }: ReportFeedbackProps) => {
 									filter: "brightness(.8)",
 									transition: "filter .2s ease",
 								}}
-								onClick={onClose}>
+								onClick={onClose}
+							>
 								{modalLang.cancel}
 							</Button>
 						</ModalFooter>

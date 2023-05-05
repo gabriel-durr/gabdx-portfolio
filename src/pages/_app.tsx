@@ -19,7 +19,8 @@ function App({ Component, pageProps }: AppProps) {
 					<NextLink href={href} locale={locale} {...props}>
 						{children}
 					</NextLink>
-				)}>
+				)}
+			>
 				<PrismicPreview repositoryName={repositoryName}>
 					<ChakraProvider theme={theme}>
 						<Component {...pageProps} />

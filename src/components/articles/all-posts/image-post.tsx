@@ -21,6 +21,7 @@ export const ImagePost = ({ uid, image }: ImagePostProps) => {
 						fill
 						alt={image?.alt ?? ""}
 						src={image?.url ?? ""}
+						sizes="(max-width: 768px) 100vw,(max-width: 1200px) 50vw,33vw"
 						style={{ objectFit: "cover" }}
 					/>
 				</Box>

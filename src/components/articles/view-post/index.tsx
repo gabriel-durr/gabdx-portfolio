@@ -30,7 +30,8 @@ export const ViewPost = ({ postData }: ViewPostProps) => {
 			p={2}
 			justify="center"
 			align="flex-start"
-			w={{ base: "full", md: "container.sm", lg: "container.md" }}>
+			w={{ base: "full", md: "container.sm", lg: "container.md" }}
+		>
 			<Heading as="h1" w="90%" variant="postPrimary">
 				{postData.title}
 			</Heading>
@@ -44,7 +45,8 @@ export const ViewPost = ({ postData }: ViewPostProps) => {
 					px="2px"
 					align="center"
 					justify="space-between"
-					spacing={6}>
+					spacing={6}
+				>
 					<Breadcrumb lang={postData.lang} />
 
 					<Infos createdAt={postData.createdAt} />

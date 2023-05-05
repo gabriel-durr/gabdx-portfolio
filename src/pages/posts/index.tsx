@@ -16,13 +16,15 @@ const Posts = ({ postData, page, menuItems, footerData }: PostsProps) => {
 		<Layout
 			menuItems={menuItems}
 			altLangs={page.alternate_languages}
-			footerData={footerData}>
+			footerData={footerData}
+		>
 			<Stack
 				as="main"
 				maxW="container.md"
 				justify="center"
 				spacing={28}
-				w={{ base: "full", md: "92%", lg: "60%" }}>
+				w={{ base: "full", md: "92%", lg: "60%" }}
+			>
 				<Head>
 					<title>{page.data.title}</title>
 				</Head>
@@ -51,10 +53,10 @@ export async function getStaticProps({
 
 	const { menuItems, footerData } = layoutFormat({ menu, footer });
 
-	const postData = posts.map(({ data, uid, first_publication_date }) => ({
+	const postData = posts.map(({ data, uid, tags, first_publication_date }) => ({
 		uid,
+		tags,
 		title: data.title,
-		tags: data.tag.map((tag: any) => tag.text),
 		image: data.image,
 		description: prismicH.asText(data.description),
 		date: new Date(first_publication_date).toLocaleString("pt-br", {

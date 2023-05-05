@@ -56,7 +56,8 @@ export const FeedbacksInPost = ({ lang }: FeedbacksInPostProps) => {
 			justify="center"
 			align="center"
 			bg="blackAlpha.50"
-			_light={{ bg: "whiteAlpha.50" }}>
+			_light={{ bg: "whiteAlpha.50" }}
+		>
 			<VStack w="full" p={{ base: 1, md: 8 }} spacing={16} align="center">
 				{!isEqualFeedbackId && (
 					<InputsFeedbacks lang={lang} cookieFeedbackId={cookieFeedbackId} />

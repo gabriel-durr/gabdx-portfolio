@@ -1,4 +1,4 @@
-const { apiEndpoint } = require("./sm.json");
+const { apiEndpoint } = require("./slicemachine.config.json");
 const { createClient } = require("@prismicio/client");
 
 /** @type {import('next').NextConfig} */
@@ -24,6 +24,7 @@ const nextConfig = async () => {
 		},
 		images: {
 			domains: ["images.prismic.io", "prismic-io.s3.amazonaws.com"],
+			unoptimized: true,
 		},
 	};
 };

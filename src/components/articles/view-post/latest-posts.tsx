@@ -50,6 +50,7 @@ export const LatestPosts = ({ latestPosts, lang }: LatestPostsProps) => {
 								src={data.image?.url ?? ""}
 								alt={data.image?.alt ?? ""}
 								fill
+								sizes="(max-width: 768px) 100vw,(max-width: 1200px) 80vw,33vw"
 								style={{ objectFit: "cover" }}
 							/>
 						</Box>

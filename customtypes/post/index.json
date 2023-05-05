@@ -5,36 +5,14 @@
   "status": true,
   "json": {
     "Main": {
-      "uid": {
-        "type": "UID",
-        "config": {
-          "label": "UID",
-          "placeholder": ""
-        }
-      },
+      "uid": { "type": "UID", "config": { "label": "UID", "placeholder": "" } },
       "title": {
         "type": "Text",
-        "config": {
-          "label": "Title",
-          "placeholder": ""
-        }
-      },
-      "tag": {
-        "type": "StructuredText",
-        "config": {
-          "label": "Tag",
-          "placeholder": "",
-          "allowTargetBlank": false,
-          "multi": "paragraph,preformatted,strong"
-        }
+        "config": { "label": "Title", "placeholder": "" }
       },
       "image": {
         "type": "Image",
-        "config": {
-          "label": "Image",
-          "constraint": {},
-          "thumbnails": []
-        }
+        "config": { "label": "Image", "constraint": {}, "thumbnails": [] }
       },
       "description": {
         "type": "StructuredText",
@@ -44,22 +22,21 @@
           "allowTargetBlank": true,
           "multi": "paragraph,preformatted,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
         }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": { "choices": { "code_sandbox": { "type": "SharedSlice" } } }
       }
     },
     "SEO": {
       "seo_title": {
         "type": "Text",
-        "config": {
-          "label": "SEO Title",
-          "placeholder": ""
-        }
+        "config": { "label": "SEO Title", "placeholder": "" }
       },
       "seo_description": {
         "type": "Text",
-        "config": {
-          "label": "SEO Description",
-          "placeholder": ""
-        }
+        "config": { "label": "SEO Description", "placeholder": "" }
       },
       "image_preview": {
         "type": "Image",

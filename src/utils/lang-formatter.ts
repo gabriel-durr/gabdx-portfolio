@@ -1,46 +1,19 @@
-const contactFormLang = (lang: string) => {
+const toastContactForm = (lang: string) => {
 	const isBrLang = lang === "pt-br";
 
 	return {
-		toastLang: {
-			sucess: {
-				title: isBrLang
-					? "Mensagem enviada com Sucesso"
-					: "Message sent sucessfully",
-				description: isBrLang
-					? "Fique tranquilo, logo entrarei em contato"
-					: "Don't worry, I'll be in touch soon",
-			},
-			error: {
-				title: isBrLang
-					? "Algo de errado, não esta certo"
-					: "Something's wrong, it's not right",
-			},
+		sucess: {
+			title: isBrLang
+				? "Mensagem enviada com Sucesso"
+				: "Message sent sucessfully",
+			description: isBrLang
+				? "Fique tranquilo, logo entrarei em contato"
+				: "Don't worry, I'll be in touch soon",
 		},
-		inputName: {
-			requiredMsg: isBrLang ? "Nome Obrigatório" : "Name Required",
-			maxMsg: isBrLang
-				? "Tamanho máximo de 50 caracteres"
-				: "Maximum Size of 50 Characters",
-			minMsg: isBrLang
-				? "Tamanho Minímo de 4 Caracteres"
-				: "Minimum Size of 4 Characters",
-			patternMsg: isBrLang
-				? "Não é aceito Números"
-				: "Numbers are not accepted",
-		},
-		inputEmail: {
-			requiredMsg: isBrLang ? "E-mail Obrigatório" : "Required Email",
-			maxMsg: isBrLang
-				? "Tamanho Máximo de 80 Caracteres"
-				: "Maximum Size of 80 Characters",
-			patternMsg: isBrLang ? "Insira um email válido" : "Enter a valid email",
-		},
-		inputTextarea: {
-			requiredMsg: isBrLang ? "Mensagem Obrigatória" : "Required Message",
-			maxMsg: isBrLang
-				? "Tamanho Máximo de 1400 Caracteres"
-				: "Maximum Size of 1400 Characters",
+		error: {
+			title: isBrLang
+				? "Algo de errado, não esta certo"
+				: "Something's wrong, it's not right",
 		},
 	};
 };
@@ -69,6 +42,7 @@ const inputsFeedbackLang = (lang: string) => {
 			restartEmojis: isBrLang ? "Reiniciar emojis" : "Reset emojis",
 			allEmojis: isBrLang ? "Todos emojis" : "All emojis",
 		},
+
 		feedbackTitle: isBrLang ? "Digite seu comentário" : "Type your comment",
 		feedbackForm: {
 			inputName: {
@@ -168,7 +142,7 @@ const reportLang = (lang: string) => {
 
 export {
 	reportLang,
-	contactFormLang,
+	toastContactForm,
 	likeOrDislikeLang,
 	inputsFeedbackLang,
 	feedbacksInPostLang,

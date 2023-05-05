@@ -52,6 +52,8 @@ export const colors = {
 		progressLight: "#DAA520",
 		orangeVibrance: "#e61101",
 		redBlood: "#6a0e03",
+		redClose: "#8c34345a",
+		borderGray: "#ffffff43",
 		satinGray: "#6d898d",
 		satinOrange: "#f56217",
 		satinBlue: "#034d72",

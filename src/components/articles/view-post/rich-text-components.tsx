@@ -1,40 +1,56 @@
 import { CopyCode } from "./copy-code";
+import { SyntaxHighlighter } from "./syntax-highlighter";
 
+import NextLink from "next/link";
 import NextImage from "next/image";
 import { JSXMapSerializer } from "@prismicio/react";
 import { AiTwotoneThunderbolt } from "react-icons/ai";
 
-import { List, Text, Heading, ListItem, ListIcon } from "@chakra-ui/react";
+import {
+	Box,
+	List,
+	Link,
+	Text,
+	Heading,
+	ListItem,
+	ListIcon,
+} from "@chakra-ui/react";
 
 export const rickTextComponents: JSXMapSerializer = {
 	heading3: ({ children }) => (
-		<Heading as="h3" variant="topicPrimary" py={12}>
+		<Heading as="h3" variant="topicPrimary" fontWeight="medium" py={12}>
 			{children}
 		</Heading>
 	),
-	heading6: ({ children }) => (
-		<Heading
-			as="h6"
-			fontFamily="body"
-			fontWeight="bold"
-			fontSize={{ base: "0.91rem", md: ".96rem" }}>
-			{children}
-		</Heading>
-	),
+
 	paragraph: ({ children }) => (
 		<Text mb="40px" pb={1} textAlign="justify" fontSize="subText">
 			{children}
 		</Text>
 	),
-	preformatted: ({ text }) => <CopyCode code={text} />,
+	preformatted: ({ text, node }) => {
+		let isFirstSpaceText = node.text.startsWith("\n");
+
+		let findFirstSpace = node.text.indexOf("\n");
+		let firstTextSpace = node.text.substring(findFirstSpace + 1);
+
+		return isFirstSpaceText ? (
+			<SyntaxHighlighter code={firstTextSpace} />
+		) : (
+			<CopyCode code={text} />
+		);
+	},
+
 	image: ({ node }) => (
-		<NextImage
-			src={node?.url ?? ""}
-			alt={node?.alt ?? ""}
-			width={500}
-			height={500}
-			style={{ margin: "20px 0" }}
-		/>
+		<Box pos="relative" py={8}>
+			<NextImage
+				src={node?.url ?? ""}
+				alt={node?.alt ?? ""}
+				width={node.dimensions?.width ?? 1000}
+				height={node.dimensions.height}
+				style={{ objectFit: "cover" }}
+			/>
+		</Box>
 	),
 
 	listItem: ({ children }) => (
@@ -44,5 +60,22 @@ export const rickTextComponents: JSXMapSerializer = {
 				{children}
 			</ListItem>
 		</List>
+	),
+
+	hyperlink: ({ node, text }) => (
+		<Link
+			as={NextLink}
+			href={node.data?.url ?? ""}
+			target="_blank"
+			color="red.300"
+			borderBottom="1px inset"
+			borderBottomColor="whiteAlpha.200"
+			_light={{
+				color: "red.600",
+				borderBottomColor: "gray.50",
+			}}
+		>
+			{text}
+		</Link>
 	),
 };

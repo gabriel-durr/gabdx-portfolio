@@ -4,6 +4,8 @@ import { Projects } from "@components/projects";
 import { createClient } from "@services/prismicio";
 import { layoutFormat } from "@utils/layout-formated";
 
+import { GbdxAssistant } from "@components/about/gbdx-assistant";
+
 import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 
 import { Heading, Stack } from "@chakra-ui/react";
@@ -17,7 +19,8 @@ const Home = ({ page, menuItems, footerData, seoData }: HomeProps) => {
 			isGabdxImg
 			menuItems={menuItems}
 			altLangs={page.alternate_languages}
-			footerData={footerData}>
+			footerData={footerData}
+		>
 			<SeoMetaData
 				seoTitle={seoData.seoTitle}
 				seoDescription={seoData.seoDescription}
@@ -30,7 +33,8 @@ const Home = ({ page, menuItems, footerData, seoData }: HomeProps) => {
 				w="full"
 				maxW="container.lg"
 				align="center"
-				justify="center">
+				justify="center"
+			>
 				<About page={page} />
 
 				<Heading as="h2" variant="topicPrimary">
@@ -41,6 +45,8 @@ const Home = ({ page, menuItems, footerData, seoData }: HomeProps) => {
 
 				<Projects data={page.data} lang={page.lang} />
 			</Stack>
+
+			<GbdxAssistant />
 		</Layout>
 	);
 };
