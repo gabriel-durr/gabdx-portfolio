@@ -4,7 +4,7 @@ import { TechsAnimation } from "./techs-animation";
 
 import { motion } from "framer-motion";
 
-import { Box, Text, VStack, Heading } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 
 type AboutContentProps = {
 	aboutContentData: AboutContentDataProps;
@@ -35,7 +35,8 @@ export const AboutContent = ({ aboutContentData, lang }: AboutContentProps) => {
 			borderBottom="1px"
 			borderColor="whiteAlpha.500"
 			borderStyle="dotted"
-			_light={{ borderColor: "blackAlpha.500" }}>
+			_light={{ borderColor: "blackAlpha.500" }}
+		>
 			<VStack w="full" align="flex-start" spacing={1}>
 				<Box>
 					<Greeting lang={lang} />

@@ -34,7 +34,8 @@ export const AllPosts = ({ postData }: ArticlesProps) => {
 					h={{ base: "400px", md: "200px" }}
 					gap={{ base: 0, md: 8 }}
 					align={{ base: "center", md: "start" }}
-					direction={{ base: "column", md: "row" }}>
+					direction={{ base: "column", md: "row" }}
+				>
 					<ImagePost image={image} uid={uid} />
 
 					<VStack flex={1} h="full" spacing={4} justify="start" align="start">
@@ -47,7 +48,7 @@ export const AllPosts = ({ postData }: ArticlesProps) => {
 						<Tags
 							tags={tags}
 							bg="gbdx.gradBlueOrange"
-							color="white"
+							color="gbdx.white"
 							containerWidth={{ base: "308px", sm: "360px", md: "340px" }}
 						/>
 
@@ -56,7 +57,8 @@ export const AllPosts = ({ postData }: ArticlesProps) => {
 							textAlign="justify"
 							color="gray.200"
 							fontSize=".88rem"
-							_light={{ color: "gray.700" }}>
+							_light={{ color: "gray.700" }}
+						>
 							{description}
 						</Text>
 						<BlogAuthor name="Gabriel Dürr M." date={date} />

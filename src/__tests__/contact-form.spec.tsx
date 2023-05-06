@@ -5,23 +5,46 @@ import { faker } from "@faker-js/faker";
 import userEvent from "@testing-library/user-event";
 import { render, waitFor } from "@testing-library/react";
 
-const formData = {
-	title: "Contact form",
-	email: "email",
-	emailPlace: "Type your e-mail",
-	message: "message",
-	messagePlace: "write your message",
-	name: "name",
-	namePlace: "type your name",
-	submit: "submit",
-};
-
 jest.mock("axios");
 
 describe("Contact Form", () => {
 	it("should submit form", async () => {
 		const { getByRole, getByText } = render(
-			<Form formData={formData} lang={"en-us"} />
+			<Form
+				onClose={() => {}}
+				formData={{
+					title: "Contact",
+					submit: "Submit",
+					toastLang: {
+						sucess: { title: "error", description: "error ..." },
+						error: { title: "error" },
+					},
+					emailNameButtonLang: "email",
+					inputs: {
+						inputEmail: {
+							label: "email",
+							max_msg: "max",
+							pattern_msg: "asdasd",
+							placeholder: "asdasd",
+							required_msg: "asdas",
+						},
+						inputMessage: {
+							label: "message",
+							max_msg: "asdasd",
+							placeholder: "asdas",
+							required_msg: "asdasd",
+						},
+						inputName: {
+							label: "asdas",
+							max_msg: "asdas",
+							min_msg: "asdasd",
+							pattern_msg: "asdasdasd",
+							placeholder: "asdasdasd",
+							required_msg: "asdasd",
+						},
+					},
+				}}
+			/>
 		);
 
 		const spyAxiosPost = jest.spyOn(axios, "post");

@@ -3,13 +3,12 @@ import { About } from "@components/about";
 import { Projects } from "@components/projects";
 import { createClient } from "@services/prismicio";
 import { layoutFormat } from "@utils/layout-formated";
-
+import { SeoMetaData } from "@/components/seo-meta-data";
 import { GbdxAssistant } from "@components/about/gbdx-assistant";
 
 import type { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 
 import { Heading, Stack } from "@chakra-ui/react";
-import { SeoMetaData } from "@/components/seo-meta-data";
 
 type HomeProps = InferGetStaticPropsType<typeof getStaticProps>;
 

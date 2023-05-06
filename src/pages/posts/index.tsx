@@ -1,6 +1,7 @@
 import { Layout } from "@/layout";
-import { AllPosts } from "@components/articles/all-posts";
 import { createClient } from "@services/prismicio";
+import { AllPosts } from "@components/articles/all-posts";
+import { StarryRaysMotion } from "@components/about/starry-rays-motion";
 
 import Head from "next/head";
 import * as prismicH from "@prismicio/helpers";
@@ -30,6 +31,7 @@ const Posts = ({ postData, page, menuItems, footerData }: PostsProps) => {
 				</Head>
 
 				<AllPosts postData={postData} />
+				<StarryRaysMotion />
 			</Stack>
 		</Layout>
 	);

@@ -47,7 +47,8 @@ export const About = ({ page }: AboutProps) => {
 			_light={{
 				color: "gray.900",
 				boxShadow: "1px 1px 1px rgba(9, 17, 28, 0.23)",
-			}}>
+			}}
+		>
 			<VStack p={2} w={{ base: "full", md: "76%" }}>
 				<AvatarAndCurriculum {...aboutContentData} />
 				<AboutContent aboutContentData={aboutContentData} lang={page.lang} />
