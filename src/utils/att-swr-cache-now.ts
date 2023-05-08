@@ -1,117 +1,100 @@
-import { FeedbacksData, UpdatedFeedbackType } from "@hooks/use-feedbacks";
+import { FeedbacksData, UpdatedFeedbackType } from '@hooks/use-feedbacks'
 
 type DataApiFeedback = {
-	data: FeedbacksData;
-};
+  data: FeedbacksData
+}
 
 type ChangeTheLikeNowType = DataApiFeedback & {
-	isLike: boolean;
-	feedbackTo: string;
-};
+  isLike: boolean
+  feedbackTo: string
+}
 
 type ChangeTheDislikeNowType = DataApiFeedback & {
-	isDislike: boolean;
-	feedbackTo: string;
-};
+  isDislike: boolean
+  feedbackTo: string
+}
 
 type UpdatedFeedbackNowType = DataApiFeedback & {
-	updatedData: UpdatedFeedbackType;
-	feedbackId: string;
-};
+  updatedData: UpdatedFeedbackType
+  feedbackId: string
+}
 
 type RemoveFeedbackNowType = DataApiFeedback & {
-	feedbackId: string;
-};
+  feedbackId: string
+}
 
-const UpdatedFeedbackNow = ({
-	data,
-	updatedData,
-	feedbackId,
-}: UpdatedFeedbackNowType) => {
-	const updatedFeedbackList = data.feedbackList.map(feedback => {
-		if (feedback._id.toString() === feedbackId) {
-			return {
-				...feedback,
-				...updatedData,
-			};
-		}
-		return feedback;
-	});
+const UpdatedFeedbackNow = ({ data, updatedData, feedbackId }: UpdatedFeedbackNowType) => {
+  const updatedFeedbackList = data.feedbackList.map((feedback) => {
+    if (feedback._id.toString() === feedbackId) {
+      return {
+        ...feedback,
+        ...updatedData
+      }
+    }
+    return feedback
+  })
 
-	const updatedFeedbackData: FeedbacksData = {
-		...data,
-		feedbackList: updatedFeedbackList || [],
-	};
+  const updatedFeedbackData: FeedbacksData = {
+    ...data,
+    feedbackList: updatedFeedbackList || []
+  }
 
-	return updatedFeedbackData;
-};
+  return updatedFeedbackData
+}
 
 const removeFeedbackNow = ({ data, feedbackId }: RemoveFeedbackNowType) => {
-	const updatedFeedbackList = data.feedbackList.filter(
-		feedback => feedback._id.toString() !== feedbackId
-	);
+  const updatedFeedbackList = data.feedbackList.filter(
+    (feedback) => feedback._id.toString() !== feedbackId
+  )
 
-	const updatedFeedbackData: FeedbacksData = {
-		...data,
-		feedbackList: updatedFeedbackList || [],
-	};
+  const updatedFeedbackData: FeedbacksData = {
+    ...data,
+    feedbackList: updatedFeedbackList || []
+  }
 
-	return updatedFeedbackData;
-};
+  return updatedFeedbackData
+}
 
-const changeTheLikeNow = ({
-	data,
-	isLike,
-	feedbackTo,
-}: ChangeTheLikeNowType) => {
-	const updatedFeedbackList = data.feedbackList.map(feedback => {
-		if (feedback._id.toString() === feedbackTo) {
-			return {
-				...feedback,
-				like: {
-					isLike,
-				},
-			};
-		}
-		return feedback;
-	});
+const changeTheLikeNow = ({ data, isLike, feedbackTo }: ChangeTheLikeNowType) => {
+  const updatedFeedbackList = data.feedbackList.map((feedback) => {
+    if (feedback._id.toString() === feedbackTo) {
+      return {
+        ...feedback,
+        like: {
+          isLike
+        }
+      }
+    }
+    return feedback
+  })
 
-	const updatedData: FeedbacksData = {
-		...data,
-		feedbackList: updatedFeedbackList || [],
-	};
+  const updatedData: FeedbacksData = {
+    ...data,
+    feedbackList: updatedFeedbackList || []
+  }
 
-	return updatedData;
-};
+  return updatedData
+}
 
-const changeTheDislikeNow = ({
-	data,
-	isDislike,
-	feedbackTo,
-}: ChangeTheDislikeNowType) => {
-	const updatedFeedbackList = data.feedbackList.map(feedback => {
-		if (feedback._id.toString() === feedbackTo) {
-			return {
-				...feedback,
-				dislike: {
-					isDislike,
-				},
-			};
-		}
-		return feedback;
-	});
+const changeTheDislikeNow = ({ data, isDislike, feedbackTo }: ChangeTheDislikeNowType) => {
+  const updatedFeedbackList = data.feedbackList.map((feedback) => {
+    if (feedback._id.toString() === feedbackTo) {
+      return {
+        ...feedback,
+        dislike: {
+          isDislike
+        }
+      }
+    }
+    return feedback
+  })
 
-	const updatedData: FeedbacksData = {
-		...data,
-		feedbackList: updatedFeedbackList || [],
-	};
+  const updatedData: FeedbacksData = {
+    ...data,
+    feedbackList: updatedFeedbackList || []
+  }
 
-	return updatedData;
-};
+  return updatedData
+}
 
-export {
-	changeTheLikeNow,
-	changeTheDislikeNow,
-	UpdatedFeedbackNow,
-	removeFeedbackNow,
-};
+export { changeTheLikeNow, changeTheDislikeNow, UpdatedFeedbackNow, removeFeedbackNow }

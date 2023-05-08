@@ -10,9 +10,9 @@ const nextConfig = async () => {
 	const locales = repository.languages.map(lang => lang.id);
 
 	return {
-		// experimental: {
-		// 	appDir: true, //TODO quando a lançar next.js 13 estável for lançada, com opção de revilidate sob demanda, e outras features estiverem prontas para produção, ativar e migar para o diretório app com sua nova forma de roteamento, etc.
-		// },
+		experimental: {
+			appDir: true,
+		},
 		reactStrictMode: true,
 		swcMinify: true,
 		eslint: {

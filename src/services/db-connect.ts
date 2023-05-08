@@ -1,4 +1,4 @@
-import db from "mongoose";
+import db from 'mongoose'
 
 /**
  * @description Cria conexão com banco de dados MongoDB. A variável "db" de conexão com banco é exportada.
@@ -9,21 +9,20 @@ import db from "mongoose";
  */
 
 const dbConnect = async (): Promise<void> => {
-	const uriConnect = process.env.DATABASE_URL;
+  const uriConnect = process.env.DATABASE_URL
 
-	if (db.connection.readyState >= 1) return;
+  if (db.connection.readyState >= 1) return
 
-	try {
-		if (!uriConnect)
-			return console.warn("É necessário fornecer uma URI para conexão");
+  try {
+    if (!uriConnect) return console.warn('É necessário fornecer uma URI para conexão')
 
-		await db.connect(uriConnect);
+    await db.connect(uriConnect)
 
-		return console.warn("Mongodb Connected");
-	} catch (err: any) {
-		console.error(err.message);
-		process.exit(1);
-	}
-};
+    return console.warn('Mongodb Connected')
+  } catch (err: any) {
+    console.error(err.message)
+    process.exit(1)
+  }
+}
 
-export { db, dbConnect };
+export { db, dbConnect }

@@ -1,59 +1,64 @@
-import { Prism } from "react-syntax-highlighter";
-import style from "react-syntax-highlighter/dist/cjs/styles/prism/synthwave84";
+import { Prism } from 'react-syntax-highlighter'
+import style from 'react-syntax-highlighter/dist/cjs/styles/prism/synthwave84'
 
-import { BsFillClipboardFill, BsFillClipboardCheckFill } from "react-icons/bs";
+import { IoCopyOutline, IoCopySharp } from 'react-icons/io5'
 
-import { Box, Image, Text, Button, Icon, useClipboard } from "@chakra-ui/react";
+import { Stack, Image, useClipboard, IconButton, useBoolean, useMediaQuery } from '@chakra-ui/react'
 
 type SyntaxHighlighterProps = {
-	code: string;
-};
+  code: string
+}
 
 export const SyntaxHighlighter = ({ code }: SyntaxHighlighterProps) => {
-	const { hasCopied, onCopy } = useClipboard(code);
+  const [isHover, setHover] = useBoolean(false)
+  const { hasCopied, onCopy } = useClipboard(code)
+  const [isSmallerThan1280] = useMediaQuery('(max-width: 768px)')
 
-	return (
-		<Box w={{ base: "100vw", lg: "full" }} pos="relative">
-			<Prism language="jsx" style={style} customStyle={{ padding: 28 }}>
-				{code}
-			</Prism>
+  return (
+    <Stack
+      w={{ base: '100vw', lg: 'full' }}
+      pos="relative"
+      onMouseEnter={!isSmallerThan1280 ? setHover.on : undefined}
+      onMouseLeave={!isSmallerThan1280 ? setHover.off : undefined}
+    >
+      {(isHover || isSmallerThan1280) && (
+        <IconButton
+          pos="absolute"
+          right={6}
+          top={6}
+          variant="unstyled"
+          icon={hasCopied ? <IoCopySharp /> : <IoCopyOutline />}
+          size="100%"
+          fontSize={{ base: '2xl', md: '3xl' }}
+          color="gbdx.white"
+          aria-label={hasCopied ? 'copiado' : 'copiar'}
+          onClick={onCopy}
+        />
+      )}
 
-			<Box
-				pos="absolute"
-				right={{ base: 14, md: 32, lg: 4 }}
-				top={6}
-				shadow="sm"
-			>
-				<Button
-					variant="unstyled"
-					display="flex"
-					size="sm"
-					gap={1}
-					onClick={onCopy}
-				>
-					<Icon
-						as={hasCopied ? BsFillClipboardCheckFill : BsFillClipboardFill}
-						size="100%"
-						fontSize="xl"
-						color={hasCopied ? "green.400" : "burlywood"}
-					/>
-					<Text as="span" color="gbdx.white" pt={1} fontSize="md">
-						{hasCopied ? "copiado" : "copiar"}
-					</Text>
-				</Button>
-			</Box>
+      <Prism
+        language="jsx"
+        style={style}
+        customStyle={{
+          padding: 28,
+          fontSize: '0.875rem',
+          scrollbarWidth: 'thin'
+        }}
+      >
+        {code}
+      </Prism>
 
-			<Image
-				pos="absolute"
-				right={4}
-				bottom={6}
-				bg="whiteAlpha.900"
-				src="/gd-logo.png"
-				alt="gbdx-logo"
-				w={8}
-				pointerEvents="none"
-				rounded="full"
-			/>
-		</Box>
-	);
-};
+      <Image
+        pos="absolute"
+        right={4}
+        bottom={6}
+        w={8}
+        rounded="full"
+        src="/gd-logo.png"
+        alt="gbdx-logo"
+        bg="whiteAlpha.900"
+        pointerEvents="none"
+      />
+    </Stack>
+  )
+}
