@@ -3,34 +3,31 @@ import { InputName } from './input-name'
 import { InputEmail } from './input-email'
 import { useToast } from '@hooks/use-toast'
 import { InputMessage } from './input-message'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import { z } from 'zod'
+import { zodFormSchema } from '@helpers/zod-schemas'
 
 import axios from 'axios'
+import { useForm } from 'react-hook-form'
 import { MoonLoader } from 'react-spinners'
-import { useForm, FieldErrorsImpl, UseFormRegister } from 'react-hook-form'
 
 import { VStack, Button } from '@chakra-ui/react'
-
-type HookFormTypes = {
-  name: string
-  email: string
-  textarea: string
-}
-
-export type FormContactProps = {
-  register: UseFormRegister<HookFormTypes>
-  errors: Partial<FieldErrorsImpl<HookFormTypes>>
-}
 
 export type FormProps = Omit<ContactFormProps, 'linkColor'> & {
   onClose(): void
 }
 
 export const Form = ({ formData, onClose }: FormProps) => {
+  const contactFormSchema = zodFormSchema(formData.inputs)
+
+  type contactFormType = z.infer<typeof contactFormSchema>
+
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting, isSubmitted, isValid }
-  } = useForm<HookFormTypes>()
+  } = useForm<contactFormType>({ resolver: zodResolver(contactFormSchema) })
 
   const { toastExec } = useToast()
 
@@ -42,8 +39,10 @@ export const Form = ({ formData, onClose }: FormProps) => {
     toastLang
   } = formData
 
-  const onSubmit = async ({ name, email, textarea }: HookFormTypes) => {
+  const onSubmit = async ({ name, email, textarea }: contactFormType) => {
     await new Promise((resolve) => setTimeout(resolve, 1400))
+
+    console.log(name, email, textarea)
 
     try {
       await axios.post('/api/mail', {
@@ -79,11 +78,11 @@ export const Form = ({ formData, onClose }: FormProps) => {
       spacing={8}
       borderRadius="5px"
     >
-      <InputName inputName={inputName} register={register} errors={errors} />
+      <InputName i18nName={inputName} register={register} errorName={errors.name} />
 
-      <InputEmail inputEmail={inputEmail} register={register} errors={errors} />
+      <InputEmail i18nEmail={inputEmail} register={register} errorEmail={errors.email} />
 
-      <InputMessage inputMessage={inputMessage} register={register} errors={errors} />
+      <InputMessage i18nMessage={inputMessage} register={register} errorMessage={errors.textarea} />
 
       <Button
         variant="gdxSolidButton"

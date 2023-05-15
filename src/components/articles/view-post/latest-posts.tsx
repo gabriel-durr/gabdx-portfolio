@@ -12,7 +12,7 @@ export const LatestPosts = ({ latestPosts, lang }: LatestPostsProps) => {
 
   return (
     <VStack w="full" align="start" spacing={12}>
-      <Heading as="h5" variant="topicPrimary">
+      <Heading as="h5" variant="postSecondary">
         {isBrLang ? 'postagens recentes' : 'recent posts'}
       </Heading>
 

@@ -1,6 +1,7 @@
-import { FormContactProps, FormProps } from '.'
+import { FormProps } from '.'
 
 import { HiMail } from 'react-icons/hi'
+import { FieldError, UseFormRegister } from 'react-hook-form'
 
 import { FocusEvent } from 'react'
 import {
@@ -14,15 +15,20 @@ import {
   InputRightElement
 } from '@chakra-ui/react'
 
-type InputEmailProps = FormContactProps & {
-  inputEmail: FormProps['formData']['inputs']['inputEmail']
+type InputEmailProps = {
+  i18nEmail: FormProps['formData']['inputs']['inputEmail']
+  errorEmail?: FieldError
+  register: UseFormRegister<{
+    name: string
+    email: string
+    textarea: string
+  }>
 }
 
-export const InputEmail = ({ inputEmail, register, errors }: InputEmailProps) => {
+export const InputEmail = ({ i18nEmail, register, errorEmail }: InputEmailProps) => {
   const [isMove, setMove] = useBoolean(false)
 
-  const validEmailRgx = /^\S+@\S+$/i
-  const isEmailError = !!errors.email
+  const isEmailError = !!errorEmail
 
   function handleOnBlur({ target: { value } }: FocusEvent<HTMLInputElement>) {
     value.length > 0 ? setMove.on() : setMove.off()
@@ -31,7 +37,7 @@ export const InputEmail = ({ inputEmail, register, errors }: InputEmailProps) =>
   return (
     <FormControl variant="floating" isInvalid={isEmailError} isRequired>
       <FormLabel fontWeight="medium" fontSize="1.1rem" fontFamily="body">
-        {inputEmail.label}
+        {i18nEmail.label}
       </FormLabel>
 
       <InputGroup>
@@ -45,23 +51,12 @@ export const InputEmail = ({ inputEmail, register, errors }: InputEmailProps) =>
           textIndent={isMove ? '92px' : '8px'}
           transition="text-indent ease .6s"
           onFocus={() => isMove && setMove.off()}
-          placeholder={inputEmail.placeholder}
-          {...register('email', {
-            required: inputEmail.required_msg,
-            maxLength: {
-              value: 80,
-              message: inputEmail.max_msg
-            },
-            pattern: {
-              value: validEmailRgx,
-              message: inputEmail.pattern_msg
-            },
-            onBlur: handleOnBlur
-          })}
+          placeholder={i18nEmail.placeholder}
+          {...register('email', { onBlur: handleOnBlur })}
         />
       </InputGroup>
 
-      <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
+      <FormErrorMessage>{isEmailError && errorEmail.message}</FormErrorMessage>
     </FormControl>
   )
 }

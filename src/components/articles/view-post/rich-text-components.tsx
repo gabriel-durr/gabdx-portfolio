@@ -10,7 +10,7 @@ import { Box, List, Link, Text, Heading, ListItem, ListIcon } from '@chakra-ui/r
 
 export const rickTextComponents: JSXMapSerializer = {
   heading3: ({ children }) => (
-    <Heading as="h3" variant="topicPrimary" fontWeight="medium" py={12}>
+    <Heading as="h3" variant="postSecondary" py={12}>
       {children}
     </Heading>
   ),

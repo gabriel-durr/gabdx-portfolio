@@ -23,6 +23,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@pages/*": ["src/pages/*"],
       "@utils/*": ["src/utils/*"],
+      "@helpers/*": ["src/helpers/*"],
       "@database/*": ["src/database/*"],
       "@services/*": ["src/services/*"],
       "@components/*": ["src/components/*"],

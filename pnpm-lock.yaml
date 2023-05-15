@@ -19,6 +19,9 @@ dependencies:
   '@emotion/styled':
     specifier: ^11.10.8
     version: 11.10.8(@emotion/react@11.10.8)(@types/react@18.2.0)(react@18.2.0)
+  '@hookform/resolvers':
+    specifier: ^3.1.0
+    version: 3.1.0(react-hook-form@7.43.9)
   '@prismicio/client':
     specifier: ^6.7.3
     version: 6.7.3
@@ -109,6 +112,9 @@ dependencies:
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
+  zod:
+    specifier: ^3.21.4
+    version: 3.21.4
 
 devDependencies:
   '@chakra-ui/cli':
@@ -188,7 +194,7 @@ devDependencies:
     version: 2.8.8
   slice-machine-ui:
     specifier: ^1.0.3
-    version: 1.0.3(@types/react@18.2.0)(react-dom@18.2.0)(typescript@5.0.4)
+    version: 1.0.3(@types/react@18.2.0)(react-dom@18.2.0)(typescript@5.0.4)(zod@3.21.4)
   ts-jest:
     specifier: ^29.1.0
     version: 29.1.0(@babel/core@7.21.8)(jest@29.5.0)(typescript@5.0.4)
@@ -2205,6 +2211,14 @@ packages:
       '@hapi/hoek': 9.3.0
     dev: true
 
+  /@hookform/resolvers@3.1.0(react-hook-form@7.43.9):
+    resolution: {integrity: sha512-z0A8K+Nxq+f83Whm/ajlwE6VtQlp/yPHZnXw7XWVPIGm1Vx0QV8KThU3BpbBRfAZ7/dYqCKKBNnQh85BkmBKkA==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.43.9(react@18.2.0)
+    dev: false
+
   /@humanwhocodes/config-array@0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
     engines: {node: '>=10.10.0'}
@@ -2748,7 +2762,7 @@ packages:
     dependencies:
       '@floating-ui/react-dom-interactions': 0.9.3(react-dom@18.2.0)(react@18.2.0)
       '@prismicio/editor-support': 0.3.0(react@18.2.0)(zod@3.19.1)
-      '@prismicio/editor-ui': 0.3.1(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)
+      '@prismicio/editor-ui': 0.3.1(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)(zod@3.21.4)
       '@prismicio/richtext': 2.1.1
       '@prismicio/types-internal': 2.0.0-alpha.7(fp-ts@2.12.3)(io-ts-types@0.5.16)(io-ts@2.2.18)
       '@tiptap/core': 2.0.0-beta.217(@tiptap/pm@2.0.0-beta.217)
@@ -2799,14 +2813,30 @@ packages:
       zod: 3.19.1
     dev: true
 
-  /@prismicio/editor-ui@0.3.1(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0):
+  /@prismicio/editor-support@0.3.0(react@18.2.0)(zod@3.21.4):
+    resolution: {integrity: sha512-7i/xlPDRVcvMeisbeG6WYgQCZb/b//zNOwPE/ddf9wKueQ83f2yiPJ4t3bBIWhVKElFpH7Um9TAnMSeJZCW/yw==}
+    peerDependencies:
+      react: 17 || 18
+      zod: ^3.19.1
+    peerDependenciesMeta:
+      react:
+        optional: true
+      zod:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      tslib: 2.4.0
+      zod: 3.21.4
+    dev: true
+
+  /@prismicio/editor-ui@0.3.1(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)(zod@3.21.4):
     resolution: {integrity: sha512-JGGKyMBYAB939xJd09FpPpknq/c0i2d2oHBost5uKhxEMefh1HPhJnSTDV0FJO3A0M/+D2fI3sQ6uZ/fx2DaZQ==}
     peerDependencies:
       react: 17 || 18
       react-dom: 17 || 18
     dependencies:
       '@internationalized/date': 3.1.0
-      '@prismicio/editor-support': 0.3.0(react@18.2.0)(zod@3.19.1)
+      '@prismicio/editor-support': 0.3.0(react@18.2.0)(zod@3.21.4)
       '@radix-ui/react-dialog': 1.0.2(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-dropdown-menu': 2.0.1(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-label': 2.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -12027,13 +12057,13 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /slice-machine-ui@1.0.3(@types/react@18.2.0)(react-dom@18.2.0)(typescript@5.0.4):
+  /slice-machine-ui@1.0.3(@types/react@18.2.0)(react-dom@18.2.0)(typescript@5.0.4)(zod@3.21.4):
     resolution: {integrity: sha512-eFdG5lb3KcaOM0e3FjEgdpD7Vl4vIGVi6+InjNiLP8NwvNwyxZFQ4+v6HLFVgiup+z7TVWxGuPqWTdzlpv1Psw==}
     engines: {node: '>=14'}
     dependencies:
       '@extractus/oembed-extractor': 3.1.9
       '@prismicio/editor-fields': 0.3.0(@prismicio/editor-ui@0.3.1)(react-dom@18.2.0)(react@18.2.0)
-      '@prismicio/editor-ui': 0.3.1(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)
+      '@prismicio/editor-ui': 0.3.1(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)(zod@3.21.4)
       '@prismicio/mocks': 2.0.0-alpha.2
       '@prismicio/types-internal': 2.0.0-alpha.9(fp-ts@2.14.0)(io-ts-types@0.5.19)(io-ts@2.2.20)
       '@slicemachine/manager': 0.2.2(monocle-ts@2.3.13)(newtype-ts@0.3.5)(puppeteer@19.11.1)

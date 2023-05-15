@@ -1,13 +1,21 @@
-import { FormContactProps, FormProps } from '.'
+import { FormProps } from '.'
+
+import { FieldError, UseFormRegister } from 'react-hook-form'
 
 import { Textarea, FormLabel, FormControl, FormErrorMessage } from '@chakra-ui/react'
 
-type InputMessageProps = FormContactProps & {
-  inputMessage: FormProps['formData']['inputs']['inputMessage']
+type InputMessageProps = {
+  i18nMessage: FormProps['formData']['inputs']['inputMessage']
+  errorMessage?: FieldError
+  register: UseFormRegister<{
+    name: string
+    email: string
+    textarea: string
+  }>
 }
 
-export const InputMessage = ({ errors, register, inputMessage }: InputMessageProps) => {
-  const isTextAreaError = !!errors.textarea
+export const InputMessage = ({ errorMessage, register, i18nMessage }: InputMessageProps) => {
+  const isTextAreaError = !!errorMessage
 
   return (
     <FormControl isInvalid={isTextAreaError} isRequired>
@@ -21,20 +29,14 @@ export const InputMessage = ({ errors, register, inputMessage }: InputMessagePro
           color: 'light.400'
         }}
       >
-        {inputMessage.label}
+        {i18nMessage.label}
       </FormLabel>
       <Textarea
         variant="gdxTextarea"
-        placeholder={inputMessage.placeholder}
-        {...register('textarea', {
-          required: inputMessage.required_msg,
-          maxLength: {
-            value: 1400,
-            message: inputMessage.max_msg
-          }
-        })}
+        placeholder={i18nMessage.placeholder}
+        {...register('textarea')}
       />
-      <FormErrorMessage>{errors.textarea && errors.textarea.message}</FormErrorMessage>
+      <FormErrorMessage>{isTextAreaError && errorMessage.message}</FormErrorMessage>
     </FormControl>
   )
 }

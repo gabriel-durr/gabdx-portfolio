@@ -39,6 +39,8 @@ export const colors = {
   },
 
   gbdx: {
+    shock: '#fe0056',
+    grayish: '#323a47',
     white: '#fff',
     black: '#000',
     whiteStar: '#ffffff',
