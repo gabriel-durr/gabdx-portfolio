@@ -3,8 +3,6 @@ import { FaGithub } from 'react-icons/fa'
 
 import { Text, Heading, Button, HStack, Icon, Center } from '@chakra-ui/react'
 
-// GiFairyWand icon ADMIN page login
-
 const AuthAdmin = () => {
   return (
     <Center w="100vw" h="100vh" bg="whiteAlpha.500">

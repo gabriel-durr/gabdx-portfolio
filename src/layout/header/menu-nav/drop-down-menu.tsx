@@ -52,13 +52,7 @@ export const DropDownMenu = ({ menuItems }: DropDownProps) => {
       <Popover trigger="hover" placement="bottom-start" onOpen={onOpen} onClose={onClose}>
         <PopoverTrigger>
           <HStack align="end" cursor="pointer" role="group">
-            <Text
-              fontSize={{ base: '1.02rem', md: '1.148rem' }}
-              fontFamily="DM Sans"
-              cursor="pointer"
-            >
-              {menuItems.connect}
-            </Text>
+            <>{menuItems.connect}</>
             <Icon
               alignSelf="center"
               as={AiFillCaretDown}

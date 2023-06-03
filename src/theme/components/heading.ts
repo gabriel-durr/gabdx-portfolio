@@ -55,12 +55,13 @@ const postSecondary = defineStyle({
     content: "''",
     pos: 'absolute',
     border: '1px solid',
-    borderColor: 'gbdx.shock',
+    borderColor: 'gbdx.grayish',
+    rounded: 'sm',
     display: 'block',
-    right: -4,
+    right: -2,
     w: '8px',
-    h: '2px',
-    bgColor: 'gbdx.grayish'
+    h: '1px',
+    bgColor: 'gbdx.shock'
   }
 })
 
