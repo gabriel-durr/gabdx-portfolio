@@ -1,4 +1,4 @@
-<h2 align="center">gbdx-portfolio V2</h2>
+<h2 align="center">gabdx-portfolio V2</h2>
 
 <br/>
 
